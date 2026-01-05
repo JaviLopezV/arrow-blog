@@ -25,7 +25,7 @@ export const authOptions = {
         const { email, password } = parsed.data;
 
         const res = await db.query(
-          'SELECT id, email, name, image, password FROM "User" WHERE email=$1',
+          'SELECT id, email, name, image, password, role FROM "User" WHERE email=$1',
           [email]
         );
         const user = res.rows[0];
@@ -34,17 +34,25 @@ export const authOptions = {
         const ok = await bcrypt.compare(password, user.password);
         if (!ok) return null;
 
-        return { id: user.id, email: user.email, name: user.name, image: user.image };
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
+          role: user.role, // "ADMIN" | "CLIENT"
+        };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }: any) {
       if (user?.id) token.id = user.id;
+      if (user?.role) token.role = user.role;
       return token;
     },
     async session({ session, token }: any) {
       (session.user as any).id = token.id;
+      (session.user as any).role = token.role;
       return session;
     },
   },

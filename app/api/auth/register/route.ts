@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { db } from "../../../lib/db";
+import { randomUUID } from "crypto";
 
 const RegisterSchema = z.object({
   email: z.string().email(),
@@ -26,12 +27,12 @@ export async function POST(req: Request) {
 
   const hash = await bcrypt.hash(password, 12);
 
-  // ✅ OJO: gen_random_uuid() requiere extensión pgcrypto
-  // Si te falla, abajo te pongo alternativa.
+  const id = randomUUID();
+
   await db.query(
-    `INSERT INTO "User"(id,email,password,name,"createdAt")
-     VALUES(gen_random_uuid(), $1, $2, $3, now())`,
-    [email, hash, name ?? null]
+    `INSERT INTO "User"(id, email, password, name, role, "createdAt", "updatedAt")
+     VALUES($1, $2, $3, $4, $5, now(), now())`,
+    [id, email, hash, name ?? null, "CLIENT"]
   );
 
   return NextResponse.json({ ok: true }, { status: 201 });

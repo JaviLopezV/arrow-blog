@@ -165,8 +165,8 @@ export default function RegisterPage() {
                   <Divider />
 
                   <Button
-                    component={Link}
-                    href={`/${locale}/login`}
+                    component={Link as any}
+                    href={`/login`}
                     variant="text"
                   >
                     {t("toLogin")}

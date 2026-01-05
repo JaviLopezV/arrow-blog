@@ -42,22 +42,26 @@ export default function AuthLanding() {
               <Typography color="text.secondary">{t("subtitle")}</Typography>
 
               <Stack spacing={1.5} sx={{ pt: 1 }}>
-                <Link href="/register" style={{ textDecoration: "none" }}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    endIcon={<ArrowForwardRoundedIcon />}
-                  >
-                    {t("register")}
-                  </Button>
-                </Link>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  endIcon={<ArrowForwardRoundedIcon />}
+                  component={Link as any}
+                  href="/register"
+                >
+                  {t("register")}
+                </Button>
 
-                <Link href="/login" style={{ textDecoration: "none" }}>
-                  <Button fullWidth variant="outlined" size="large">
-                    {t("login")}
-                  </Button>
-                </Link>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  size="large"
+                  component={Link as any}
+                  href="/login"
+                >
+                  {t("login")}
+                </Button>
               </Stack>
 
               <Typography variant="caption" color="text.secondary">

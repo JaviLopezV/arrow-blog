@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import {
@@ -51,7 +51,14 @@ export default function LoginPage() {
         return;
       }
 
-      router.push(`/${locale}`);
+      // Leer sesión ya actualizada y redirigir por role
+      const session = await getSession();
+      const role = (session?.user as any)?.role;
+
+      router.push(role === "ADMIN" ? `/${locale}/bo/blogs` : `/${locale}`);
+      router.refresh();
+    } catch {
+      setError("errorGeneric");
     } finally {
       setLoading(false);
     }
@@ -143,9 +150,10 @@ export default function LoginPage() {
 
                   <Divider />
 
+                  {/* Link locale-aware: no concatenes locale */}
                   <Button
-                    component={Link}
-                    href={`/${locale}/register`}
+                    component={Link as any}
+                    href="/register"
                     variant="text"
                   >
                     {t("toRegister")}

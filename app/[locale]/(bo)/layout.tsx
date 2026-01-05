@@ -9,10 +9,34 @@ import {
   ListItemText,
 } from "@mui/material";
 import { Link } from "@/i18n/navigation";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const drawerWidth = 260;
 
-export default function BoLayout({ children }: { children: React.ReactNode }) {
+export default async function BoLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
+  const session = await getServerSession(authOptions);
+
+  // No logueado -> a login (o /auth si prefieres)
+  if (!session) {
+    redirect(`/${locale}/login`);
+  }
+
+  // No admin -> fuera del BO
+  const role = (session.user as any)?.role;
+  if (role !== "ADMIN") {
+    redirect(`/${locale}`);
+  }
+
   return (
     <Box sx={{ minHeight: "100vh", display: "flex" }}>
       <Drawer
