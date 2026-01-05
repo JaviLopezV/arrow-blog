@@ -1,0 +1,45 @@
+{
+  "auth": {
+    "title": "Welcome",
+    "subtitle": "Create an account or sign in to start discovering profiles.",
+    "register": "Create account",
+    "login": "Sign in",
+    "footnote": "By continuing you accept our policies (we’ll add them later)."
+  },
+
+  "register": {
+    "title": "Create account",
+    "subtitle": "Create your profile and start discovering people.",
+    "nameOptional": "Name (optional)",
+    "email": "Email",
+    "passwordMin": "Password (min 8)",
+    "passwordHelp": "Use at least 8 characters.",
+    "submitting": "Creating account…",
+    "submit": "Sign up",
+    "successRedirect": "Account created. Redirecting to sign in…",
+    "errorGeneric": "Error creating account",
+    "toLogin": "I already have an account → Sign in",
+    "footnote": "By signing up you accept our policies (we’ll add them later)."
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "Sign in to continue.",
+    "email": "Email",
+    "password": "Password",
+    "submitting": "Signing in…",
+    "submit": "Sign in",
+    "invalidCredentials": "Invalid credentials",
+    "toRegister": "I don't have an account → Sign up"
+  },
+  "discover": {
+    "emptyTitle": "No more profiles 😢",
+    "emptySubtitle": "Come back later or adjust your filters (we'll add them later).",
+    "defaultUser": "User",
+    "noBio": "No bio yet.",
+    "pass": "Pass",
+    "like": "Like"
+  },
+  "common": {
+    "logout": "Log out"
+  }
+}

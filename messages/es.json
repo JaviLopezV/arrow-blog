@@ -1,0 +1,45 @@
+{
+  "auth": {
+    "title": "Bienvenido",
+    "subtitle": "Crea una cuenta o inicia sesión para empezar a descubrir perfiles.",
+    "register": "Crear cuenta",
+    "login": "Iniciar sesión",
+    "footnote": "Al continuar aceptas nuestras políticas (luego las añadimos)."
+  },
+
+  "register": {
+    "title": "Crear cuenta",
+    "subtitle": "Crea tu perfil y empieza a descubrir gente.",
+    "nameOptional": "Nombre (opcional)",
+    "email": "Email",
+    "passwordMin": "Password (mín 8)",
+    "passwordHelp": "Usa al menos 8 caracteres.",
+    "submitting": "Creando cuenta…",
+    "submit": "Registrarme",
+    "successRedirect": "Cuenta creada. Redirigiendo a iniciar sesión…",
+    "errorGeneric": "Error registrando",
+    "toLogin": "Ya tengo cuenta → Iniciar sesión",
+    "footnote": "Al registrarte aceptas nuestras políticas (luego las añadimos)."
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "subtitle": "Accede para continuar.",
+    "email": "Email",
+    "password": "Password",
+    "submitting": "Entrando…",
+    "submit": "Entrar",
+    "invalidCredentials": "Credenciales incorrectas",
+    "toRegister": "No tengo cuenta → Registrarme"
+  },
+  "discover": {
+    "emptyTitle": "No hay más perfiles 😢",
+    "emptySubtitle": "Vuelve más tarde o ajusta tus filtros (lo añadimos luego).",
+    "defaultUser": "Usuario",
+    "noBio": "Sin bio todavía.",
+    "pass": "Pass",
+    "like": "Like"
+  },
+  "common": {
+    "logout": "Cerrar sesión"
+  }
+}
