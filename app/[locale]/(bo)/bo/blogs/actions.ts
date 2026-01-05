@@ -2,7 +2,6 @@
 
 import { prisma } from "../../../../lib/prisma";
 import { z } from "zod";
-import { PostStatus } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
@@ -19,6 +18,8 @@ const PostUpsertSchema = z.object({
   coverImage: z.string().url("URL inválida").optional().nullable(),
   status: z.enum(["DRAFT", "PUBLISHED"]),
 });
+
+type Status = "DRAFT" | "PUBLISHED";
 
 function slugify(input: string) {
   return input
@@ -65,7 +66,7 @@ export async function createPost(
     return { ok: false, fieldErrors: flat.fieldErrors, formError: flat.formErrors?.[0] };
   }
 
-  const status = parsed.data.status as PostStatus;
+  const status = parsed.data.status as Status;
   const publishedAt = status === "PUBLISHED" ? new Date() : null;
 
   try {
@@ -76,17 +77,15 @@ export async function createPost(
         excerpt: parsed.data.excerpt ?? null,
         content: parsed.data.content,
         coverImage: parsed.data.coverImage ?? null,
-        status,
+        status, // Prisma acepta string literal si coincide con el enum
         publishedAt,
         authorId: userId,
       },
       select: { id: true },
     });
 
-    // devolvemos id para que el cliente redirija
     return { ok: true, postId: created.id };
-  } catch (e: any) {
-    // slug duplicado etc
+  } catch {
     return { ok: false, formError: "No se pudo crear el post (¿slug duplicado?)." };
   }
 }
@@ -117,7 +116,7 @@ export async function updatePost(
     return { ok: false, fieldErrors: flat.fieldErrors, formError: flat.formErrors?.[0] };
   }
 
-  const status = parsed.data.status as PostStatus;
+  const status = parsed.data.status as Status;
   const publishedAt = status === "PUBLISHED" ? new Date() : null;
 
   try {
