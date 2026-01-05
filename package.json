@@ -1,5 +1,5 @@
 {
-  "name": "citas-app",
+  "name": "arrow-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,5 +36,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
     "typescript": "^5"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

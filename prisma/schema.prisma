@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,44 +6,45 @@ datasource db {
   provider = "postgresql"
 }
 
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
 
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
-  password  String?  // null si se registra solo con Google
   name      String?
-  image     String?
+  password  String?  // hash bcrypt si usas credenciales
+  role      Role     @default(CLIENT)
+
+  posts     Post[]
+
   createdAt DateTime @default(now())
-
-  profile   Profile?
+  updatedAt DateTime @updatedAt
 }
 
-model Profile {
-  id        String  @id @default(cuid())
-  userId    String  @unique
-  user      User    @relation(fields: [userId], references: [id])
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String?
+  content     String
+  coverImage  String?
+  status      PostStatus @default(DRAFT)
 
-  bio       String?
-  age       Int?
-  gender    String?
-  lookingFor String?
-  city      String?
-}
+  authorId    String
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Restrict)
 
-model Like {
-  id         String   @id @default(cuid())
-  fromUserId String
-  toUserId   String
-  createdAt  DateTime @default(now())
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 
-  @@unique([fromUserId, toUserId])
-}
-
-model Match {
-  id        String   @id @default(cuid())
-  userAId   String
-  userBId   String
-  createdAt DateTime @default(now())
-
-  @@unique([userAId, userBId])
+  @@index([status, publishedAt])
+  @@index([authorId])
 }

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import {
   Alert,
   Box,
@@ -51,7 +51,7 @@ export default function LoginPage() {
         return;
       }
 
-      router.push(`/${locale}/dashboard`);
+      router.push(`/${locale}`);
     } finally {
       setLoading(false);
     }

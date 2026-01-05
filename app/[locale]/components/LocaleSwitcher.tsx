@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useParams } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button, ButtonGroup } from "@mui/material";
 
 export default function LocaleSwitcher() {
