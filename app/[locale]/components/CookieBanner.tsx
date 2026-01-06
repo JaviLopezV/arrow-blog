@@ -18,6 +18,7 @@ export default function CookieBanner() {
         bottom: 0,
         width: "100%",
         bgcolor: "black",
+        textColor: "white",
         borderTop: "1px solid",
         borderColor: "divider",
         p: 2,

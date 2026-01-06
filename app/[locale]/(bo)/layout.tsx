@@ -9,9 +9,9 @@ export default async function BoLayout({
   params,
 }: {
   children: ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = await params;
 
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;

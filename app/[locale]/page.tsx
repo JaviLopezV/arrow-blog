@@ -3,11 +3,11 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/app/lib/auth";
 
 type Props = {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export default async function Home({ params }: Props) {
-  const { locale } = params;
+  const { locale } = await params;
 
   const session = await getServerSession(authOptions);
 
