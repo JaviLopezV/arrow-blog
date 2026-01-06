@@ -65,10 +65,6 @@ export default function AuthLanding() {
                   {t("login")}
                 </Button>
               </Stack>
-
-              <Typography variant="caption" color="text.secondary">
-                {t("footnote")}
-              </Typography>
             </Stack>
           </CardContent>
         </Card>

@@ -16,6 +16,8 @@ import {
   TextField,
   Typography,
   InputAdornment,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
@@ -33,6 +35,7 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [ok, setOk] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [accepted, setAccepted] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -146,11 +149,30 @@ export default function RegisterPage() {
                     }}
                   />
 
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={accepted}
+                        onChange={(e) => setAccepted(e.target.checked)}
+                      />
+                    }
+                    label={
+                      <Typography variant="body2">
+                        Acepto la{" "}
+                        <Link href="/legal/privacy">
+                          Política de Privacidad
+                        </Link>{" "}
+                        y la{" "}
+                        <Link href="/legal/cookies">Política de Cookies</Link>
+                      </Typography>
+                    }
+                  />
+
                   <Button
                     type="submit"
                     variant="contained"
                     size="large"
-                    disabled={loading}
+                    disabled={loading || !accepted}
                     endIcon={
                       loading ? (
                         <CircularProgress size={18} color="inherit" />

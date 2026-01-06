@@ -6,6 +6,8 @@ import "../globals.css";
 import { Providers } from "../providers";
 import ThemeRegistry from "../ThemeRegistry";
 import IntlProvider from "./IntlProvider";
+import LegalFooter from "./components/LegalFooter";
+import CookieBanner from "./components/CookieBanner";
 
 export default async function LocaleLayout({
   children,
@@ -27,6 +29,8 @@ export default async function LocaleLayout({
       <ThemeRegistry>
         <IntlProvider locale={locale} messages={messages}>
           {children}
+          <CookieBanner />
+          <LegalFooter />
         </IntlProvider>
       </ThemeRegistry>
     </Providers>
