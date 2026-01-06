@@ -4,6 +4,8 @@ const { Pool } = require("pg");
 const bcrypt = require("bcryptjs");
 
 async function main() {
+  console.log("DATABASE_URL (seed):", process.env.DATABASE_URL);
+  console.log("SEED_ADMIN_EMAIL:", process.env.SEED_ADMIN_EMAIL);
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
   const adapter = new PrismaPg(pool);
   const prisma = new PrismaClient({ adapter });

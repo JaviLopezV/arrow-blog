@@ -1,16 +1,11 @@
-import { prisma } from "../../../../lib/prisma";
 import { Box, Button, Stack, Typography, Paper } from "@mui/material";
 import { Link } from "@/i18n/navigation";
+import { prisma } from "../../../../lib/prisma";
 
 export default async function BlogsAdminPage() {
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      title: true,
-      status: true,
-      createdAt: true,
-    },
+    select: { id: true, title: true, status: true, createdAt: true },
   });
 
   return (
@@ -20,13 +15,9 @@ export default async function BlogsAdminPage() {
           Blogs
         </Typography>
 
-        <Button
-          variant="contained"
-          component={Link as any}
-          href="/bo/blogs/new"
-        >
-          Nuevo post
-        </Button>
+        <Link href="/bo/blogs/new" style={{ textDecoration: "none" }}>
+          <Button variant="contained">Nuevo post</Button>
+        </Link>
       </Stack>
 
       <Paper variant="outlined">
@@ -52,6 +43,7 @@ export default async function BlogsAdminPage() {
                 }}
               >
                 <Typography fontWeight={600}>{p.title}</Typography>
+
                 <Typography
                   color={
                     p.status === "PUBLISHED" ? "success.main" : "text.secondary"
@@ -59,13 +51,13 @@ export default async function BlogsAdminPage() {
                 >
                   {p.status}
                 </Typography>
-                <Button
-                  size="small"
-                  component={Link as any}
+
+                <Link
                   href={`/bo/blogs/${p.id}/edit`}
+                  style={{ textDecoration: "none", justifySelf: "end" }}
                 >
-                  Editar
-                </Button>
+                  <Button size="small">Editar</Button>
+                </Link>
               </Box>
             ))}
           </Box>

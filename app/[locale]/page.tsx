@@ -1,13 +1,13 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/lib/auth";
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+type Props = {
+  params: { locale: string };
+};
+
+export default async function Home({ params }: Props) {
+  const { locale } = params;
 
   const session = await getServerSession(authOptions);
 
@@ -15,5 +15,13 @@ export default async function Home({
     redirect(`/${locale}/auth`);
   }
 
-  redirect(`/${locale}/dashboard`);
+  const role = (session.user as any)?.role;
+
+  // Ajusta estas rutas a las reales de tu proyecto
+  if (role === "ADMIN") {
+    redirect(`/bo/blogs`);
+  }
+
+  // CLIENT (o cualquier otro caso)
+  redirect(`/`);
 }
