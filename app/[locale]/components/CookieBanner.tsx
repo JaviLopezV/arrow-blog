@@ -18,18 +18,28 @@ export default function CookieBanner() {
         position: "fixed",
         bottom: 0,
         width: "100%",
+        color: "white",
         bgcolor: "black",
-        textColor: "white",
         borderTop: "1px solid",
         borderColor: "divider",
         p: 2,
         zIndex: 2000,
       }}
     >
-      <Typography variant="body2">
+      <Typography
+        variant="body2"
+        sx={{
+          color: "white",
+        }}
+      >
         Este sitio usa cookies técnicas necesarias para la autenticación y
-        funcionamiento de cuentas. Más información en la Política de Cookies.
-        <Link href="/legal/cookies">Cookies</Link>
+        funcionamiento de cuentas. Más información en la Política de{" "}
+        <Link
+          href="/legal/cookies"
+          style={{ color: "inherit", textDecoration: "underline" }}
+        >
+          Cookies
+        </Link>
       </Typography>
       <Button
         size="small"

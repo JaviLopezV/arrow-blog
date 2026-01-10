@@ -8,6 +8,19 @@ import ThemeRegistry from "../ThemeRegistry";
 import IntlProvider from "./IntlProvider";
 import LegalFooter from "./components/LegalFooter";
 import CookieBanner from "./components/CookieBanner";
+import RegisterSW from "./components/RegisterSW";
+
+import type { Metadata, Viewport } from "next";
+
+export const metadata: Metadata = {
+  title: "Arrow Blog",
+  description: "Plataforma web personal",
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b1220",
+};
 
 export default async function LocaleLayout({
   children,
@@ -28,6 +41,7 @@ export default async function LocaleLayout({
     <Providers>
       <ThemeRegistry>
         <IntlProvider locale={locale} messages={messages}>
+          <RegisterSW />
           {children}
           <CookieBanner />
           <LegalFooter />
