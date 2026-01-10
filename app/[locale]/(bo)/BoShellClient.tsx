@@ -49,6 +49,10 @@ export default function BoShellClient({
             <ListItemText primary="Blogs" />
           </ListItemButton>
 
+          <ListItemButton component={Link as any} href="/bo/account/settings">
+            <ListItemText primary="Settings" />
+          </ListItemButton>
+
           <ListItemButton>
             <LogoutButton />
           </ListItemButton>

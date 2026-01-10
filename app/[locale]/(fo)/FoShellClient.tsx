@@ -85,6 +85,14 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                       Home
                     </MenuItem>
 
+                    <MenuItem
+                      component={Link as any}
+                      href="/account/settings"
+                      onClick={handleCloseMenu}
+                    >
+                      Settings
+                    </MenuItem>
+
                     {/* Si tu LogoutButton abre diálogo / hace acción, lo dejamos como item */}
                     <MenuItem onClick={handleCloseMenu} sx={{ py: 0 }}>
                       <Box sx={{ width: "100%" }}>
@@ -127,6 +135,15 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                     sx={{ whiteSpace: "nowrap" }}
                   >
                     Home
+                  </Button>
+
+                  <Button
+                    color="inherit"
+                    component={Link as any}
+                    href="/account/settings"
+                    sx={{ whiteSpace: "nowrap" }}
+                  >
+                    Settings
                   </Button>
 
                   <LogoutButton />
