@@ -13,6 +13,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import React from "react";
 import LogoutButton from "../components/LogoutButton";
+import LocaleSwitcher from "../components/LocaleSwitcher";
 
 const drawerWidth = 260;
 
@@ -47,6 +48,10 @@ export default function BoShellClient({
 
             <ListItemButton>
               <LogoutButton />
+            </ListItemButton>
+
+            <ListItemButton>
+              <LocaleSwitcher />
             </ListItemButton>
           </List>
         </Box>

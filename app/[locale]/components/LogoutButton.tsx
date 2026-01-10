@@ -13,7 +13,7 @@ export default function LogoutButton() {
 
   return (
     <Button
-      variant="outlined"
+      variant="contained"
       color="error"
       startIcon={<LogoutRoundedIcon />}
       onClick={() => signOut({ callbackUrl: `/${locale}/login` })}

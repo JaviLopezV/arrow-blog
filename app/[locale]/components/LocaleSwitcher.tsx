@@ -9,21 +9,24 @@ export default function LocaleSwitcher() {
   const params = useParams();
   const locale = (params?.locale as string) || "es";
 
-  // Quita el prefijo /es o /en del pathname actual
-  const pathWithoutLocale = pathname.replace(/^\/(es|en)(?=\/|$)/, "") || "";
+  // pathname ya incluye /es o /en, así que lo limpiamos
+  const pathWithoutLocale = pathname.replace(/^\/(es|en)(?=\/|$)/, "") || "/";
 
   return (
-    <ButtonGroup size="small" variant="outlined" aria-label="Idioma">
+    <ButtonGroup size="small" variant="contained" aria-label="Idioma">
       <Button
-        component={Link}
-        href={`/es${pathWithoutLocale}`}
+        component={Link as any}
+        href={pathWithoutLocale}
+        locale="es"
         disabled={locale === "es"}
       >
         ES
       </Button>
+
       <Button
-        component={Link}
-        href={`/en${pathWithoutLocale}`}
+        component={Link as any}
+        href={pathWithoutLocale}
+        locale="en"
         disabled={locale === "en"}
       >
         EN

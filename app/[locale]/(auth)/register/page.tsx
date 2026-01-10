@@ -52,7 +52,8 @@ export default function RegisterPage() {
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data?.error?.formErrors?.[0] ?? data?.error ?? "errorGeneric");
+        console.error("Registration error:", data.error);
+        setError("errorGeneric");
         return;
       }
 

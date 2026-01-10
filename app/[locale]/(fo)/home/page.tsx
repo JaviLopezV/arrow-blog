@@ -1,4 +1,4 @@
-import { prisma } from "../../lib/prisma";
+import { prisma } from "../../../lib/prisma";
 import { Link } from "@/i18n/navigation";
 import {
   Card,
@@ -22,6 +22,8 @@ export default async function HomePage() {
       publishedAt: true,
     },
   });
+
+  console.log("Fetched posts:", posts);
 
   return (
     <Stack spacing={2.5}>
