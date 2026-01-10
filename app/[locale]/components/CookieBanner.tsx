@@ -1,6 +1,7 @@
 "use client";
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "@/i18n/navigation";
 
 export default function CookieBanner() {
   const [open, setOpen] = useState(false);
@@ -28,6 +29,7 @@ export default function CookieBanner() {
       <Typography variant="body2">
         Este sitio usa cookies técnicas necesarias para la autenticación y
         funcionamiento de cuentas. Más información en la Política de Cookies.
+        <Link href="/legal/cookies">Cookies</Link>
       </Typography>
       <Button
         size="small"

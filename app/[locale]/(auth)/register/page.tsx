@@ -161,7 +161,11 @@ export default function RegisterPage() {
                       <Typography variant="body2">
                         Acepto la{" "}
                         <Link href="/legal/privacy">
-                          Política de Privacidad
+                          Política de Privacidad,
+                        </Link>{" "}
+                        <Link href="/legal/use-terms">Términos de uso,</Link>{" "}
+                        <Link href="/legal/terms-and-conditions">
+                          Términos y condiciones
                         </Link>{" "}
                         y la{" "}
                         <Link href="/legal/cookies">Política de Cookies</Link>
