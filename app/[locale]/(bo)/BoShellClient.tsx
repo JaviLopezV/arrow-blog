@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import {
   AppBar,
   Box,
@@ -9,9 +10,14 @@ import {
   List,
   ListItemButton,
   ListItemText,
+  IconButton,
+  Divider,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "@/i18n/navigation";
-import React from "react";
+
 import LogoutButton from "../components/LogoutButton";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 
@@ -22,10 +28,47 @@ export default function BoShellClient({
 }: {
   children: React.ReactNode;
 }) {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const toggleDrawer = () => setMobileOpen(!mobileOpen);
+
+  const DrawerContent = (
+    <Box>
+      <Toolbar />
+      <Box sx={{ px: 1 }}>
+        <Typography sx={{ px: 2, py: 1, fontWeight: 800 }}>
+          Back Office
+        </Typography>
+
+        <Divider sx={{ mb: 1 }} />
+
+        <List>
+          <ListItemButton component={Link as any} href="/bo/blogs">
+            <ListItemText primary="Blogs" />
+          </ListItemButton>
+
+          <ListItemButton>
+            <LogoutButton />
+          </ListItemButton>
+
+          <ListItemButton>
+            <LocaleSwitcher />
+          </ListItemButton>
+        </List>
+      </Box>
+    </Box>
+  );
+
   return (
     <Box sx={{ minHeight: "100vh", display: "flex" }}>
+      {/* Sidebar */}
       <Drawer
-        variant="permanent"
+        variant={isDesktop ? "permanent" : "temporary"}
+        open={isDesktop || mobileOpen}
+        onClose={toggleDrawer}
+        ModalProps={{ keepMounted: true }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -35,38 +78,38 @@ export default function BoShellClient({
           },
         }}
       >
-        <Toolbar />
-        <Box sx={{ px: 1 }}>
-          <Typography sx={{ px: 2, py: 1, fontWeight: 800 }}>
-            Back Office
-          </Typography>
-
-          <List>
-            <ListItemButton component={Link as any} href="/bo/blogs">
-              <ListItemText primary="Blogs" />
-            </ListItemButton>
-
-            <ListItemButton>
-              <LogoutButton />
-            </ListItemButton>
-
-            <ListItemButton>
-              <LocaleSwitcher />
-            </ListItemButton>
-          </List>
-        </Box>
+        {DrawerContent}
       </Drawer>
 
+      {/* Main */}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" elevation={0}>
+        <AppBar position="sticky" elevation={0}>
           <Toolbar>
+            {!isDesktop && (
+              <IconButton
+                color="inherit"
+                edge="start"
+                onClick={toggleDrawer}
+                sx={{ mr: 1 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Typography variant="h6" sx={{ fontWeight: 800 }}>
               Admin
             </Typography>
           </Toolbar>
         </AppBar>
 
-        <Box sx={{ p: 3 }}>{children}</Box>
+        <Box
+          sx={{
+            p: { xs: 2, sm: 3, md: 4 },
+            maxWidth: 1400,
+            mx: "auto",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
