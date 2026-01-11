@@ -1,8 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { db } from "../../../lib/db";
 import { randomUUID } from "crypto";
+import { rateLimitOr429 } from "@/app/lib/rateLimit";
 
 const RegisterSchema = z.object({
   email: z.string().email(),
@@ -10,7 +11,15 @@ const RegisterSchema = z.object({
   name: z.string().optional(),
 });
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  // ✅ 5 registros / minuto / IP
+  const limited = await rateLimitOr429(req, {
+    key: "auth:register",
+    limit: 5,
+    windowMs: 60 * 1000,
+  });
+  if (limited) return limited;
+
   const body = await req.json();
   const parsed = RegisterSchema.safeParse(body);
 
@@ -26,7 +35,6 @@ export async function POST(req: Request) {
   }
 
   const hash = await bcrypt.hash(password, 12);
-
   const id = randomUUID();
 
   await db.query(
