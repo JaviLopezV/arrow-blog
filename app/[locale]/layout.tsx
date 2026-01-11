@@ -8,6 +8,7 @@ import ThemeRegistry from "../ThemeRegistry";
 import IntlProvider from "./IntlProvider";
 import CookieBanner from "./components/CookieBanner";
 import RegisterSW from "./components/RegisterSW";
+import LegalFooter from "./components/LegalFooter";
 
 import type { Metadata, Viewport } from "next";
 
@@ -42,6 +43,7 @@ export default async function LocaleLayout({
         <IntlProvider locale={locale} messages={messages}>
           <RegisterSW />
           {children}
+          <LegalFooter />
           <CookieBanner />
         </IntlProvider>
       </ThemeRegistry>
