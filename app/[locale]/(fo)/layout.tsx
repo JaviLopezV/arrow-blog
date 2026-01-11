@@ -1,12 +1,13 @@
 import { ReactNode } from "react";
 
 import FoShellClient from "./FoShellClient";
-import { LayoutContext } from "@/app/[locale]/components/LayoutContext";
+import LegalFooter from "../components/LegalFooter";
 
 export default async function FoLayout({ children }: { children: ReactNode }) {
   return (
-    <LayoutContext.Provider value={{ hasSidebar: false }}>
+    <>
       <FoShellClient>{children}</FoShellClient>
-    </LayoutContext.Provider>
+      <LegalFooter hasSidebar={true} />
+    </>
   );
 }

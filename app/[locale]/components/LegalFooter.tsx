@@ -1,11 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Link } from "@/i18n/navigation";
-import { useLayout } from "@/app/[locale]/components/LayoutContext";
 
-const drawerWidth = 260; // igual que tu sidebar
+const drawerWidth = 260;
 
-export default function LegalFooter() {
-  const { hasSidebar } = useLayout();
+export default function LegalFooter({
+  hasSidebar = false,
+}: {
+  hasSidebar?: boolean;
+}) {
   return (
     <Box
       component="footer"
@@ -18,7 +20,6 @@ export default function LegalFooter() {
         color: "text.secondary",
         backgroundColor: "background.paper",
 
-        // SOLO se desplaza si hay sidebar
         ml: hasSidebar ? { md: `${drawerWidth}px`, xs: 0 } : 0,
         width: hasSidebar
           ? { md: `calc(100% - ${drawerWidth}px)`, xs: "100%" }

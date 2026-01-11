@@ -6,7 +6,6 @@ import "../globals.css";
 import { Providers } from "../providers";
 import ThemeRegistry from "../ThemeRegistry";
 import IntlProvider from "./IntlProvider";
-import LegalFooter from "./components/LegalFooter";
 import CookieBanner from "./components/CookieBanner";
 import RegisterSW from "./components/RegisterSW";
 
@@ -44,7 +43,6 @@ export default async function LocaleLayout({
           <RegisterSW />
           {children}
           <CookieBanner />
-          <LegalFooter />
         </IntlProvider>
       </ThemeRegistry>
     </Providers>
