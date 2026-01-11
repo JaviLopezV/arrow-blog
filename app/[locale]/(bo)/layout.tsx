@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/lib/auth";
 import BoShellClient from "./BoShellClient";
+import { LayoutContext } from "@/app/[locale]/components/LayoutContext";
 
 export default async function BoLayout({
   children,
@@ -19,5 +20,9 @@ export default async function BoLayout({
   if (!session) redirect(`/${locale}/login`);
   if (role !== "ADMIN") redirect(`/${locale}`);
 
-  return <BoShellClient>{children}</BoShellClient>;
+  return (
+    <LayoutContext.Provider value={{ hasSidebar: true }}>
+      <BoShellClient>{children}</BoShellClient>
+    </LayoutContext.Provider>
+  );
 }

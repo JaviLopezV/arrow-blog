@@ -1,9 +1,11 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Link } from "@/i18n/navigation";
+import { useLayout } from "@/app/[locale]/components/LayoutContext";
 
 const drawerWidth = 260; // igual que tu sidebar
 
 export default function LegalFooter() {
+  const { hasSidebar } = useLayout();
   return (
     <Box
       component="footer"
@@ -16,9 +18,11 @@ export default function LegalFooter() {
         color: "text.secondary",
         backgroundColor: "background.paper",
 
-        // 👇 clave para que NO lo pise el drawer permanente en desktop
-        ml: { md: `${drawerWidth}px`, xs: 0 },
-        width: { md: `calc(100% - ${drawerWidth}px)`, xs: "100%" },
+        // SOLO se desplaza si hay sidebar
+        ml: hasSidebar ? { md: `${drawerWidth}px`, xs: 0 } : 0,
+        width: hasSidebar
+          ? { md: `calc(100% - ${drawerWidth}px)`, xs: "100%" }
+          : "100%",
       }}
     >
       <Stack
