@@ -9,7 +9,7 @@
 
   "register": {
     "title": "Create account",
-    "subtitle": "Create your profile and start discovering people.",
+    "subtitle": "Create your profile.",
     "nameOptional": "Name (optional)",
     "email": "Email",
     "passwordMin": "Password (min 8)",
