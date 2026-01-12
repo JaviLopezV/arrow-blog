@@ -1,22 +1,14 @@
 import LegalLayout from "../../components/LegalLayout";
+import { getTranslations } from "next-intl/server";
 
-export default function Page() {
+export default async function Page() {
+  const t = await getTranslations("legalCookies");
+
   return (
-    <LegalLayout title="Política de Cookies">
-      <p>
-        Arrow Blog utiliza únicamente cookies técnicas necesarias para el
-        funcionamiento de la plataforma y la autenticación de usuarios.
-      </p>
-
-      <p>
-        No se utilizan cookies de análisis, publicidad ni seguimiento de
-        terceros.
-      </p>
-
-      <p>
-        Por este motivo, no es necesario mostrar banner de cookies conforme a la
-        normativa vigente.
-      </p>
+    <LegalLayout title={t("title")}>
+      <p>{t("p1")}</p>
+      <p>{t("p2")}</p>
+      <p>{t("p3")}</p>
     </LegalLayout>
   );
 }

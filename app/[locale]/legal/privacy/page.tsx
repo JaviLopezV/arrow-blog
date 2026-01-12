@@ -1,45 +1,36 @@
 import LegalLayout from "../../components/LegalLayout";
+import { getTranslations } from "next-intl/server";
 
-export default function Page() {
+export default async function Page() {
+  const t = await getTranslations("legalPrivacy");
+
+  const Bold = (chunks: React.ReactNode) => <b>{chunks}</b>;
+
   return (
-    <LegalLayout title="Política de Privacidad">
-      <p>
-        <b>Responsable:</b> Javier López Villanueva
-      </p>
-      <p>
-        <b>Email:</b> jlopvil@gmail.com
-      </p>
-      <p>
-        <b>Sitio web:</b> https://arrow-blog.vercel.app
-      </p>
+    <LegalLayout title={t("title")}>
+      <p>{t.rich("owner", { b: Bold })}</p>
+      <p>{t.rich("email", { b: Bold })}</p>
+      <p>{t.rich("site", { b: Bold })}</p>
 
-      <p>
-        Esta política describe cómo se recogen, utilizan y protegen los datos
-        personales de los usuarios.
-      </p>
+      <p>{t("p1")}</p>
 
-      <p>
-        <b>Datos tratados:</b>
-      </p>
+      <p>{t.rich("dataTitle", { b: Bold })}</p>
       <ul>
-        <li>Email y nombre (opcional).</li>
-        <li>Contraseña cifrada mediante hash seguro.</li>
-        <li>Datos técnicos mínimos necesarios para seguridad.</li>
-        <li>Cookies técnicas de sesión.</li>
+        <li>{t("data1")}</li>
+        <li>{t("data2")}</li>
+        <li>{t("data3")}</li>
+        <li>{t("data4")}</li>
       </ul>
 
-      <p>
-        <b>Finalidades:</b>
-      </p>
+      <p>{t.rich("purposeTitle", { b: Bold })}</p>
       <ul>
-        <li>Gestión de cuentas de usuario.</li>
-        <li>Autenticación y acceso a la plataforma.</li>
-        <li>Seguridad y prevención de fraude.</li>
+        <li>{t("purpose1")}</li>
+        <li>{t("purpose2")}</li>
+        <li>{t("purpose3")}</li>
       </ul>
 
-      <p>Los datos no se venden ni se ceden a terceros.</p>
-
-      <p>Puedes ejercer tus derechos RGPD escribiendo a jlopvil@gmail.com.</p>
+      <p>{t("p2")}</p>
+      <p>{t("p3")}</p>
     </LegalLayout>
   );
 }

@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { Providers } from "../providers";
 import ThemeRegistry from "../ThemeRegistry";
+import MuiProviders from "../MuiProviders"; // ajusta ruta
 import IntlProvider from "./IntlProvider";
 import CookieBanner from "./components/CookieBanner";
 import RegisterSW from "./components/RegisterSW";
@@ -39,14 +40,14 @@ export default async function LocaleLayout({
 
   return (
     <Providers>
-      <ThemeRegistry>
+      <MuiProviders>
         <IntlProvider locale={locale} messages={messages}>
           <RegisterSW />
           {children}
           <LegalFooter />
           <CookieBanner />
         </IntlProvider>
-      </ThemeRegistry>
+      </MuiProviders>
     </Providers>
   );
 }

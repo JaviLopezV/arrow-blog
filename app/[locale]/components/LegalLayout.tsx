@@ -1,6 +1,7 @@
 "use client";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { Link } from "@/i18n/navigation";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
 import { useTranslations } from "next-intl";
 
@@ -19,10 +20,23 @@ export default function LegalLayout({
 
       <Button
         component={Link as any}
-        variant="outlined"
-        size="large"
         href="/auth"
-        sx={{ mb: 2 }}
+        startIcon={<ArrowBackRoundedIcon />}
+        size="large"
+        variant="text"
+        sx={{
+          mb: 3,
+          px: 0,
+          fontWeight: 600,
+          color: "text.secondary",
+          alignSelf: "flex-start",
+          "&:hover": {
+            backgroundColor: "transparent",
+            color: "primary.main",
+            transform: "translateX(-2px)",
+          },
+          transition: "all .15s ease",
+        }}
       >
         {t("back")}
       </Button>
