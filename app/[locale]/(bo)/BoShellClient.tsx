@@ -20,6 +20,7 @@ import { Link } from "@/i18n/navigation";
 
 import LogoutButton from "../components/LogoutButton";
 import LocaleSwitcher from "../components/LocaleSwitcher";
+import { useTranslations } from "next-intl";
 
 const drawerWidth = 260;
 
@@ -28,6 +29,8 @@ export default function BoShellClient({
 }: {
   children: React.ReactNode;
 }) {
+  const t = useTranslations("boLayout");
+
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -39,18 +42,18 @@ export default function BoShellClient({
       <Toolbar />
       <Box sx={{ px: 1 }}>
         <Typography sx={{ px: 2, py: 1, fontWeight: 800 }}>
-          Back Office
+          {t("drawerTitle")}
         </Typography>
 
         <Divider sx={{ mb: 1 }} />
 
         <List>
           <ListItemButton component={Link as any} href="/bo/blogs">
-            <ListItemText primary="Blogs" />
+            <ListItemText primary={t("nav.blogs")} />
           </ListItemButton>
 
           <ListItemButton component={Link as any} href="/bo/account/settings">
-            <ListItemText primary="Settings" />
+            <ListItemText primary={t("nav.settings")} />
           </ListItemButton>
 
           <ListItemButton>
@@ -94,13 +97,14 @@ export default function BoShellClient({
                 color="inherit"
                 edge="start"
                 onClick={toggleDrawer}
+                aria-label={t("openMenuAria")}
                 sx={{ mr: 1 }}
               >
                 <MenuIcon />
               </IconButton>
             )}
             <Typography variant="h6" sx={{ fontWeight: 800 }}>
-              Admin
+              {t("topbarTitle")}
             </Typography>
           </Toolbar>
         </AppBar>

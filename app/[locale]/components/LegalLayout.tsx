@@ -2,6 +2,8 @@
 import { Box, Container, Typography, Button } from "@mui/material";
 import { Link } from "@/i18n/navigation";
 
+import { useTranslations } from "next-intl";
+
 export default function LegalLayout({
   title,
   children,
@@ -9,6 +11,8 @@ export default function LegalLayout({
   title: string;
   children: React.ReactNode;
 }) {
+  const t = useTranslations("common");
+
   return (
     <Container maxWidth="md" sx={{ py: 6 }}>
       {/* Volver */}
@@ -20,7 +24,7 @@ export default function LegalLayout({
         href="/auth"
         sx={{ mb: 2 }}
       >
-        Volver
+        {t("back")}
       </Button>
 
       <Typography variant="h4" fontWeight={800} gutterBottom>

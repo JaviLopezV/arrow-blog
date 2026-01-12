@@ -2,8 +2,10 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function CookieBanner() {
+  const t = useTranslations("cookies.banner");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -26,21 +28,19 @@ export default function CookieBanner() {
         zIndex: 2000,
       }}
     >
-      <Typography
-        variant="body2"
-        sx={{
-          color: "white",
-        }}
-      >
-        Este sitio usa cookies técnicas necesarias para la autenticación y
-        funcionamiento de cuentas. Más información en la Política de{" "}
-        <Link
-          href="/legal/cookies"
-          style={{ color: "inherit", textDecoration: "underline" }}
-        >
-          Cookies
-        </Link>
+      <Typography variant="body2" sx={{ color: "white" }}>
+        {t.rich("text", {
+          link: (chunks) => (
+            <Link
+              href="/legal/cookies"
+              style={{ color: "inherit", textDecoration: "underline" }}
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
       </Typography>
+
       <Button
         size="small"
         sx={{ mt: 1 }}
@@ -50,7 +50,7 @@ export default function CookieBanner() {
           setOpen(false);
         }}
       >
-        Aceptar
+        {t("accept")}
       </Button>
     </Box>
   );

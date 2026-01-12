@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 const drawerWidth = 260;
 
@@ -8,6 +9,9 @@ export default function LegalFooter({
 }: {
   hasSidebar?: boolean;
 }) {
+  const t = useTranslations("legal.footer");
+  const year = new Date().getFullYear();
+
   return (
     <Box
       component="footer"
@@ -19,7 +23,6 @@ export default function LegalFooter({
         borderColor: "divider",
         color: "text.secondary",
         backgroundColor: "background.paper",
-
         ml: hasSidebar ? { md: `${drawerWidth}px`, xs: 0 } : 0,
         width: hasSidebar
           ? { md: `calc(100% - ${drawerWidth}px)`, xs: "100%" }
@@ -40,15 +43,17 @@ export default function LegalFooter({
           "& a:hover": { textDecoration: "underline" },
         }}
       >
-        <Link href="/legal/legal-notice">Aviso Legal</Link>
-        <Link href="/legal/privacy">Privacidad</Link>
-        <Link href="/legal/cookies">Cookies</Link>
-        <Link href="/legal/use-terms">Términos de uso</Link>
-        <Link href="/legal/terms-and-conditions">Términos y condiciones</Link>
+        <Link href="/legal/legal-notice">{t("legalNotice")}</Link>
+        <Link href="/legal/privacy">{t("privacy")}</Link>
+        <Link href="/legal/cookies">{t("cookies")}</Link>
+        <Link href="/legal/use-terms">{t("useTerms")}</Link>
+        <Link href="/legal/terms-and-conditions">
+          {t("termsAndConditions")}
+        </Link>
       </Stack>
 
       <Typography variant="caption" display="block" sx={{ mt: 1 }}>
-        © {new Date().getFullYear()} Arrow Blog — Javier López Villanueva
+        {t("copyright", { year })}
       </Typography>
     </Box>
   );

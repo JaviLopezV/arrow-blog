@@ -20,8 +20,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "@/i18n/navigation";
 import LogoutButton from "../components/LogoutButton";
 import LocaleSwitcher from "../components/LocaleSwitcher";
+import { useTranslations } from "next-intl";
 
 export default function FoLayout({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("foLayout");
+
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -61,7 +64,7 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                 <>
                   <IconButton
                     color="inherit"
-                    aria-label="open navigation menu"
+                    aria-label={t("nav.openMenuAria")}
                     onClick={handleOpenMenu}
                     size="large"
                     sx={{ mr: 0.5 }}
@@ -82,7 +85,7 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                       href="/home"
                       onClick={handleCloseMenu}
                     >
-                      Home
+                      {t("nav.home")}
                     </MenuItem>
 
                     <MenuItem
@@ -90,10 +93,9 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                       href="/account/settings"
                       onClick={handleCloseMenu}
                     >
-                      Settings
+                      {t("nav.settings")}
                     </MenuItem>
 
-                    {/* Si tu LogoutButton abre diálogo / hace acción, lo dejamos como item */}
                     <MenuItem onClick={handleCloseMenu} sx={{ py: 0 }}>
                       <Box sx={{ width: "100%" }}>
                         <LogoutButton />
@@ -114,7 +116,7 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                   fontSize: { xs: "1rem", sm: "1.1rem" },
                 }}
               >
-                Arrow Blog
+                {t("brand")}
               </Typography>
             </Box>
 
@@ -134,7 +136,7 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                     href="/home"
                     sx={{ whiteSpace: "nowrap" }}
                   >
-                    Home
+                    {t("nav.home")}
                   </Button>
 
                   <Button
@@ -143,7 +145,7 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                     href="/account/settings"
                     sx={{ whiteSpace: "nowrap" }}
                   >
-                    Settings
+                    {t("nav.settings")}
                   </Button>
 
                   <LogoutButton />

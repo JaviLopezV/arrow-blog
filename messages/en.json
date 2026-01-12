@@ -1,15 +1,15 @@
 {
   "auth": {
     "title": "Welcome",
-    "subtitle": "Create an account or sign in to start.",
+    "subtitle": "Create an account or sign in to get started.",
     "register": "Create account",
     "login": "Sign in",
-    "footnote": "By continuing you accept our policies (we’ll add them later)."
+    "footnote": "By continuing you agree to our policies (we’ll add them later)."
   },
 
   "register": {
     "title": "Create account",
-    "subtitle": "Create your profile.",
+    "subtitle": "Set up your profile.",
     "nameOptional": "Name (optional)",
     "email": "Email",
     "passwordMin": "Password (min 8)",
@@ -19,27 +19,158 @@
     "successRedirect": "Account created. Redirecting to sign in…",
     "errorGeneric": "Error creating account",
     "toLogin": "I already have an account → Sign in",
-    "footnote": "By signing up you accept our policies (we’ll add them later)."
+    "footnote": "By signing up you agree to our policies (we’ll add them later)."
   },
+
   "login": {
     "title": "Sign in",
-    "subtitle": "Sign in to continue.",
+    "subtitle": "Access your account to continue.",
     "email": "Email",
     "password": "Password",
     "submitting": "Signing in…",
     "submit": "Sign in",
     "invalidCredentials": "Invalid credentials",
-    "toRegister": "I don't have an account → Sign up"
+    "toRegister": "I don’t have an account → Sign up"
   },
+
   "discover": {
     "emptyTitle": "No more profiles 😢",
-    "emptySubtitle": "Come back later or adjust your filters (we'll add them later).",
+    "emptySubtitle": "Come back later or adjust your filters (we’ll add them later).",
     "defaultUser": "User",
     "noBio": "No bio yet.",
     "pass": "Pass",
     "like": "Like"
   },
+
   "common": {
-    "logout": "Log out"
+    "logout": "Sign out",
+    "back": "Back"
+  },
+
+  "account": {
+    "delete": {
+      "title": "Delete account",
+      "warning": "This action is <b>irreversible</b>. Your account and login data will be deleted. Your published posts may remain visible <b>anonymously</b>.",
+      "cta": "Delete my account",
+      "success": "Account deleted. Signing out…",
+      "dialogTitle": "Are you sure?",
+      "dialogText": "You are about to delete your account. This action is irreversible.",
+      "cancel": "Cancel",
+      "confirm": "Yes, delete",
+      "confirmLoading": "Deleting…",
+      "DELETE_FAILED": "DELETE_FAILED"
+    }
+  },
+
+  "cookies": {
+    "banner": {
+      "text": "This website uses essential technical cookies required for authentication and account functionality. More information in the <link>Cookies</link> Policy.",
+      "accept": "Accept"
+    }
+  },
+
+  "legal": {
+    "footer": {
+      "legalNotice": "Legal notice",
+      "privacy": "Privacy",
+      "cookies": "Cookies",
+      "useTerms": "Terms of use",
+      "termsAndConditions": "Terms and conditions",
+      "copyright": "© {year} Arrow Blog — Javier López Villanueva"
+    }
+  },
+
+  "foLayout": {
+    "nav": {
+      "home": "Home",
+      "settings": "Settings",
+      "openMenuAria": "open navigation menu"
+    },
+    "brand": "Arrow Blog"
+  },
+
+  "boLayout": {
+    "drawerTitle": "Back Office",
+    "nav": {
+      "blogs": "Blogs",
+      "settings": "Settings"
+    },
+    "topbarTitle": "Admin",
+    "openMenuAria": "open navigation menu"
+  },
+
+  "fo": {
+    "home": {
+      "title": "Blog",
+      "subtitle": "Latest posts",
+      "empty": "No posts have been published yet.",
+      "published": "Published"
+    }
+  },
+
+  "bo": {
+    "blogs": {
+      "title": "Blogs",
+      "new": "New post",
+      "empty": "No posts have been created yet.",
+      "edit": "Edit",
+      "status": {
+        "PUBLISHED": "Published",
+        "DRAFT": "Draft"
+      }
+    },
+
+    "editPost": {
+      "notFound": "Post not found.",
+
+      "title": "Edit post",
+      "meta": {
+        "status": "Status: {status}",
+        "publishedAt": " · Published: {date}"
+      },
+      "errors": {
+        "reviewFields": "Please review the fields."
+      },
+      "fields": {
+        "title": "Title",
+        "slug": "Slug",
+        "excerpt": "Excerpt",
+        "content": "Content",
+        "coverImage": "Cover image URL",
+        "status": "Status"
+      },
+      "status": {
+        "DRAFT": "Draft",
+        "PUBLISHED": "Published"
+      },
+      "actions": {
+        "save": "Save",
+        "saving": "Saving...",
+        "delete": "Delete"
+      }
+    },
+
+    "newPost": {
+      "title": "New post",
+      "errors": {
+        "reviewFields": "Please review the fields."
+      },
+      "fields": {
+        "title": "Title",
+        "slug": "Slug (optional, leave empty to auto-generate)",
+        "excerpt": "Excerpt",
+        "content": "Content",
+        "coverImage": "Cover image URL (optional)",
+        "status": "Status"
+      },
+      "status": {
+        "DRAFT": "Draft",
+        "PUBLISHED": "Published"
+      },
+      "submit": {
+        "idle": "Create",
+        "pending": "Creating..."
+      }
+    }
   }
 }

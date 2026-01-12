@@ -1,6 +1,7 @@
 import { prisma } from "../../../../../../lib/prisma";
 import { Typography } from "@mui/material";
 import EditPostForm from "./EditPostForm";
+import { getTranslations } from "next-intl/server";
 
 export default async function EditPostPage({
   params,
@@ -8,6 +9,7 @@ export default async function EditPostPage({
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
+  const t = await getTranslations("bo.editPost");
 
   const post = await prisma.post.findUnique({
     where: { id },
@@ -24,7 +26,7 @@ export default async function EditPostPage({
     },
   });
 
-  if (!post) return <Typography>Post no encontrado.</Typography>;
+  if (!post) return <Typography>{t("notFound")}</Typography>;
 
   return <EditPostForm locale={locale} post={post} />;
 }

@@ -17,8 +17,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export default function DeleteAccountCard() {
+  const t = useTranslations("account.delete");
+
   const router = useRouter();
   const params = useParams();
   const locale = (params?.locale as string) || "es";
@@ -38,16 +41,14 @@ export default function DeleteAccountCard() {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setErr(data?.error ?? "DELETE_FAILED");
+        setErr("DELETE_FAILED");
         return;
       }
 
-      setOk("Cuenta eliminada. Cerrando sesión…");
+      setOk(t("success"));
 
-      // Cierra la modal
       setOpen(false);
 
-      // Cierra sesión y redirige a /{locale}/auth
       await signOut({ redirect: false });
       router.replace(`/${locale}/auth`);
     } catch {
@@ -63,20 +64,16 @@ export default function DeleteAccountCard() {
         <CardContent sx={{ p: { xs: 3, sm: 4 } }}>
           <Stack spacing={2}>
             <Typography variant="h5" fontWeight={900}>
-              Eliminar cuenta
+              {t("title")}
             </Typography>
 
-            <Alert severity="warning">
-              Esta acción es <b>irreversible</b>. Se eliminará tu cuenta y tus
-              datos de acceso. Tus posts publicados podrán mantenerse visibles
-              de forma <b>anónima</b>.
-            </Alert>
+            <Alert
+              severity="warning"
+              dangerouslySetInnerHTML={{ __html: t("warning") }}
+            />
 
-            {err && (
-              <Alert severity="error">
-                No se pudo eliminar la cuenta ({err})
-              </Alert>
-            )}
+            {err && <Alert severity="error">{t(err)}</Alert>}
+
             {ok && <Alert severity="success">{ok}</Alert>}
 
             <Button
@@ -90,22 +87,20 @@ export default function DeleteAccountCard() {
                 ) : undefined
               }
             >
-              Eliminar mi cuenta
+              {t("cta")}
             </Button>
           </Stack>
         </CardContent>
       </Card>
 
       <Dialog open={open} onClose={() => (!loading ? setOpen(false) : null)}>
-        <DialogTitle>¿Seguro?</DialogTitle>
+        <DialogTitle>{t("dialogTitle")}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Vas a eliminar tu cuenta. Esta acción es irreversible.
-          </DialogContentText>
+          <DialogContentText>{t("dialogText")}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button disabled={loading} onClick={() => setOpen(false)}>
-            Cancelar
+            {t("cancel")}
           </Button>
           <Button
             disabled={loading}
@@ -118,7 +113,7 @@ export default function DeleteAccountCard() {
               ) : undefined
             }
           >
-            {loading ? "Eliminando…" : "Sí, eliminar"}
+            {loading ? t("confirmLoading") : t("confirm")}
           </Button>
         </DialogActions>
       </Dialog>

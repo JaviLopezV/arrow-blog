@@ -40,6 +40,126 @@
     "like": "Like"
   },
   "common": {
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "back": "Volver"
+  },
+  "account": {
+    "delete": {
+      "title": "Eliminar cuenta",
+      "warning": "Esta acción es <b>irreversible</b>. Se eliminará tu cuenta y tus datos de acceso. Tus posts publicados podrán mantenerse visibles de forma <b>anónima</b>.",
+      "cta": "Eliminar mi cuenta",
+      "success": "Cuenta eliminada. Cerrando sesión…",
+      "dialogTitle": "¿Seguro?",
+      "dialogText": "Vas a eliminar tu cuenta. Esta acción es irreversible.",
+      "cancel": "Cancelar",
+      "confirm": "Sí, eliminar",
+      "confirmLoading": "Eliminando…",
+      "DELETE_FAILED": "DELETE_FAILED"
+    }
+  },
+  "cookies": {
+    "banner": {
+      "text": "Este sitio usa cookies técnicas necesarias para la autenticación y funcionamiento de cuentas. Más información en la Política de <link>Cookies</link>",
+      "accept": "Aceptar"
+    }
+  },
+  "legal": {
+    "footer": {
+      "legalNotice": "Aviso Legal",
+      "privacy": "Privacidad",
+      "cookies": "Cookies",
+      "useTerms": "Términos de uso",
+      "termsAndConditions": "Términos y condiciones",
+      "copyright": "© {year} Arrow Blog — Javier López Villanueva"
+    }
+  },
+  "foLayout": {
+    "nav": {
+      "home": "Inicio",
+      "settings": "Ajustes",
+      "openMenuAria": "open navigation menu"
+    },
+    "brand": "Arrow Blog"
+  },
+  "boLayout": {
+    "drawerTitle": "Back Office",
+    "nav": {
+      "blogs": "Blogs",
+      "settings": "Ajustes"
+    },
+    "topbarTitle": "Admin",
+    "openMenuAria": "open navigation menu"
+  },
+  "fo": {
+    "home": {
+      "title": "Blog",
+      "subtitle": "Últimas publicaciones",
+      "empty": "No hay posts publicados todavía.",
+      "published": "Publicado"
+    }
+  },
+  "bo": {
+    "blogs": {
+      "title": "Blogs",
+      "new": "Nuevo post",
+      "empty": "Aún no hay posts creados.",
+      "edit": "Editar",
+      "status": {
+        "PUBLISHED": "Publicado",
+        "DRAFT": "Borrador"
+      }
+    },
+    "editPost": {
+      "notFound": "Post no encontrado.",
+
+      "title": "Editar post",
+      "meta": {
+        "status": "Estado: {status}",
+        "publishedAt": " · Publicado: {date}"
+      },
+      "errors": {
+        "reviewFields": "Revisa los campos."
+      },
+      "fields": {
+        "title": "Título",
+        "slug": "Slug",
+        "excerpt": "Extracto",
+        "content": "Contenido",
+        "coverImage": "Cover image URL",
+        "status": "Estado"
+      },
+      "status": {
+        "DRAFT": "Borrador",
+        "PUBLISHED": "Publicado"
+      },
+      "actions": {
+        "save": "Guardar",
+        "saving": "Guardando...",
+        "delete": "Borrar"
+      }
+    },
+
+    "newPost": {
+      "title": "Nuevo post",
+      "errors": {
+        "reviewFields": "Revisa los campos."
+      },
+      "fields": {
+        "title": "Título",
+        "slug": "Slug (opcional, si lo dejas vacío se genera)",
+        "excerpt": "Extracto",
+        "content": "Contenido",
+        "coverImage": "Cover image URL (opcional)",
+        "status": "Estado"
+      },
+      "status": {
+        "DRAFT": "Borrador",
+        "PUBLISHED": "Publicado"
+      },
+      "submit": {
+        "idle": "Crear",
+        "pending": "Creando..."
+      }
+    }
   }
 }

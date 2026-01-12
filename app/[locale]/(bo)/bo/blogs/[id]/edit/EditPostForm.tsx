@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { deletePost, updatePost, type PostActionState } from "../../actions";
+import { useTranslations } from "next-intl";
 
 type PostDTO = {
   id: string;
@@ -35,6 +36,7 @@ export default function EditPostForm({
   locale: string;
   post: PostDTO;
 }) {
+  const t = useTranslations("bo.editPost");
   const router = useRouter();
 
   const [state, formAction, isPending] = useActionState(
@@ -44,21 +46,25 @@ export default function EditPostForm({
 
   useEffect(() => {
     if (state.ok && state.postId) {
-      // nos quedamos en la misma página, pero refrescamos server data
       router.refresh();
     }
   }, [state, router]);
+
+  const statusLabel = t(`status.${post.status}` as any);
 
   return (
     <Stack spacing={3} maxWidth={900}>
       <Stack spacing={0.5}>
         <Typography variant="h4" fontWeight={800}>
-          Editar post
+          {t("title")}
         </Typography>
+
         <Typography color="text.secondary">
-          Estado: {post.status}
+          {t("meta.status", { status: statusLabel })}
           {post.publishedAt
-            ? ` · Publicado: ${new Date(post.publishedAt).toISOString()}`
+            ? t("meta.publishedAt", {
+                date: new Date(post.publishedAt).toISOString(),
+              })
             : ""}
         </Typography>
       </Stack>
@@ -68,13 +74,13 @@ export default function EditPostForm({
           <Stack spacing={2}>
             {state.ok === false && (state.formError || state.fieldErrors) && (
               <Alert severity="error">
-                {state.formError ?? "Revisa los campos."}
+                {state.formError ?? t("errors.reviewFields")}
               </Alert>
             )}
 
             <TextField
               name="title"
-              label="Título"
+              label={t("fields.title")}
               required
               defaultValue={post.title}
               error={state.ok === false && !!state.fieldErrors?.title}
@@ -85,7 +91,7 @@ export default function EditPostForm({
 
             <TextField
               name="slug"
-              label="Slug"
+              label={t("fields.slug")}
               defaultValue={post.slug}
               error={state.ok === false && !!state.fieldErrors?.slug}
               helperText={
@@ -95,7 +101,7 @@ export default function EditPostForm({
 
             <TextField
               name="excerpt"
-              label="Extracto"
+              label={t("fields.excerpt")}
               multiline
               minRows={2}
               defaultValue={post.excerpt ?? ""}
@@ -103,7 +109,7 @@ export default function EditPostForm({
 
             <TextField
               name="content"
-              label="Contenido"
+              label={t("fields.content")}
               required
               multiline
               minRows={10}
@@ -116,7 +122,7 @@ export default function EditPostForm({
 
             <TextField
               name="coverImage"
-              label="Cover image URL"
+              label={t("fields.coverImage")}
               defaultValue={post.coverImage ?? ""}
               error={state.ok === false && !!state.fieldErrors?.coverImage}
               helperText={
@@ -126,17 +132,17 @@ export default function EditPostForm({
 
             <TextField
               name="status"
-              label="Estado"
+              label={t("fields.status")}
               select
               defaultValue={post.status}
             >
-              <MenuItem value="DRAFT">DRAFT</MenuItem>
-              <MenuItem value="PUBLISHED">PUBLISHED</MenuItem>
+              <MenuItem value="DRAFT">{t("status.DRAFT")}</MenuItem>
+              <MenuItem value="PUBLISHED">{t("status.PUBLISHED")}</MenuItem>
             </TextField>
 
             <Stack direction="row" spacing={2}>
               <Button type="submit" variant="contained" disabled={isPending}>
-                {isPending ? "Guardando..." : "Guardar"}
+                {isPending ? t("actions.saving") : t("actions.save")}
               </Button>
 
               <Button
@@ -146,7 +152,7 @@ export default function EditPostForm({
                 disabled={isPending}
                 formAction={deletePost.bind(null, locale, post.id)}
               >
-                Borrar
+                {t("actions.delete")}
               </Button>
             </Stack>
           </Stack>

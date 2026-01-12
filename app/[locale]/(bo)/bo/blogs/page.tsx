@@ -1,8 +1,11 @@
 import { Box, Button, Stack, Typography, Paper } from "@mui/material";
 import { Link } from "@/i18n/navigation";
 import { prisma } from "../../../../lib/prisma";
+import { getTranslations } from "next-intl/server";
 
 export default async function BlogsAdminPage() {
+  const t = await getTranslations("bo.blogs");
+
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: "desc" },
     select: { id: true, title: true, status: true, createdAt: true },
@@ -12,20 +15,18 @@ export default async function BlogsAdminPage() {
     <Stack spacing={3}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h4" fontWeight={800}>
-          Blogs
+          {t("title")}
         </Typography>
 
         <Link href="/bo/blogs/new" style={{ textDecoration: "none" }}>
-          <Button variant="contained">Nuevo post</Button>
+          <Button variant="contained">{t("new")}</Button>
         </Link>
       </Stack>
 
       <Paper variant="outlined">
         {posts.length === 0 ? (
           <Box p={3}>
-            <Typography color="text.secondary">
-              Aún no hay posts creados.
-            </Typography>
+            <Typography color="text.secondary">{t("empty")}</Typography>
           </Box>
         ) : (
           <Box>
@@ -49,14 +50,14 @@ export default async function BlogsAdminPage() {
                     p.status === "PUBLISHED" ? "success.main" : "text.secondary"
                   }
                 >
-                  {p.status}
+                  {t(`status.${p.status}` as any)}
                 </Typography>
 
                 <Link
                   href={`/bo/blogs/${p.id}/edit`}
                   style={{ textDecoration: "none", justifySelf: "end" }}
                 >
-                  <Button size="small">Editar</Button>
+                  <Button size="small">{t("edit")}</Button>
                 </Link>
               </Box>
             ))}

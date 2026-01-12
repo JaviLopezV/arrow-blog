@@ -8,8 +8,11 @@ import {
   Typography,
   Chip,
 } from "@mui/material";
+import { getTranslations } from "next-intl/server";
 
 export default async function HomePage() {
+  const t = await getTranslations("fo.home");
+
   const posts = await prisma.post.findMany({
     where: { status: "PUBLISHED" },
     orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
@@ -23,21 +26,17 @@ export default async function HomePage() {
     },
   });
 
-  console.log("Fetched posts:", posts);
-
   return (
     <Stack spacing={2.5}>
       <Stack spacing={0.5}>
         <Typography variant="h4" fontWeight={800}>
-          Blog
+          {t("title")}
         </Typography>
-        <Typography color="text.secondary">Últimas publicaciones</Typography>
+        <Typography color="text.secondary">{t("subtitle")}</Typography>
       </Stack>
 
       {posts.length === 0 ? (
-        <Typography color="text.secondary">
-          No hay posts publicados todavía.
-        </Typography>
+        <Typography color="text.secondary">{t("empty")}</Typography>
       ) : (
         <Stack spacing={1.5}>
           {posts.map((p: any) => (
@@ -49,7 +48,7 @@ export default async function HomePage() {
                       <Typography variant="h6" fontWeight={800}>
                         {p.title}
                       </Typography>
-                      <Chip size="small" label="Publicado" />
+                      <Chip size="small" label={t("published")} />
                     </Stack>
 
                     {p.excerpt ? (

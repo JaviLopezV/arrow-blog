@@ -14,10 +14,13 @@ import {
   Typography,
 } from "@mui/material";
 import { createPost, type PostActionState } from "../actions";
+import { useTranslations } from "next-intl";
 
 const initialState: PostActionState = { ok: true };
 
 export default function NewPostPage() {
+  const t = useTranslations("bo.newPost");
+
   const router = useRouter();
   const params = useParams();
   const locale = (params?.locale as string) || "es";
@@ -37,7 +40,7 @@ export default function NewPostPage() {
   return (
     <Stack spacing={3} maxWidth={900}>
       <Typography variant="h4" fontWeight={800}>
-        Nuevo post
+        {t("title")}
       </Typography>
 
       <Paper variant="outlined" sx={{ p: 3 }}>
@@ -45,15 +48,15 @@ export default function NewPostPage() {
           <Stack spacing={2}>
             {state.ok === false && (state.formError || state.fieldErrors) && (
               <Alert severity="error">
-                {state.formError ?? "Revisa los campos."}
+                {state.formError ?? t("errors.reviewFields")}
               </Alert>
             )}
 
             <TextField
               name="title"
-              label="Título"
+              label={t("fields.title")}
               required
-              error={!!state.ok === false && !!state.fieldErrors?.title}
+              error={state.ok === false && !!state.fieldErrors?.title}
               helperText={
                 state.ok === false ? state.fieldErrors?.title?.[0] : ""
               }
@@ -61,18 +64,23 @@ export default function NewPostPage() {
 
             <TextField
               name="slug"
-              label="Slug (opcional, si lo dejas vacío se genera)"
+              label={t("fields.slug")}
               error={state.ok === false && !!state.fieldErrors?.slug}
               helperText={
                 state.ok === false ? state.fieldErrors?.slug?.[0] : ""
               }
             />
 
-            <TextField name="excerpt" label="Extracto" multiline minRows={2} />
+            <TextField
+              name="excerpt"
+              label={t("fields.excerpt")}
+              multiline
+              minRows={2}
+            />
 
             <TextField
               name="content"
-              label="Contenido"
+              label={t("fields.content")}
               required
               multiline
               minRows={10}
@@ -84,16 +92,21 @@ export default function NewPostPage() {
 
             <TextField
               name="coverImage"
-              label="Cover image URL (opcional)"
+              label={t("fields.coverImage")}
               error={state.ok === false && !!state.fieldErrors?.coverImage}
               helperText={
                 state.ok === false ? state.fieldErrors?.coverImage?.[0] : ""
               }
             />
 
-            <TextField name="status" label="Estado" select defaultValue="DRAFT">
-              <MenuItem value="DRAFT">DRAFT</MenuItem>
-              <MenuItem value="PUBLISHED">PUBLISHED</MenuItem>
+            <TextField
+              name="status"
+              label={t("fields.status")}
+              select
+              defaultValue="DRAFT"
+            >
+              <MenuItem value="DRAFT">{t("status.DRAFT")}</MenuItem>
+              <MenuItem value="PUBLISHED">{t("status.PUBLISHED")}</MenuItem>
             </TextField>
 
             <Button
@@ -102,7 +115,7 @@ export default function NewPostPage() {
               size="large"
               disabled={isPending}
             >
-              {isPending ? "Creando..." : "Crear"}
+              {isPending ? t("submit.pending") : t("submit.idle")}
             </Button>
           </Stack>
         </Box>
