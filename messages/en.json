@@ -1,7 +1,7 @@
 {
   "auth": {
     "title": "Welcome",
-    "subtitle": "Create an account or sign in to start discovering profiles.",
+    "subtitle": "Create an account or sign in to start.",
     "register": "Create account",
     "login": "Sign in",
     "footnote": "By continuing you accept our policies (we’ll add them later)."

@@ -1,7 +1,7 @@
 {
   "auth": {
     "title": "Bienvenido",
-    "subtitle": "Crea una cuenta o inicia sesión para empezar a descubrir perfiles.",
+    "subtitle": "Crea una cuenta o inicia sesión para empezar.",
     "register": "Crear cuenta",
     "login": "Iniciar sesión",
     "footnote": "Al continuar aceptas nuestras políticas (luego las añadimos)."
