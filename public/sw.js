@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 // Cambia versión cuando quieras invalidar caché
-const VERSION = "v1";
+const VERSION = "v2";
 
 const STATIC_CACHE = `static-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;

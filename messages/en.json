@@ -46,7 +46,7 @@
   "account": {
     "delete": {
       "title": "Delete account",
-      "warning": "This action is <b>irreversible</b>. Your account and access data will be deleted. Your published posts may remain visible <b>anonymously</b>.",
+      "warning": "This action is irreversible. Your account and access data will be deleted.",
       "cta": "Delete my account",
       "success": "Account deleted. Signing out…",
       "dialogTitle": "Are you sure?",

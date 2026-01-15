@@ -67,10 +67,7 @@ export default function DeleteAccountCard() {
               {t("title")}
             </Typography>
 
-            <Alert
-              severity="warning"
-              dangerouslySetInnerHTML={{ __html: t("warning") }}
-            />
+            <Alert severity="warning">{t("warning")}</Alert>
 
             {err && <Alert severity="error">{t(err)}</Alert>}
 

@@ -46,7 +46,7 @@
   "account": {
     "delete": {
       "title": "Eliminar cuenta",
-      "warning": "Esta acción es <b>irreversible</b>. Se eliminará tu cuenta y tus datos de acceso. Tus posts publicados podrán mantenerse visibles de forma <b>anónima</b>.",
+      "warning": "Esta acción es irreversible. Se eliminará tu cuenta y tus datos de acceso.",
       "cta": "Eliminar mi cuenta",
       "success": "Cuenta eliminada. Cerrando sesión…",
       "dialogTitle": "¿Seguro?",
