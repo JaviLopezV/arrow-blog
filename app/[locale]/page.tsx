@@ -23,5 +23,6 @@ export default async function Home({ params }: Props) {
   }
 
   // CLIENT (o cualquier otro caso)
-  redirect(`/home`);
+  redirect(`/under-construction`);
+  // redirect(`/home`);
 }

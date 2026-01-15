@@ -281,5 +281,10 @@
     "s11Body": "These terms are governed by Spanish law. In the event of a dispute, the parties shall submit to the courts and tribunals having jurisdiction under the applicable regulations.",
 
     "contact": "<b>Contact:</b> For enquiries, write to <b>{email}</b>."
+  },
+  "underConstruction": {
+    "title": "Under construction",
+    "subtitle": "We are building something awesome for you. Come back soon 🚀",
+    "back": "Back to home"
   }
 }

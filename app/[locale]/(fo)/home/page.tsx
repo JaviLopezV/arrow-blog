@@ -9,9 +9,18 @@ import {
   Chip,
 } from "@mui/material";
 import { getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
 
-export default async function HomePage() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
   const t = await getTranslations("fo.home");
+  const inConstruction = true;
+
+  if (inConstruction) redirect(`/${locale}/under-construction`);
 
   const posts = await prisma.post.findMany({
     where: { status: "PUBLISHED" },

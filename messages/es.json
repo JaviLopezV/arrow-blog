@@ -281,5 +281,10 @@
     "s11Body": "Estos términos se rigen por la legislación española. En caso de disputa, las partes se someterán a los juzgados y tribunales que correspondan conforme a la normativa aplicable.",
 
     "contact": "<b>Contacto:</b> Para consultas, escribe a <b>{email}</b>."
+  },
+  "underConstruction": {
+    "title": "En construcción",
+    "subtitle": "Estamos trabajando para traerte algo increíble. Vuelve pronto 🚀",
+    "back": "Volver al inicio"
   }
 }
