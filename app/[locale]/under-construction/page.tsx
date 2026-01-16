@@ -3,15 +3,8 @@ import ConstructionIcon from "@mui/icons-material/Construction";
 import { getTranslations } from "next-intl/server";
 import FoLayout from "../(fo)/FoShellClient";
 
-export default async function UnderConstructionPage({
-  params,
-}: {
-  params: { locale: string };
-}) {
-  const t = await getTranslations({
-    locale: params.locale,
-    namespace: "underConstruction",
-  });
+export default async function UnderConstructionPage() {
+  const t = await getTranslations("underConstruction");
 
   return (
     <FoLayout>

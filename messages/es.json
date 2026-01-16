@@ -77,6 +77,7 @@
     "nav": {
       "home": "Inicio",
       "settings": "Ajustes",
+      "games": "Juegos",
       "openMenuAria": "open navigation menu"
     },
     "brand": "Arrow Blog"
@@ -286,5 +287,49 @@
     "title": "En construcción",
     "subtitle": "Estamos trabajando para traerte algo increíble. Vuelve pronto 🚀",
     "back": "Volver al inicio"
+  },
+  "games": {
+    "title": "Games",
+    "description": "Elige el idioma que quieres aprender y después el juego.",
+    "languageStep": "1) Idioma",
+    "gameStep": "2) Juego",
+    "languageSelected": "Seleccionado: {language}",
+    "selectLanguage": "Selecciona un idioma",
+    "animals": {
+      "title": "Animales",
+      "description": "Escribe la traducción correcta según el idioma elegido.",
+      "available": "Disponible"
+    }
+  },
+
+  "animalGame": {
+    "title": "Animales",
+    "languageChosen": "Idioma elegido: {language}",
+    "writeIn": "Escribe en: {language}",
+    "progress": "{current} / {total}",
+    "writeWord": "Escribe la palabra en {language}",
+    "answerLabel": "Respuesta ({language})",
+    "helperIdle": "Pulsa Enter o el botón Comprobar",
+    "helperCorrect": "✅ Correcto",
+    "helperWrong": "❌ No es correcto",
+    "check": "Comprobar",
+    "skip": "Saltar",
+    "correctAnswer": "Respuesta correcta: {answer}",
+
+    "finish": {
+      "title": "¡Juego terminado!",
+      "summary": "Has completado {total} palabras.",
+      "correct": "Aciertos",
+      "wrong": "Fallos",
+      "accuracy": "Porcentaje de acierto",
+      "playAgain": "Jugar otra vez",
+      "back": "Volver a Games",
+
+      "feedback": {
+        "high": "¡Muy bien! Sigue así.",
+        "medium": "¡Bien! Un poco más y lo clavas.",
+        "low": "No pasa nada: repite y verás cómo sube el porcentaje."
+      }
+    }
   }
 }

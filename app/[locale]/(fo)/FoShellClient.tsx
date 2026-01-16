@@ -96,6 +96,14 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                       {t("nav.settings")}
                     </MenuItem>
 
+                    <MenuItem
+                      component={Link as any}
+                      href="/games"
+                      onClick={handleCloseMenu}
+                    >
+                      {t("nav.games")}
+                    </MenuItem>
+
                     <MenuItem onClick={handleCloseMenu} sx={{ py: 0 }}>
                       <Box sx={{ width: "100%" }}>
                         <LogoutButton />
@@ -108,12 +116,18 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
               <Typography
                 variant="h6"
                 noWrap
+                component={Link as any}
+                href="/home"
                 sx={{
                   fontWeight: 800,
                   minWidth: 0,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   fontSize: { xs: "1rem", sm: "1.1rem" },
+                  color: "inherit",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                  "&:hover": { opacity: 0.85 },
                 }}
               >
                 {t("brand")}
@@ -146,6 +160,15 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                     sx={{ whiteSpace: "nowrap" }}
                   >
                     {t("nav.settings")}
+                  </Button>
+
+                  <Button
+                    color="inherit"
+                    component={Link as any}
+                    href="/games"
+                    sx={{ whiteSpace: "nowrap" }}
+                  >
+                    {t("nav.games")}
                   </Button>
 
                   <LogoutButton />

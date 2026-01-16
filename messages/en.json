@@ -77,6 +77,7 @@
     "nav": {
       "home": "Home",
       "settings": "Settings",
+      "games": "Games",
       "openMenuAria": "open navigation menu"
     },
     "brand": "Arrow Blog"
@@ -286,5 +287,49 @@
     "title": "Under construction",
     "subtitle": "We are building something awesome for you. Come back soon 🚀",
     "back": "Back to home"
+  },
+  "games": {
+    "title": "Games",
+    "description": "Choose the language you want to learn and then pick a game.",
+    "languageStep": "1) Language",
+    "gameStep": "2) Game",
+    "languageSelected": "Selected: {language}",
+    "selectLanguage": "Select a language",
+    "animals": {
+      "title": "Animals",
+      "description": "Write the correct translation based on the chosen language.",
+      "available": "Available"
+    }
+  },
+
+  "animalGame": {
+    "title": "Animals",
+    "languageChosen": "Chosen language: {language}",
+    "writeIn": "Write in: {language}",
+    "progress": "{current} / {total}",
+    "writeWord": "Write the word in {language}",
+    "answerLabel": "Answer ({language})",
+    "helperIdle": "Press Enter or the Check button",
+    "helperCorrect": "✅ Correct",
+    "helperWrong": "❌ Incorrect",
+    "check": "Check",
+    "skip": "Skip",
+    "correctAnswer": "Correct answer: {answer}",
+
+    "finish": {
+      "title": "Game finished!",
+      "summary": "You completed {total} words.",
+      "correct": "Correct",
+      "wrong": "Wrong",
+      "accuracy": "Accuracy rate",
+      "playAgain": "Play again",
+      "back": "Back to Games",
+
+      "feedback": {
+        "high": "Great job! Keep it up.",
+        "medium": "Nice! You're almost there.",
+        "low": "No worries — try again and your score will improve."
+      }
+    }
   }
 }
