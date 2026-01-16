@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 export default async function Page() {
   const t = await getTranslations("legalNotice");
 
-  const email = "jlopvil@gmail.com";
+  const email = "arrow.apps.jlv@gmail.com";
   const domain = "https://arrow-blog.vercel.app";
 
   const Bold = (chunks: React.ReactNode) => <b>{chunks}</b>;

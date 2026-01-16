@@ -20,14 +20,24 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   name      String?
-  password  String?  // hash bcrypt si usas credenciales
+  password  String?
   role      Role     @default(CLIENT)
 
-  posts     Post[]
+  // Verificación propia
+  emailVerifiedAt DateTime?
+  verifyTokenHash String?
+  verifyTokenExp  DateTime?
 
-  createdAt DateTime @default(now())
+  // Para login social sin tabla Account
+  oauthProvider   String?
+  oauthSubject    String? // sub de Google (estable por cuenta)
+
+  posts Post[]
+
+    createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 
 model Post {
   id          String     @id @default(cuid())

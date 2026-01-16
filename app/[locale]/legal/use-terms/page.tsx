@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 export default async function Page() {
   const t = await getTranslations("legalUseTerms");
-  const email = "jlopvil@gmail.com";
+  const email = "arrow.apps.jlv@gmail.com";
 
   return (
     <LegalLayout title={t("title")}>

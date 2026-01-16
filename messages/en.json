@@ -173,7 +173,7 @@
   "legalNotice": {
     "title": "Legal Notice",
     "owner": "<b>Owner:</b> Javier López Villanueva",
-    "email": "<b>Email:</b> jlopvil@gmail.com",
+    "email": "<b>Email:</b> arrow.apps.jlv@gmail.com",
     "activity": "<b>Activity:</b> Development and maintenance of a personal web platform",
     "domain": "<b>Domain:</b> https://arrow-blog.vercel.app",
     "p1": "This Legal Notice governs access, browsing and use of the Arrow Blog website, owned by Javier López Villanueva.",
@@ -184,7 +184,7 @@
   "legalPrivacy": {
     "title": "Privacy Policy",
     "owner": "<b>Controller:</b> Javier López Villanueva",
-    "email": "<b>Email:</b> jlopvil@gmail.com",
+    "email": "<b>Email:</b> arrow.apps.jlv@gmail.com",
     "site": "<b>Website:</b> https://arrow-blog.vercel.app",
 
     "p1": "This policy describes how users’ personal data are collected, used and protected.",
@@ -201,7 +201,7 @@
     "purpose3": "Security and fraud prevention.",
 
     "p2": "Data are not sold or shared with third parties.",
-    "p3": "You may exercise your GDPR rights by writing to jlopvil@gmail.com."
+    "p3": "You may exercise your GDPR rights by writing to arrow.apps.jlv@gmail.com."
   },
 
   "legalTermsAndConditions": {
