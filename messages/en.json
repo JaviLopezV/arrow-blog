@@ -301,6 +301,10 @@
       "title": "Animals",
       "description": "Write the correct translation based on the chosen language.",
       "available": "Available"
+    },
+    "languages": {
+      "title": "Languages",
+      "description": "Games to learn languages."
     }
   },
 

@@ -39,7 +39,7 @@ export default function AnimalGamesPage() {
   const feedbackSeverity =
     game.accuracy >= 80 ? "success" : game.accuracy >= 50 ? "info" : "warning";
 
-  const backToGames = () => router.push("/games");
+  const backToGames = () => router.push("/games/languages");
 
   if (game.finished) {
     return (

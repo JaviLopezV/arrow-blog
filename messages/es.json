@@ -301,6 +301,10 @@
       "title": "Animales",
       "description": "Escribe la traducción correcta según el idioma elegido.",
       "available": "Disponible"
+    },
+    "languages": {
+      "title": "Idiomas",
+      "description": "Juegos para aprender idiomas."
     }
   },
 
