@@ -293,7 +293,9 @@
     "description": "Choose the language you want to learn and then pick a game.",
     "languageStep": "1) Language",
     "gameStep": "2) Game",
-    "languageSelected": "Selected: {language}",
+    "english": "English",
+    "spanish": "Spanish",
+    "languageSelected": "Selected: ",
     "selectLanguage": "Select a language",
     "animals": {
       "title": "Animals",
