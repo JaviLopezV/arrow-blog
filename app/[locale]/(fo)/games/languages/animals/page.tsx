@@ -77,7 +77,11 @@ export default function AnimalsPage() {
           sx={{ borderRadius: 3, overflow: "hidden", my: 3 }}
         >
           <CardActionArea
-            onClick={() => router.push(`/games/languages/animals/choose-image`)}
+            onClick={() =>
+              router.push(
+                `/games/languages/animals/choose-image?lang=${learnLang.toString()}`,
+              )
+            }
           >
             <CardContent>
               <Stack

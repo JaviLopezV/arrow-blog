@@ -35,6 +35,8 @@ export default function AnimalGamesPage() {
   const game = useAnimalGame(learnLang, difficulty);
 
   const backToGames = () => router.push("/games");
+  const backToAnimals = () =>
+    router.push(`games/languages/animals?lang=${learnLang.toString()}`);
 
   const setDifficulty = (d: Difficulty) => {
     // reconstruimos query conservando lang
@@ -65,6 +67,17 @@ export default function AnimalGamesPage() {
 
   const subtitle = `${t("languageChosen")} ${learnLabel} · ${t("difficulty.label")} ${difficultyLabel}`;
 
+  // ... dentro del componente:
+  const tts = useSpeechSynthesis();
+
+  const speakLang = learnLang === "es" ? "es-ES" : "en-US";
+
+  const speakCurrentAnimal = () => {
+    if (!game.current) return;
+    // lee la palabra que el usuario debe escribir
+    tts.speak(game.expected, { lang: speakLang, rate: 0.95 });
+  };
+
   if (game.finished) {
     return (
       <Container maxWidth="sm" sx={{ py: 6 }}>
@@ -72,6 +85,7 @@ export default function AnimalGamesPage() {
           title={t("title")}
           backLabel={t("finish.back")}
           onBack={backToGames}
+          backToAnimals={backToAnimals}
           finishTitle={t("finish.title")}
           languageChosenText={subtitle}
           correctLabel={t("finish.correct")}
@@ -89,24 +103,13 @@ export default function AnimalGamesPage() {
     );
   }
 
-  // ... dentro del componente:
-  const tts = useSpeechSynthesis();
-
-  const speakLang = learnLang === "es" ? "es-ES" : "en-US";
-
-  const speakCurrentAnimal = () => {
-    if (!game.current) return;
-    // lee la palabra que el usuario debe escribir
-    tts.speak(game.expected, { lang: speakLang, rate: 0.95 });
-  };
-
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <Stack spacing={2}>
         <AnimalGameHeader
           title={t("title")}
           subtitle={subtitle}
-          onBack={backToGames}
+          onBack={backToAnimals}
           onReset={game.resetGame}
           backAriaLabel={t("finish.back")}
           resetAriaLabel={t("finish.playAgain")}

@@ -34,12 +34,14 @@ export default function ChooseImageGamePage() {
   const game = useChooseImageGame(learnLang, difficulty);
 
   const backToGames = () => router.push("/games");
+  const backToAnimals = () =>
+    router.push(`/games/languages/animals?lang=${learnLang.toString()}`);
 
   const setDifficulty = (d: Difficulty) => {
     const params = new URLSearchParams(sp.toString());
     params.set("lang", learnLang);
     params.set("difficulty", d);
-    router.push(`/games/animals/choose-image?${params.toString()}`);
+    router.push(`/games/languages/animals/choose-image?${params.toString()}`);
   };
 
   const feedbackKey =
@@ -63,6 +65,7 @@ export default function ChooseImageGamePage() {
           title={t("titleChooseImage")}
           backLabel={t("finish.back")}
           onBack={backToGames}
+          backToAnimals={backToAnimals}
           finishTitle={t("finish.title")}
           languageChosenText={subtitle}
           correctLabel={t("finish.correct")}

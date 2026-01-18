@@ -19,6 +19,7 @@ type Props = {
   title: string;
   backLabel: string;
   onBack: () => void;
+  backToAnimals: () => void;
 
   finishTitle: string;
   languageChosenText: string;
@@ -41,6 +42,7 @@ type Props = {
 export function AnimalGameFinish({
   title,
   backLabel,
+  backToAnimals,
   onBack,
   finishTitle,
   languageChosenText,
@@ -58,7 +60,7 @@ export function AnimalGameFinish({
   return (
     <Stack spacing={3}>
       <Stack direction="row" alignItems="center" spacing={1}>
-        <IconButton onClick={onBack} aria-label={backLabel}>
+        <IconButton onClick={backToAnimals} aria-label={backLabel}>
           <ArrowBackIcon />
         </IconButton>
         <Typography variant="h5" fontWeight={800}>
