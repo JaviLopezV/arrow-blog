@@ -9,10 +9,13 @@ import {
   Button,
   Card,
   CardContent,
+  IconButton,
   Stack,
   TextField,
   Typography,
+  Tooltip,
 } from "@mui/material";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import type { Animal } from "./animalGame.data";
 
 type Props = {
@@ -36,6 +39,12 @@ type Props = {
   onSkip: () => void;
 
   footerText: string;
+
+  // NUEVO
+  onSpeak: () => void;
+  speakDisabled?: boolean;
+  speakAriaLabel: string;
+  speakTooltip?: string;
 };
 
 export function AnimalGameCard({
@@ -54,6 +63,10 @@ export function AnimalGameCard({
   onCheck,
   onSkip,
   footerText,
+  onSpeak,
+  speakDisabled = false,
+  speakAriaLabel,
+  speakTooltip,
 }: Props) {
   return (
     <Card variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
@@ -91,6 +104,30 @@ export function AnimalGameCard({
             style={{ objectFit: "contain" }}
             priority
           />
+        </Box>
+
+        {/* Botón de altavoz (overlay arriba a la derecha) */}
+        <Box sx={{ position: "absolute", top: 12, right: 12 }}>
+          <Tooltip
+            title={speakTooltip ?? ""}
+            disableHoverListener={!speakTooltip}
+          >
+            <span>
+              <IconButton
+                onClick={onSpeak}
+                disabled={speakDisabled}
+                aria-label={speakAriaLabel}
+                sx={{
+                  bgcolor: "common.white",
+                  border: 1,
+                  borderColor: "divider",
+                  "&:hover": { bgcolor: "grey.50" },
+                }}
+              >
+                <VolumeUpIcon />
+              </IconButton>
+            </span>
+          </Tooltip>
         </Box>
       </Box>
 

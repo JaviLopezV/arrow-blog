@@ -16,6 +16,7 @@ import { AnimalGameProgress } from "./AnimalGameProgress";
 import { AnimalGameCard } from "./AnimalGameCard";
 import { AnimalGameFinish } from "./AnimalGameFinish";
 import { DifficultySelector } from "./DifficultySelector";
+import { useSpeechSynthesis } from "./useSpeechSynthesis";
 
 function asDifficulty(x: string | null): Difficulty {
   return x === "easy" || x === "normal" || x === "hard" ? x : "normal";
@@ -88,6 +89,17 @@ export default function AnimalGamesPage() {
     );
   }
 
+  // ... dentro del componente:
+  const tts = useSpeechSynthesis();
+
+  const speakLang = learnLang === "es" ? "es-ES" : "en-US";
+
+  const speakCurrentAnimal = () => {
+    if (!game.current) return;
+    // lee la palabra que el usuario debe escribir
+    tts.speak(game.expected, { lang: speakLang, rate: 0.95 });
+  };
+
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <Stack spacing={2}>
@@ -131,6 +143,12 @@ export default function AnimalGamesPage() {
             onCheck={game.check}
             onSkip={game.skip}
             footerText={`${t("finish.correct")}: ${game.correctCount} · ${t("finish.wrong")}: ${game.wrongCount}`}
+            onSpeak={speakCurrentAnimal}
+            speakDisabled={!tts.isSupported}
+            speakAriaLabel={t("speak")}
+            speakTooltip={
+              !tts.isSupported ? t("speechNotSupported") : t("speak")
+            }
           />
         )}
       </Stack>

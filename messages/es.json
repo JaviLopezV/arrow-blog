@@ -340,6 +340,8 @@
       "easy": "Fácil",
       "normal": "Normal",
       "hard": "Difícil"
-    }
+    },
+    "speak": "Escuchar",
+    "speechNotSupported": "Tu navegador no soporta audio por voz"
   }
 }

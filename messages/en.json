@@ -340,6 +340,8 @@
       "easy": "Fácil",
       "normal": "Normal",
       "hard": "Difícil"
-    }
+    },
+    "speak": "Listen",
+    "speechNotSupported": "Your browser does not support text-to-speech"
   }
 }
