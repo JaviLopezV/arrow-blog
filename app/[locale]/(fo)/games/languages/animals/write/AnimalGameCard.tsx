@@ -16,7 +16,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import type { Animal } from "./animalGame.data";
+import type { Animal } from "../animalGame.data";
 
 type Props = {
   animal: Animal;

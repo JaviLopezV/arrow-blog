@@ -2,8 +2,8 @@
 "use client";
 
 import * as React from "react";
-import { ANIMALS, type Animal } from "./animalGame.data";
-import { DIFFICULTY_SIZES, normalizeWord, shuffle, type Difficulty, type Lang } from "./animalGame.utils";
+import { ANIMALS, type Animal } from "../animalGame.data";
+import { DIFFICULTY_SIZES, normalizeWord, shuffle, type Difficulty, type Lang } from "../animalGame.utils";
 
 type Status = "idle" | "correct" | "wrong";
 

@@ -95,7 +95,7 @@ export default function LanguagesPage() {
 
             <Card
               variant="outlined"
-              sx={{ borderRadius: 3, overflow: "hidden" }}
+              sx={{ borderRadius: 3, overflow: "hidden", my: 3 }}
             >
               <CardActionArea
                 onClick={() =>

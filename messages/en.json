@@ -300,7 +300,9 @@
     "animals": {
       "title": "Animals",
       "description": "Write the correct translation based on the chosen language.",
-      "available": "Available"
+      "available": "Available",
+      "titleChooseImage": "Select the correct image",
+      "chooseImage": { "prompt": "Choose:" }
     },
     "languages": {
       "title": "Languages",
@@ -309,6 +311,8 @@
   },
 
   "animalGame": {
+    "titleChooseImage": "Select the correct image",
+    "chooseImage": { "prompt": "Choose:" },
     "title": "Animals",
     "languageChosen": "Chosen language: ",
     "writeIn": "Write in: ",

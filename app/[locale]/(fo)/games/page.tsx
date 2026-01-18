@@ -7,31 +7,15 @@ import {
   Box,
   Container,
   Typography,
-  ToggleButton,
-  ToggleButtonGroup,
   Card,
   CardActionArea,
   CardContent,
   Stack,
-  Chip,
 } from "@mui/material";
-
-type Lang = "es" | "en";
 
 export default function GamesPage() {
   const t = useTranslations("games");
   const router = useRouter();
-  const [learnLang, setLearnLang] = React.useState<Lang | null>(null);
-
-  const handleLangChange = (
-    _: React.MouseEvent<HTMLElement>,
-    value: Lang | null,
-  ) => {
-    setLearnLang(value);
-  };
-
-  const canPickGame = Boolean(learnLang);
-  const selectedLangLabel = learnLang ? t(learnLang) : "";
 
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>

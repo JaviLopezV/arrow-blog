@@ -39,3 +39,11 @@ export function getDifficultyLabel(d: Difficulty) {
   // lo dejo simple; si quieres, lo pasamos a next-intl
   return d === "easy" ? "Fácil" : d === "normal" ? "Normal" : "Difícil";
 }
+
+
+// animalGame.utils.ts (añade esto)
+export const DIFFICULTY_OPTION_COUNT: Record<Difficulty, number> = {
+  easy: 2,
+  normal: 4,
+  hard: 6,
+};
