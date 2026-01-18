@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import {
   Box,
   Container,
@@ -18,34 +19,36 @@ import {
 type Lang = "es" | "en";
 
 export default function GamesPage() {
+  const t = useTranslations("games");
   const router = useRouter();
   const [learnLang, setLearnLang] = React.useState<Lang | null>(null);
 
   const handleLangChange = (
     _: React.MouseEvent<HTMLElement>,
-    value: Lang | null
+    value: Lang | null,
   ) => {
     setLearnLang(value);
   };
 
   const canPickGame = Boolean(learnLang);
+  const selectedLangLabel = learnLang ? t(learnLang) : "";
 
   return (
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Stack spacing={3}>
         <Box>
           <Typography variant="h4" fontWeight={800} gutterBottom>
-            Games
+            {t("title")}
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            Elige el idioma que quieres “aprender” y después el juego.
+            {t("description")}
           </Typography>
         </Box>
 
         <Card variant="outlined" sx={{ borderRadius: 3 }}>
           <CardContent>
             <Typography variant="h6" fontWeight={700} gutterBottom>
-              1) Idioma
+              {t("languageStep")}
             </Typography>
 
             <ToggleButtonGroup
@@ -56,10 +59,10 @@ export default function GamesPage() {
               sx={{ mt: 1 }}
             >
               <ToggleButton value="en" sx={{ py: 1.5 }}>
-                Inglés
+                {t("en")}
               </ToggleButton>
               <ToggleButton value="es" sx={{ py: 1.5 }}>
-                Castellano
+                {t("es")}
               </ToggleButton>
             </ToggleButtonGroup>
 
@@ -67,10 +70,8 @@ export default function GamesPage() {
               <Chip
                 label={
                   learnLang
-                    ? `Seleccionado: ${
-                        learnLang === "en" ? "Inglés" : "Castellano"
-                      }`
-                    : "Selecciona un idioma"
+                    ? t("languageSelected") + " " + selectedLangLabel
+                    : t("selectLanguage")
                 }
                 color={learnLang ? "primary" : "default"}
                 variant={learnLang ? "filled" : "outlined"}
@@ -89,7 +90,7 @@ export default function GamesPage() {
         >
           <CardContent>
             <Typography variant="h6" fontWeight={700} gutterBottom>
-              2) Juego
+              {t("gameStep")}
             </Typography>
 
             <Card
@@ -97,7 +98,7 @@ export default function GamesPage() {
               sx={{ borderRadius: 3, overflow: "hidden" }}
             >
               <CardActionArea
-                onClick={() => router.push(`/games/animals?lang=${learnLang}`)}
+                onClick={() => router.push(`/games/animals?lang=${learnLang!}`)}
               >
                 <CardContent>
                   <Stack
@@ -107,14 +108,14 @@ export default function GamesPage() {
                   >
                     <Box>
                       <Typography variant="subtitle1" fontWeight={800}>
-                        Animales
+                        {t("animals.title")}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Escribe la traducción correcta según el idioma elegido.
+                        {t("animals.description")}
                       </Typography>
                     </Box>
                     <Chip
-                      label="Disponible"
+                      label={t("animals.available")}
                       color="success"
                       variant="outlined"
                     />

@@ -293,8 +293,8 @@
     "description": "Choose the language you want to learn and then pick a game.",
     "languageStep": "1) Language",
     "gameStep": "2) Game",
-    "english": "English",
-    "spanish": "Spanish",
+    "en": "English",
+    "es": "Spanish",
     "languageSelected": "Selected: ",
     "selectLanguage": "Select a language",
     "animals": {
@@ -306,21 +306,19 @@
 
   "animalGame": {
     "title": "Animals",
-    "languageChosen": "Chosen language: {language}",
-    "writeIn": "Write in: {language}",
-    "progress": "{current} / {total}",
-    "writeWord": "Write the word in {language}",
-    "answerLabel": "Answer ({language})",
+    "languageChosen": "Chosen language: ",
+    "writeIn": "Write in: ",
+    "writeWord": "Write the word in ",
+    "answerLabel": "Answer: ",
     "helperIdle": "Press Enter or the Check button",
     "helperCorrect": "✅ Correct",
     "helperWrong": "❌ Incorrect",
     "check": "Check",
     "skip": "Skip",
-    "correctAnswer": "Correct answer: {answer}",
+    "correctAnswer": "Correct answer: ",
 
     "finish": {
       "title": "Game finished!",
-      "summary": "You completed {total} words.",
       "correct": "Correct",
       "wrong": "Wrong",
       "accuracy": "Accuracy rate",

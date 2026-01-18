@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import {
   Alert,
   Box,
@@ -54,7 +56,20 @@ function shuffle<T>(arr: T[]) {
   return a;
 }
 
+function getLanguageLabel(lang: Lang, locale: string) {
+  try {
+    const dn = new Intl.DisplayNames([locale], { type: "language" });
+    // Capitalizamos para que quede más “label”
+    const label = dn.of(lang) ?? lang;
+    return label.charAt(0).toUpperCase() + label.slice(1);
+  } catch {
+    return lang;
+  }
+}
+
 export default function AnimalGamesPage() {
+  const t = useTranslations("animalGame");
+  const locale = useLocale();
   const router = useRouter();
   const sp = useSearchParams();
   const learnLang = (sp.get("lang") as Lang) ?? "en";
@@ -63,11 +78,10 @@ export default function AnimalGamesPage() {
   const [index, setIndex] = React.useState(0);
   const [value, setValue] = React.useState("");
   const [status, setStatus] = React.useState<"idle" | "correct" | "wrong">(
-    "idle"
+    "idle",
   );
   const [showAnswer, setShowAnswer] = React.useState(false);
 
-  // ✅ NUEVO: contadores
   const [correctCount, setCorrectCount] = React.useState(0);
   const [wrongCount, setWrongCount] = React.useState(0);
 
@@ -77,8 +91,8 @@ export default function AnimalGamesPage() {
   const current = finished ? null : deck[index];
   const expected = current ? current[learnLang] : "";
 
-  const learnLabel = learnLang === "es" ? "Castellano" : "Inglés";
-  const inputLabel = learnLang === "es" ? "Castellano" : "Inglés";
+  const learnLabel = getLanguageLabel(learnLang, locale);
+  const inputLabel = learnLabel;
 
   const progress = total > 0 ? Math.round((index / total) * 100) : 0;
 
@@ -106,7 +120,6 @@ export default function AnimalGamesPage() {
     if (ok) {
       setStatus("correct");
       setCorrectCount((c) => c + 1);
-      // avanzar al siguiente con una pausa
       window.setTimeout(() => next(), 600);
     } else {
       setStatus("wrong");
@@ -116,15 +129,23 @@ export default function AnimalGamesPage() {
   };
 
   const skip = () => {
-    // si saltas lo contamos como fallo (si no quieres, quita esto)
     setWrongCount((w) => w + 1);
     next();
   };
 
-  // ✅ NUEVO: porcentaje final
   const attempts = correctCount + wrongCount;
   const accuracy =
     attempts > 0 ? Math.round((correctCount / attempts) * 100) : 0;
+
+  const helperText =
+    status === "correct"
+      ? t("helperCorrect")
+      : status === "wrong"
+        ? t("helperWrong")
+        : t("helperIdle");
+
+  const feedbackKey =
+    accuracy >= 80 ? "high" : accuracy >= 50 ? "medium" : "low";
 
   if (finished) {
     return (
@@ -133,36 +154,36 @@ export default function AnimalGamesPage() {
           <Stack direction="row" alignItems="center" spacing={1}>
             <IconButton
               onClick={() => router.push("/games")}
-              aria-label="volver"
+              aria-label={t("finish.back")}
             >
               <ArrowBackIcon />
             </IconButton>
             <Typography variant="h5" fontWeight={800}>
-              Animales
+              {t("title")}
             </Typography>
           </Stack>
 
           <Card variant="outlined" sx={{ borderRadius: 3 }}>
             <CardContent>
               <Typography variant="h6" fontWeight={900} gutterBottom>
-                ¡Juego terminado!
+                {t("finish.title")}
               </Typography>
 
               <Typography color="text.secondary" sx={{ mb: 2 }}>
-                Idioma elegido: <b>{learnLabel}</b>
+                {t("languageChosen") + " " + learnLabel}
               </Typography>
 
               <Divider sx={{ my: 2 }} />
 
               <Stack spacing={1}>
                 <Typography>
-                  ✅ Aciertos: <b>{correctCount}</b>
+                  ✅ {t("finish.correct")}: <b>{correctCount}</b>
                 </Typography>
                 <Typography>
-                  ❌ Fallos: <b>{wrongCount}</b>
+                  ❌ {t("finish.wrong")}: <b>{wrongCount}</b>
                 </Typography>
                 <Typography>
-                  🎯 Porcentaje de acierto: <b>{accuracy}%</b>
+                  🎯 {t("finish.accuracy")}: <b>{accuracy}%</b>
                 </Typography>
               </Stack>
 
@@ -171,16 +192,12 @@ export default function AnimalGamesPage() {
                   accuracy >= 80
                     ? "success"
                     : accuracy >= 50
-                    ? "info"
-                    : "warning"
+                      ? "info"
+                      : "warning"
                 }
                 sx={{ mt: 2 }}
               >
-                {accuracy >= 80
-                  ? "¡Muy bien! Sigue así."
-                  : accuracy >= 50
-                  ? "¡Bien! Un poco más y lo clavas."
-                  : "No pasa nada: repite y verás cómo sube el porcentaje."}
+                {t(`finish.feedback.${feedbackKey}`)}
               </Alert>
 
               <Stack direction="row" spacing={1} sx={{ mt: 3 }}>
@@ -189,13 +206,13 @@ export default function AnimalGamesPage() {
                   startIcon={<RefreshIcon />}
                   onClick={resetGame}
                 >
-                  Jugar otra vez
+                  {t("finish.playAgain")}
                 </Button>
                 <Button
                   variant="outlined"
                   onClick={() => router.push("/games")}
                 >
-                  Volver a Games
+                  {t("finish.back")}
                 </Button>
               </Stack>
             </CardContent>
@@ -216,21 +233,21 @@ export default function AnimalGamesPage() {
           <Stack direction="row" alignItems="center" spacing={1}>
             <IconButton
               onClick={() => router.push("/games")}
-              aria-label="volver"
+              aria-label={t("finish.back")}
             >
               <ArrowBackIcon />
             </IconButton>
             <Box>
               <Typography variant="h5" fontWeight={800}>
-                Animales
+                {t("title")}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Idioma elegido: <b>{learnLabel}</b>
+                {t("languageChosen") + " " + learnLabel}
               </Typography>
             </Box>
           </Stack>
 
-          <IconButton onClick={resetGame} aria-label="reiniciar">
+          <IconButton onClick={resetGame} aria-label={t("finish.playAgain")}>
             <RefreshIcon />
           </IconButton>
         </Stack>
@@ -243,7 +260,6 @@ export default function AnimalGamesPage() {
         </Box>
 
         <Card variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
-          {/* Imagen mejor (sin recorte) */}
           <Box
             sx={{
               position: "relative",
@@ -284,11 +300,11 @@ export default function AnimalGamesPage() {
           <CardContent>
             <Stack spacing={2}>
               <Typography variant="body1">
-                Escribe la palabra en <b>{inputLabel}</b>
+                {t("writeWord") + " " + learnLabel}
               </Typography>
 
               <TextField
-                label={`Respuesta (${inputLabel})`}
+                label={t("answerLabel") + " " + inputLabel}
                 value={value}
                 onChange={(e) => {
                   setValue(e.target.value);
@@ -300,18 +316,12 @@ export default function AnimalGamesPage() {
                 }}
                 fullWidth
                 autoFocus
-                helperText={
-                  status === "correct"
-                    ? "✅ Correcto"
-                    : status === "wrong"
-                    ? "❌ No es correcto"
-                    : "Pulsa Enter o el botón Comprobar"
-                }
+                helperText={helperText}
               />
 
               {status === "wrong" && showAnswer && (
                 <Alert severity="info">
-                  Respuesta correcta: <b>{expected}</b>
+                  {t("correctAnswer" + " " + expected)}
                 </Alert>
               )}
 
@@ -321,16 +331,16 @@ export default function AnimalGamesPage() {
                   onClick={check}
                   disabled={!value.trim()}
                 >
-                  Comprobar
+                  {t("check")}
                 </Button>
                 <Button variant="outlined" onClick={skip}>
-                  Saltar
+                  {t("skip")}
                 </Button>
               </Stack>
 
-              {/* ✅ Opcional: mini marcador en vivo */}
               <Typography variant="caption" color="text.secondary">
-                Aciertos: {correctCount} · Fallos: {wrongCount}
+                {t("finish.correct")}: {correctCount} · {t("finish.wrong")}:{" "}
+                {wrongCount}
               </Typography>
             </Stack>
           </CardContent>
