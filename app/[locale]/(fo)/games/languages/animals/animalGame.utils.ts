@@ -1,5 +1,12 @@
 // animalGame.utils.ts
 export type Lang = "es" | "en";
+export type Difficulty = "easy" | "normal" | "hard";
+
+export const DIFFICULTY_SIZES: Record<Difficulty, number> = {
+  easy: 5,
+  normal: 10,
+  hard: 20,
+};
 
 export function normalizeWord(s: string) {
   return s
@@ -26,4 +33,9 @@ export function getLanguageLabel(lang: Lang, locale: string) {
   } catch {
     return lang;
   }
+}
+
+export function getDifficultyLabel(d: Difficulty) {
+  // lo dejo simple; si quieres, lo pasamos a next-intl
+  return d === "easy" ? "Fácil" : d === "normal" ? "Normal" : "Difícil";
 }

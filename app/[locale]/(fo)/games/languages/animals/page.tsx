@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 
-import type { Lang } from "./animalGame.utils";
+import type { Difficulty, Lang } from "./animalGame.utils";
 import { getLanguageLabel } from "./animalGame.utils";
 import { useAnimalGame } from "./useAnimalGame";
 
@@ -15,17 +15,33 @@ import { AnimalGameHeader } from "./AnimalGameHeader";
 import { AnimalGameProgress } from "./AnimalGameProgress";
 import { AnimalGameCard } from "./AnimalGameCard";
 import { AnimalGameFinish } from "./AnimalGameFinish";
+import { DifficultySelector } from "./DifficultySelector";
+
+function asDifficulty(x: string | null): Difficulty {
+  return x === "easy" || x === "normal" || x === "hard" ? x : "normal";
+}
 
 export default function AnimalGamesPage() {
   const t = useTranslations("animalGame");
   const locale = useLocale();
   const router = useRouter();
   const sp = useSearchParams();
+
   const learnLang = (sp.get("lang") as Lang) ?? "en";
+  const difficulty = asDifficulty(sp.get("difficulty"));
 
   const learnLabel = getLanguageLabel(learnLang, locale);
+  const game = useAnimalGame(learnLang, difficulty);
 
-  const game = useAnimalGame(learnLang);
+  const backToGames = () => router.push("/games");
+
+  const setDifficulty = (d: Difficulty) => {
+    // reconstruimos query conservando lang
+    const params = new URLSearchParams(sp.toString());
+    params.set("lang", learnLang);
+    params.set("difficulty", d);
+    router.push(`/games/languages/animals?${params.toString()}`);
+  };
 
   const helperText =
     game.status === "correct"
@@ -39,7 +55,14 @@ export default function AnimalGamesPage() {
   const feedbackSeverity =
     game.accuracy >= 80 ? "success" : game.accuracy >= 50 ? "info" : "warning";
 
-  const backToGames = () => router.push("/games/languages");
+  const difficultyLabel =
+    difficulty === "easy"
+      ? t("difficulty.easy")
+      : difficulty === "normal"
+        ? t("difficulty.normal")
+        : t("difficulty.hard");
+
+  const subtitle = `${t("languageChosen")} ${learnLabel} · ${t("difficulty.label")} ${difficultyLabel}`;
 
   if (game.finished) {
     return (
@@ -49,7 +72,7 @@ export default function AnimalGamesPage() {
           backLabel={t("finish.back")}
           onBack={backToGames}
           finishTitle={t("finish.title")}
-          languageChosenText={t("languageChosen") + " " + learnLabel}
+          languageChosenText={subtitle}
           correctLabel={t("finish.correct")}
           wrongLabel={t("finish.wrong")}
           accuracyLabel={t("finish.accuracy")}
@@ -70,11 +93,20 @@ export default function AnimalGamesPage() {
       <Stack spacing={2}>
         <AnimalGameHeader
           title={t("title")}
-          subtitle={t("languageChosen") + " " + learnLabel}
+          subtitle={subtitle}
           onBack={backToGames}
           onReset={game.resetGame}
           backAriaLabel={t("finish.back")}
           resetAriaLabel={t("finish.playAgain")}
+        />
+
+        <DifficultySelector
+          label={t("difficulty.label")}
+          value={difficulty}
+          onChange={setDifficulty}
+          easyLabel={t("difficulty.easy")}
+          normalLabel={t("difficulty.normal")}
+          hardLabel={t("difficulty.hard")}
         />
 
         <AnimalGameProgress

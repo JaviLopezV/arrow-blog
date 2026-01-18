@@ -334,6 +334,12 @@
         "medium": "Nice! You're almost there.",
         "low": "No worries — try again and your score will improve."
       }
+    },
+    "difficulty": {
+      "label": "Dificultad",
+      "easy": "Fácil",
+      "normal": "Normal",
+      "hard": "Difícil"
     }
   }
 }

@@ -334,6 +334,12 @@
         "medium": "¡Bien! Un poco más y lo clavas.",
         "low": "No pasa nada: repite y verás cómo sube el porcentaje."
       }
+    },
+    "difficulty": {
+      "label": "Dificultad",
+      "easy": "Fácil",
+      "normal": "Normal",
+      "hard": "Difícil"
     }
   }
 }
