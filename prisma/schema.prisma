@@ -58,3 +58,29 @@ model Post {
   @@index([status, publishedAt])
   @@index([authorId])
 }
+
+enum PageStatus {
+  ACTIVE
+  UNDER_CONSTRUCTION
+  INACTIVE
+}
+
+model Page {
+  id        String     @id @default(cuid())
+
+  /**
+   * Path del FO SIN locale. Ej: "/home", "/games", "/account/settings".
+   * Debe ser único.
+   */
+  path      String     @unique
+
+  /** Nombre opcional para mostrar en BO */
+  name      String?
+
+  status    PageStatus @default(ACTIVE)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([status])
+}

@@ -22,13 +22,22 @@ import LogoutButton from "../components/LogoutButton";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 import { useTranslations } from "next-intl";
 
-export default function FoLayout({ children }: { children: React.ReactNode }) {
-  const t = useTranslations("foLayout");
+type PageStatus = "ACTIVE" | "UNDER_CONSTRUCTION" | "INACTIVE";
 
+type Props = {
+  children: React.ReactNode;
+  pageStatuses: Record<string, PageStatus>;
+};
+
+export default function FoLayout({ children, pageStatuses }: Props) {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const t = useTranslations("foLayout");
   const theme = useTheme();
+
+  const isInactive = (path: string) => pageStatuses?.[path] === "INACTIVE";
+
   const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) =>
@@ -90,18 +99,28 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
 
                     <MenuItem
                       component={Link as any}
-                      href="/account/settings"
+                      href="/blog"
                       onClick={handleCloseMenu}
+                      disabled={isInactive("/blog")}
                     >
-                      {t("nav.settings")}
+                      {t("nav.blog")}
                     </MenuItem>
 
                     <MenuItem
                       component={Link as any}
                       href="/games"
                       onClick={handleCloseMenu}
+                      disabled={isInactive("/games")}
                     >
                       {t("nav.games")}
+                    </MenuItem>
+
+                    <MenuItem
+                      component={Link as any}
+                      href="/account/settings"
+                      onClick={handleCloseMenu}
+                    >
+                      {t("nav.settings")}
                     </MenuItem>
 
                     <MenuItem onClick={handleCloseMenu} sx={{ py: 0 }}>
@@ -156,10 +175,11 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                   <Button
                     color="inherit"
                     component={Link as any}
-                    href="/account/settings"
+                    href="/blog"
                     sx={{ whiteSpace: "nowrap" }}
+                    disabled={isInactive("/blog")}
                   >
-                    {t("nav.settings")}
+                    {t("nav.blog")}
                   </Button>
 
                   <Button
@@ -167,8 +187,18 @@ export default function FoLayout({ children }: { children: React.ReactNode }) {
                     component={Link as any}
                     href="/games"
                     sx={{ whiteSpace: "nowrap" }}
+                    disabled={isInactive("/games")}
                   >
                     {t("nav.games")}
+                  </Button>
+
+                  <Button
+                    color="inherit"
+                    component={Link as any}
+                    href="/account/settings"
+                    sx={{ whiteSpace: "nowrap" }}
+                  >
+                    {t("nav.settings")}
                   </Button>
 
                   <LogoutButton />

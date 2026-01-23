@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 // Cambia versión cuando quieras invalidar caché
-const VERSION = "v2";
+const VERSION = "v3";
 
 const STATIC_CACHE = `static-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
@@ -14,7 +14,7 @@ const PRECACHE_URLS = ["/offline"];
 =========================== */
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE_URLS))
+    caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE_URLS)),
   );
   self.skipWaiting();
 });
@@ -30,9 +30,9 @@ self.addEventListener("activate", (event) => {
         Promise.all(
           keys
             .filter((key) => ![STATIC_CACHE, RUNTIME_CACHE].includes(key))
-            .map((key) => caches.delete(key))
-        )
-      )
+            .map((key) => caches.delete(key)),
+        ),
+      ),
   );
   self.clients.claim();
 });
@@ -59,7 +59,7 @@ self.addEventListener("fetch", (event) => {
         .catch(async () => {
           const cached = await caches.match(req);
           return cached || (await caches.match("/offline"));
-        })
+        }),
     );
     return;
   }
@@ -78,7 +78,7 @@ self.addEventListener("fetch", (event) => {
           caches.open(STATIC_CACHE).then((cache) => cache.put(req, copy));
           return res;
         });
-      })
+      }),
     );
     return;
   }
@@ -95,7 +95,7 @@ self.addEventListener("fetch", (event) => {
           })
           .catch(() => cached);
         return cached || network;
-      })
+      }),
     );
     return;
   }
@@ -108,6 +108,6 @@ self.addEventListener("fetch", (event) => {
         caches.open(RUNTIME_CACHE).then((cache) => cache.put(req, copy));
         return res;
       })
-      .catch(() => caches.match(req))
+      .catch(() => caches.match(req)),
   );
 });

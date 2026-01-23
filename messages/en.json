@@ -76,6 +76,7 @@
   "foLayout": {
     "nav": {
       "home": "Home",
+      "blog": "Blog",
       "settings": "Settings",
       "games": "Games",
       "openMenuAria": "open navigation menu"
@@ -85,6 +86,7 @@
   "boLayout": {
     "drawerTitle": "Back Office",
     "nav": {
+      "pages": "Páginas",
       "blogs": "Blogs",
       "settings": "Settings"
     },
@@ -93,6 +95,9 @@
   },
   "fo": {
     "home": {
+      "title": "Home"
+    },
+    "blog": {
       "title": "Blog",
       "subtitle": "Latest posts",
       "empty": "No posts published yet.",
@@ -100,6 +105,15 @@
     }
   },
   "bo": {
+    "pages": {
+      "title": "Páginas (FO)",
+      "save": "Guardar",
+      "status": {
+        "ACTIVE": "Activa",
+        "UNDER_CONSTRUCTION": "En construcción",
+        "INACTIVE": "Inactiva"
+      }
+    },
     "blogs": {
       "title": "Blogs",
       "new": "New post",

@@ -1,55 +1,12 @@
-"use client";
+import { enforceFoPageStatus } from "@/app/lib/pages";
+import GamesClient from "./GamesClient";
 
-import * as React from "react";
-import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
-import {
-  Box,
-  Container,
-  Typography,
-  Card,
-  CardActionArea,
-  CardContent,
-  Stack,
-} from "@mui/material";
+type Props = { params: Promise<{ locale: string }> };
 
-export default function GamesPage() {
-  const t = useTranslations("games");
-  const router = useRouter();
+export default async function GamesPage({ params }: Props) {
+  const { locale } = await params;
 
-  return (
-    <Container maxWidth="sm" sx={{ py: 6 }}>
-      <Stack spacing={3}>
-        <Box>
-          <Typography variant="h4" fontWeight={800} gutterBottom>
-            {t("title")}
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            {t("description")}
-          </Typography>
-        </Box>
+  await enforceFoPageStatus({ locale, path: "/games" });
 
-        <Card variant="outlined" sx={{ borderRadius: 3, overflow: "hidden" }}>
-          <CardActionArea onClick={() => router.push(`/games/languages`)}>
-            <CardContent>
-              <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Box>
-                  <Typography variant="subtitle1" fontWeight={800}>
-                    {t("languages.title")}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {t("languages.description")}
-                  </Typography>
-                </Box>
-              </Stack>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Stack>
-    </Container>
-  );
+  return <GamesClient />;
 }

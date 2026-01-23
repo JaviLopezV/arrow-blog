@@ -48,6 +48,10 @@ export default function BoShellClient({
         <Divider sx={{ mb: 1 }} />
 
         <List>
+          <ListItemButton component={Link as any} href="/bo/pages">
+            <ListItemText primary={t("nav.pages")} />
+          </ListItemButton>
+
           <ListItemButton component={Link as any} href="/bo/blogs">
             <ListItemText primary={t("nav.blogs")} />
           </ListItemButton>
