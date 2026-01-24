@@ -41,7 +41,7 @@ export default function EditPostForm({
 
   const [state, formAction, isPending] = useActionState(
     updatePost.bind(null, locale, post.id),
-    initialState
+    initialState,
   );
 
   useEffect(() => {
@@ -51,6 +51,13 @@ export default function EditPostForm({
   }, [state, router]);
 
   const statusLabel = t(`status.${post.status}` as any);
+
+  // Acción delete usando useActionState (opcional pero limpio)
+  const [, deleteAction, isDeleting] = useActionState(async () => {
+    await deletePost(locale, post.id);
+    router.push(`/${locale}/bo/blogs`);
+    router.refresh();
+  }, undefined);
 
   return (
     <Stack spacing={3} maxWidth={900}>
@@ -141,19 +148,25 @@ export default function EditPostForm({
             </TextField>
 
             <Stack direction="row" spacing={2}>
-              <Button type="submit" variant="contained" disabled={isPending}>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={isPending || isDeleting}
+              >
                 {isPending ? t("actions.saving") : t("actions.save")}
               </Button>
 
-              <Button
-                type="button"
-                variant="outlined"
-                color="error"
-                disabled={isPending}
-                formAction={deletePost.bind(null, locale, post.id)}
-              >
-                {t("actions.delete")}
-              </Button>
+              {/* DELETE sin formAction (evita error TS + build) */}
+              <form action={deleteAction} style={{ display: "inline-flex" }}>
+                <Button
+                  type="submit"
+                  variant="outlined"
+                  color="error"
+                  disabled={isPending || isDeleting}
+                >
+                  {isDeleting ? t("actions.deleting") : t("actions.delete")}
+                </Button>
+              </form>
             </Stack>
           </Stack>
         </Box>

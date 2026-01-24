@@ -168,6 +168,4 @@ export async function deletePost(locale: string, postId: string) {
     where: { id: postId },
     select: { id: true },
   });
-
-  return { ok: true as const };
 }

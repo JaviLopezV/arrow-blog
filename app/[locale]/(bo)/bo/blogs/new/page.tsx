@@ -27,7 +27,7 @@ export default function NewPostPage() {
 
   const [state, formAction, isPending] = useActionState(
     createPost.bind(null, locale),
-    initialState
+    initialState,
   );
 
   useEffect(() => {
