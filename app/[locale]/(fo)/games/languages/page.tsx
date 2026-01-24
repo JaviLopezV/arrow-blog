@@ -14,14 +14,18 @@ import {
   CardContent,
   Stack,
   Chip,
+  IconButton,
 } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 type Lang = "es" | "en";
 
 export default function LanguagesPage() {
-  const t = useTranslations("games");
+  const t = useTranslations("games.languages");
   const router = useRouter();
   const [learnLang, setLearnLang] = React.useState<Lang | null>(null);
+
+  const goBack = () => router.push("/games");
 
   const handleLangChange = (
     _: React.MouseEvent<HTMLElement>,
@@ -37,9 +41,15 @@ export default function LanguagesPage() {
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h4" fontWeight={800} gutterBottom>
-            {t("title")}
-          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <IconButton onClick={goBack} aria-label={"back to games"}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h5" fontWeight={800}>
+              {t("title")}
+            </Typography>
+          </Stack>
+
           <Typography variant="body1" color="text.secondary">
             {t("description")}
           </Typography>
@@ -103,25 +113,14 @@ export default function LanguagesPage() {
                 }
               >
                 <CardContent>
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Box>
-                      <Typography variant="subtitle1" fontWeight={800}>
-                        {t("animals.title")}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {t("animals.description")}
-                      </Typography>
-                    </Box>
-                    <Chip
-                      label={t("animals.available")}
-                      color="success"
-                      variant="outlined"
-                    />
-                  </Stack>
+                  <Box>
+                    <Typography variant="subtitle1" fontWeight={800}>
+                      {t("animals.title")}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {t("animals.description")}
+                    </Typography>
+                  </Box>
                 </CardContent>
               </CardActionArea>
             </Card>

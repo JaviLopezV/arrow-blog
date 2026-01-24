@@ -13,7 +13,7 @@ import {
   Stack,
 } from "@mui/material";
 
-export default async function GamesClient() {
+export default function GamesClient() {
   const t = useTranslations("games");
   const router = useRouter();
 

@@ -70,7 +70,7 @@
       "cookies": "Cookies",
       "useTerms": "Terms of use",
       "termsAndConditions": "Terms and conditions",
-      "copyright": "© {year} Arrow Blog — Javier López Villanueva"
+      "copyright": "© {year} Arrow Apps — Javier López Villanueva"
     }
   },
   "foLayout": {
@@ -81,7 +81,7 @@
       "games": "Games",
       "openMenuAria": "open navigation menu"
     },
-    "brand": "Arrow Blog"
+    "brand": "Arrow Apps"
   },
   "boLayout": {
     "drawerTitle": "Back Office",
@@ -180,7 +180,7 @@
 
   "legalCookies": {
     "title": "Cookies Policy",
-    "p1": "Arrow Blog only uses technical cookies necessary for the operation of the platform and user authentication.",
+    "p1": "Arrow Apps only uses technical cookies necessary for the operation of the platform and user authentication.",
     "p2": "No analytics, advertising or third-party tracking cookies are used.",
     "p3": "For this reason, displaying a cookie banner is not required under current regulations."
   },
@@ -191,7 +191,7 @@
     "email": "<b>Email:</b> arrow.apps.jlv@gmail.com",
     "activity": "<b>Activity:</b> Development and maintenance of a personal web platform",
     "domain": "<b>Domain:</b> https://arrow-blog.vercel.app",
-    "p1": "This Legal Notice governs access, browsing and use of the Arrow Blog website, owned by Javier López Villanueva.",
+    "p1": "This Legal Notice governs access, browsing and use of the Arrow Apps website, owned by Javier López Villanueva.",
     "p2": "Access to and use of the site implies express and unconditional acceptance of all the conditions set out herein.",
     "p3": "The owner is not responsible for improper use of the published information or for any damages that may arise from use of the website."
   },
@@ -221,10 +221,10 @@
 
   "legalTermsAndConditions": {
     "title": "Terms and Conditions of Use",
-    "intro": "These Terms and Conditions set out the rules applicable to the use of Arrow Blog. By accessing, browsing or registering, you agree to comply with them.",
+    "intro": "These Terms and Conditions set out the rules applicable to the use of Arrow Apps. By accessing, browsing or registering, you agree to comply with them.",
 
     "s1Title": "1. Purpose",
-    "s1Body": "Arrow Blog is a personal web platform in development that allows users to create an account and use the application’s features.",
+    "s1Body": "Arrow Apps is a personal web platform in development that allows users to create an account and use the application’s features.",
 
     "s2Title": "2. User obligations",
     "s2Li1": "Use the platform lawfully and in good faith.",
@@ -252,7 +252,7 @@
 
   "legalUseTerms": {
     "title": "Terms of Use",
-    "intro": "These Terms of Use govern access to and use of Arrow Blog. By accessing and using the site, you accept these conditions.",
+    "intro": "These Terms of Use govern access to and use of Arrow Apps. By accessing and using the site, you accept these conditions.",
 
     "s1Title": "1. Access to the service",
     "s1Body": "General access to the site is free of charge. Some features may require registration and sign-in. The owner may modify, suspend or interrupt the service in whole or in part for technical, security or maintenance reasons.",
@@ -304,23 +304,34 @@
   },
   "games": {
     "title": "Games",
-    "description": "Choose the language you want to learn and then pick a game.",
-    "languageStep": "1) Language",
-    "gameStep": "2) Game",
-    "en": "English",
-    "es": "Spanish",
-    "languageSelected": "Selected: ",
-    "selectLanguage": "Select a language",
-    "animals": {
-      "title": "Animals",
-      "description": "Write the correct translation based on the chosen language.",
-      "available": "Available",
-      "titleChooseImage": "Select the correct image",
-      "chooseImage": { "prompt": "Choose:" }
-    },
+    "description": "Choose a game",
     "languages": {
       "title": "Languages",
-      "description": "Games to learn languages."
+      "description": "Games to learn languages.",
+
+      "languageStep": "1) Language",
+      "gameStep": "2) Game",
+      "en": "English",
+      "es": "Spanish",
+      "languageSelected": "Selected: ",
+      "selectLanguage": "Select a language",
+
+      "animals": {
+        "title": "Animals",
+        "description": "Learn the names of animals in different languages.",
+        "write": {
+          "title": "Write the correct word",
+          "description": "Write the correct translation according to the selected language.",
+          "available": "Available"
+        },
+
+        "chooseImage": {
+          "title": "Select the correct image",
+          "description": "Choose the image according to the selected language.",
+          "prompt": "Select:",
+          "available": "Available"
+        }
+      }
     }
   },
 

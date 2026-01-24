@@ -34,6 +34,7 @@ export default function ChooseImageGamePage() {
   const game = useChooseImageGame(learnLang, difficulty);
 
   const backToGames = () => router.push("/games");
+
   const backToAnimals = () =>
     router.push(`/games/languages/animals?lang=${learnLang.toString()}`);
 

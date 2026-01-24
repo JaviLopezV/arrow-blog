@@ -35,8 +35,9 @@ export default function AnimalGamesPage() {
   const game = useAnimalGame(learnLang, difficulty);
 
   const backToGames = () => router.push("/games");
+
   const backToAnimals = () =>
-    router.push(`games/languages/animals?lang=${learnLang.toString()}`);
+    router.push(`/games/languages/animals?lang=${learnLang.toString()}`);
 
   const setDifficulty = (d: Difficulty) => {
     // reconstruimos query conservando lang

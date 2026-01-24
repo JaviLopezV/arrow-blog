@@ -50,7 +50,7 @@ export function ChooseImageCard({
               {promptTitle}
             </Typography>
             <Typography variant="h5" fontWeight={900}>
-              {promptWord}
+              {promptWord.charAt(0).toUpperCase() + promptWord.slice(1)}
             </Typography>
           </Box>
 

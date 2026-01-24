@@ -14,7 +14,7 @@ import LegalFooter from "./components/LegalFooter";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-  title: "Arrow Blog",
+  title: "Arrow Apps",
   description: "Plataforma web personal",
   manifest: "/manifest.webmanifest",
 };

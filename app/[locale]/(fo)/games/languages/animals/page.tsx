@@ -12,15 +12,18 @@ import {
   CardContent,
   Stack,
   Chip,
+  IconButton,
 } from "@mui/material";
 import { useSearchParams } from "next/navigation";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 type Lang = "es" | "en";
 
 export default function AnimalsPage() {
-  const t = useTranslations("games");
+  const t = useTranslations("games.languages.animals");
   const router = useRouter();
   const sp = useSearchParams();
+  const goBack = () => router.push("/games");
 
   const learnLang = (sp.get("lang") as Lang) ?? "en";
 
@@ -28,13 +31,18 @@ export default function AnimalsPage() {
     <Container maxWidth="sm" sx={{ py: 6 }}>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h4" fontWeight={800} gutterBottom>
-            {t("title")}
-          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <IconButton onClick={goBack} aria-label={"back to games"}>
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h4" fontWeight={800}>
+              {t("title")}
+            </Typography>
+          </Stack>
         </Box>
 
         <Typography variant="h6" fontWeight={700} gutterBottom>
-          {t("gameStep")}
+          {t("description")}
         </Typography>
 
         <Card
@@ -56,14 +64,14 @@ export default function AnimalsPage() {
               >
                 <Box>
                   <Typography variant="subtitle1" fontWeight={800}>
-                    {t("animals.title")}
+                    {t("write.title")}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {t("animals.description")}
+                    {t("write.description")}
                   </Typography>
                 </Box>
                 <Chip
-                  label={t("animals.available")}
+                  label={t("write.available")}
                   color="success"
                   variant="outlined"
                 />
@@ -91,14 +99,14 @@ export default function AnimalsPage() {
               >
                 <Box>
                   <Typography variant="subtitle1" fontWeight={800}>
-                    {t("animals.titleChooseImage")}
+                    {t("chooseImage.title")}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {t("animals.chooseImage.prompt")}
+                    {t("chooseImage.description")}
                   </Typography>
                 </Box>
                 <Chip
-                  label={t("animals.available")}
+                  label={t("chooseImage.available")}
                   color="success"
                   variant="outlined"
                 />

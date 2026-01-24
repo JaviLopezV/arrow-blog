@@ -1,7 +1,6 @@
+# Arrow Apps
 
-# Arrow Blog
-
-Arrow Blog es una aplicación web moderna construida con **Next.js (App Router)**, que incluye autenticación, backoffice con control de roles, internacionalización, PWA/offline, rate limiting y persistencia en PostgreSQL.
+Arrow Apps es una aplicación web moderna construida con **Next.js (App Router)**, que incluye autenticación, backoffice con control de roles, internacionalización, PWA/offline, rate limiting y persistencia en PostgreSQL.
 
 Este README **refleja el estado real del código**, no el histórico.
 
@@ -71,15 +70,18 @@ public/
 - Timezone fija: `Europe/Madrid`
 
 Configuración:
+
 - `next.config.ts` usa `createNextIntlPlugin`
 - `i18n/request.ts` carga mensajes dinámicamente
 
 ⚠️ **Nota sobre middleware**  
 Existe un archivo `proxy.ts` con lógica de middleware (i18n + auth), pero **NO está activo** porque:
+
 - Next.js exige `middleware.ts`
 - Al renombrarlo, Next.js indica que el patrón está “desactualizado”
 
 Actualmente:
+
 - **No hay middleware activo**
 - La protección de rutas se hace principalmente en layouts y server components
 
@@ -90,16 +92,19 @@ Actualmente:
 Implementado con **NextAuth (Credentials Provider)**
 
 ### Roles
+
 - `ADMIN`
 - `CLIENT`
 
 ### Flujo
+
 - Login con email/password
 - Passwords hasheadas con bcrypt
 - Sesión con JWT
 - `role` e `id` se inyectan en token y sesión
 
 ### Redirecciones
+
 - Sin sesión → `/[locale]/auth`
 - ADMIN → `/[locale]/bo/blogs`
 - CLIENT → `/[locale]/under-construction`
@@ -109,11 +114,13 @@ Implementado con **NextAuth (Credentials Provider)**
 ## 📝 Registro de Usuarios
 
 Endpoint:
+
 ```
 POST /api/auth/register
 ```
 
 Características:
+
 - Inserción directa vía **pg Pool** (no Prisma)
 - Rate limit: **5 registros/min/IP**
 - Rol por defecto: `CLIENT`
@@ -126,18 +133,21 @@ Características:
 ### Modelos principales
 
 **User**
+
 - id (cuid)
 - email (unique)
 - password
 - role (`ADMIN | CLIENT`)
 
 **Post**
+
 - slug (unique)
 - status (`DRAFT | PUBLISHED`)
 - publishedAt
 - authorId
 
 ### Cliente Prisma
+
 - Usa `adapter-pg` con `Pool`
 - Cacheado en `globalThis` en desarrollo
 
@@ -146,6 +156,7 @@ Características:
 ## 🌱 Seed
 
 Archivo real:
+
 ```
 prisma/seed.js
 ```
@@ -153,10 +164,12 @@ prisma/seed.js
 Crea o actualiza un usuario ADMIN:
 
 Variables:
+
 - `SEED_ADMIN_EMAIL` (default: admin@local.dev)
 - `SEED_ADMIN_PASSWORD` (default: admin1234)
 
 Ejecución:
+
 ```
 npx prisma db seed
 ```
@@ -168,6 +181,7 @@ npx prisma db seed
 Implementado con `@upstash/redis`
 
 Límites actuales:
+
 - Registro: **5/min**
 - Login (NextAuth POST): **20/min**
 - Borrado de cuenta: **3/hora**
@@ -179,11 +193,13 @@ Identificación por IP (`x-forwarded-for`, `x-real-ip`)
 ## 🧨 Borrado de Cuenta
 
 Endpoint:
+
 ```
 DELETE /api/account
 ```
 
 Modo actual: **anonymize**
+
 - Reasigna posts a usuario `deleted@arrow-blog.local`
 - Elimina el usuario original
 
