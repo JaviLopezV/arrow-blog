@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Chip,
-  MenuItem,
-  Paper,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Chip, Paper, Stack, Typography } from "@mui/material";
 import { prisma } from "@/app/lib/prisma";
 import { getTranslations } from "next-intl/server";
 import { getServerSession } from "next-auth";
@@ -18,7 +9,6 @@ type Role = "CLIENT" | "ADMIN" | "SUPERADMIN";
 
 type Props = {
   params: Promise<{ locale: string }>;
-  // en este repo no hay ejemplos, así que lo hacemos tolerante
   searchParams?: any;
 };
 
@@ -72,7 +62,6 @@ export default async function BoUsersPage({ params, searchParams }: Props) {
 
   const canEditRole = (targetRole: Role) => {
     if (actorRole === "SUPERADMIN") return true;
-    // ADMIN solo promociona CLIENT->ADMIN
     return actorRole === "ADMIN" && targetRole === "CLIENT";
   };
 
@@ -85,67 +74,52 @@ export default async function BoUsersPage({ params, searchParams }: Props) {
         <Typography color="text.secondary">{t("subtitle")}</Typography>
       </Stack>
 
-      {/* Filtros */}
+      {/* Filtros (SIN handlers, solo links) */}
       <Paper variant="outlined">
         <Box
           sx={{
             p: 2,
             display: "flex",
-            gap: 2,
+            gap: 1,
             alignItems: "center",
             flexWrap: "wrap",
           }}
         >
-          <Typography fontWeight={700}>{t("filters.roleLabel")}</Typography>
+          <Typography fontWeight={700} sx={{ mr: 1 }}>
+            {t("filters.roleLabel")}:
+          </Typography>
 
-          <Select
+          <Button
             size="small"
-            value={selectedRole}
-            sx={{ minWidth: 220 }}
-            onChange={() => {
-              // No-op: server component. Usamos links simples:
-              // el cambio real se hace con los botones de abajo.
-            }}
-            renderValue={(v) =>
-              v === "ALL" ? t("filters.allRoles") : t(`roles.${v}` as any)
-            }
+            variant={selectedRole === "ALL" ? "contained" : "text"}
+            href={`/${locale}/bo/users`}
           >
-            <MenuItem value="ALL">{t("filters.allRoles")}</MenuItem>
-            <MenuItem value="SUPERADMIN">{t("roles.SUPERADMIN")}</MenuItem>
-            <MenuItem value="ADMIN">{t("roles.ADMIN")}</MenuItem>
-            <MenuItem value="CLIENT">{t("roles.CLIENT")}</MenuItem>
-          </Select>
+            {t("filters.allRoles")}
+          </Button>
 
-          <Box sx={{ display: "flex", gap: 1 }}>
-            <Button
-              size="small"
-              variant={selectedRole === "ALL" ? "contained" : "text"}
-              href={`/${locale}/bo/users`}
-            >
-              {t("filters.allRoles")}
-            </Button>
-            <Button
-              size="small"
-              variant={selectedRole === "SUPERADMIN" ? "contained" : "text"}
-              href={`/${locale}/bo/users?role=SUPERADMIN`}
-            >
-              {t("roles.SUPERADMIN")}
-            </Button>
-            <Button
-              size="small"
-              variant={selectedRole === "ADMIN" ? "contained" : "text"}
-              href={`/${locale}/bo/users?role=ADMIN`}
-            >
-              {t("roles.ADMIN")}
-            </Button>
-            <Button
-              size="small"
-              variant={selectedRole === "CLIENT" ? "contained" : "text"}
-              href={`/${locale}/bo/users?role=CLIENT`}
-            >
-              {t("roles.CLIENT")}
-            </Button>
-          </Box>
+          <Button
+            size="small"
+            variant={selectedRole === "SUPERADMIN" ? "contained" : "text"}
+            href={`/${locale}/bo/users?role=SUPERADMIN`}
+          >
+            {t("roles.SUPERADMIN")}
+          </Button>
+
+          <Button
+            size="small"
+            variant={selectedRole === "ADMIN" ? "contained" : "text"}
+            href={`/${locale}/bo/users?role=ADMIN`}
+          >
+            {t("roles.ADMIN")}
+          </Button>
+
+          <Button
+            size="small"
+            variant={selectedRole === "CLIENT" ? "contained" : "text"}
+            href={`/${locale}/bo/users?role=CLIENT`}
+          >
+            {t("roles.CLIENT")}
+          </Button>
         </Box>
       </Paper>
 
@@ -226,7 +200,7 @@ export default async function BoUsersPage({ params, searchParams }: Props) {
                       </Button>
                     </form>
 
-                    {!canDisable && u.id === actorId && (
+                    {u.id === actorId && (
                       <Typography variant="caption" color="text.secondary">
                         {t("selfProtected")}
                       </Typography>
@@ -240,21 +214,24 @@ export default async function BoUsersPage({ params, searchParams }: Props) {
                         action={setUserRole.bind(null, locale, u.id)}
                         style={{ display: "inline-flex", gap: 8 }}
                       >
-                        <Select
-                          size="small"
+                        <select
                           name="role"
                           defaultValue={targetRole}
-                          sx={{ minWidth: 170 }}
                           disabled={u.id === actorId}
+                          style={{
+                            height: 36,
+                            padding: "0 10px",
+                            borderRadius: 6,
+                            border: "1px solid rgba(0,0,0,0.23)",
+                            background: "transparent",
+                          }}
                         >
-                          <MenuItem value="SUPERADMIN">
+                          <option value="SUPERADMIN">
                             {t("roles.SUPERADMIN")}
-                          </MenuItem>
-                          <MenuItem value="ADMIN">{t("roles.ADMIN")}</MenuItem>
-                          <MenuItem value="CLIENT">
-                            {t("roles.CLIENT")}
-                          </MenuItem>
-                        </Select>
+                          </option>
+                          <option value="ADMIN">{t("roles.ADMIN")}</option>
+                          <option value="CLIENT">{t("roles.CLIENT")}</option>
+                        </select>
 
                         <Button
                           size="small"
