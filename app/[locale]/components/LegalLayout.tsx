@@ -1,8 +1,8 @@
 "use client";
-import { Box, Container, Typography, Button } from "@mui/material";
-import { Link } from "@/i18n/navigation";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 
+import { Box, Container, Typography, Button } from "@mui/material";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 export default function LegalLayout({
@@ -13,14 +13,18 @@ export default function LegalLayout({
   children: React.ReactNode;
 }) {
   const t = useTranslations("common");
+  const router = useRouter();
 
   return (
     <Container maxWidth="md" sx={{ py: 6 }}>
-      {/* Volver */}
-
       <Button
-        component={Link as any}
-        href="/auth"
+        onClick={() => {
+          if (window.history.length > 1) {
+            router.back();
+          } else {
+            router.push("/auth");
+          }
+        }}
         startIcon={<ArrowBackRoundedIcon />}
         size="large"
         variant="text"
