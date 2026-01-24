@@ -7,6 +7,39 @@
     "footnote": "Al continuar aceptas nuestras políticas (luego las añadimos)."
   },
 
+  "forgotPassword": {
+    "title": "¿Olvidaste tu contraseña?",
+    "subtitle": "Te enviaremos un código para restablecerla.",
+    "email": "Email",
+    "submitting": "Enviando…",
+    "submit": "Enviar código",
+    "success": "Si el email existe, te hemos enviado un código. Revisa tu bandeja de entrada.",
+    "errorGeneric": "No se ha podido enviar. Inténtalo de nuevo.",
+    "backToLogin": "Volver a login",
+    "haveCode": "Ya tengo un código → Restablecer"
+  },
+  "resetPassword": {
+    "title": "Restablecer contraseña",
+    "subtitle": "Introduce tu email y el código que te enviamos.",
+    "email": "Email",
+    "code": "Código",
+    "verify": "Verificar código",
+    "verifying": "Verificando…",
+    "needCode": "No tengo código → Solicitar",
+    "backToLogin": "Volver a login",
+    "codeOk": "Código correcto. Ya puedes cambiar tu contraseña.",
+    "newPassword": "Nueva contraseña",
+    "repeatPassword": "Repetir contraseña",
+    "passwordHelp": "Mínimo 8 caracteres.",
+    "save": "Guardar contraseña",
+    "saving": "Guardando…",
+    "successRedirect": "Contraseña actualizada. Redirigiendo a login…",
+    "passwordsDontMatch": "Las contraseñas no coinciden",
+    "INVALID_CODE": "El código no es válido",
+    "CODE_EXPIRED": "El código ha caducado",
+    "errorGeneric": "Ha ocurrido un error"
+  },
+
   "register": {
     "title": "Crear cuenta",
     "subtitle": "Crea tu perfil.",
@@ -29,7 +62,8 @@
     "submitting": "Entrando…",
     "submit": "Entrar",
     "invalidCredentials": "Credenciales incorrectas",
-    "toRegister": "No tengo cuenta → Registrarme"
+    "toRegister": "No tengo cuenta → Registrarme",
+    "forgotPassword": "He olvidado mi contraseña →"
   },
   "discover": {
     "emptyTitle": "No hay más perfiles 😢",

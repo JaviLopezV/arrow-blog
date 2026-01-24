@@ -22,6 +22,7 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { useTranslations } from "next-intl";
+import { showGlobalLoading } from "@/app/stores/sharedStore";
 
 export default function LoginPage() {
   const t = useTranslations("login");
@@ -55,6 +56,7 @@ export default function LoginPage() {
       const session = await getSession();
       const role = (session?.user as any)?.role;
 
+      showGlobalLoading();
       router.push(role === "ADMIN" ? `/${locale}/bo/blogs` : `/${locale}`);
       router.refresh();
     } catch {
@@ -157,6 +159,14 @@ export default function LoginPage() {
                     variant="text"
                   >
                     {t("toRegister")}
+                  </Button>
+
+                  <Button
+                    component={Link as any}
+                    href="/forgot-password"
+                    variant="text"
+                  >
+                    {t("forgotPassword")}
                   </Button>
                 </Stack>
               </Box>

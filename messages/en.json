@@ -6,7 +6,38 @@
     "login": "Sign in",
     "footnote": "By continuing you accept our policies (we will add them later)."
   },
-
+  "forgotPassword": {
+    "title": "Forgot your password?",
+    "subtitle": "We’ll email you a reset code.",
+    "email": "Email",
+    "submitting": "Sending…",
+    "submit": "Send code",
+    "success": "If the email exists, we sent you a code. Check your inbox.",
+    "errorGeneric": "Could not send. Try again.",
+    "backToLogin": "Back to login",
+    "haveCode": "I already have a code → Reset"
+  },
+  "resetPassword": {
+    "title": "Reset password",
+    "subtitle": "Enter your email and the code we sent you.",
+    "email": "Email",
+    "code": "Code",
+    "verify": "Verify code",
+    "verifying": "Verifying…",
+    "needCode": "I need a code → Request one",
+    "backToLogin": "Back to login",
+    "codeOk": "Code is valid. You can change your password now.",
+    "newPassword": "New password",
+    "repeatPassword": "Repeat password",
+    "passwordHelp": "At least 8 characters.",
+    "save": "Save password",
+    "saving": "Saving…",
+    "successRedirect": "Password updated. Redirecting to login…",
+    "passwordsDontMatch": "Passwords do not match",
+    "INVALID_CODE": "Invalid code",
+    "CODE_EXPIRED": "Code expired",
+    "errorGeneric": "Something went wrong"
+  },
   "register": {
     "title": "Create account",
     "subtitle": "Create your profile.",
@@ -29,7 +60,8 @@
     "submitting": "Signing in…",
     "submit": "Sign in",
     "invalidCredentials": "Invalid credentials",
-    "toRegister": "I don't have an account → Sign up"
+    "toRegister": "I don't have an account → Sign up",
+    "forgotPassword": "Forgot password →"
   },
   "discover": {
     "emptyTitle": "No more profiles 😢",

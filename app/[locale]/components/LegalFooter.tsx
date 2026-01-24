@@ -1,16 +1,20 @@
+"use client";
 import { Box, Stack, Typography } from "@mui/material";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-
+import { useStore } from "@nanostores/react";
+import { $globalLoading } from "@/app/stores/sharedStore";
 const drawerWidth = 260;
-
 export default function LegalFooter({
   hasSidebar = false,
 }: {
   hasSidebar?: boolean;
 }) {
   const t = useTranslations("legal.footer");
+  const loading = useStore($globalLoading);
   const year = new Date().getFullYear();
+
+  if (loading.active) return;
 
   return (
     <Box
