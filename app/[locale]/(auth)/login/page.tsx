@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
 import { Link } from "@/i18n/navigation";
@@ -22,7 +22,7 @@ import MailOutlineRoundedIcon from "@mui/icons-material/MailOutlineRounded";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { useTranslations } from "next-intl";
-import { showGlobalLoading } from "@/app/stores/sharedStore";
+import { hideLegalFooter, showLegalFooter } from "@/app/stores/sharedStore";
 
 export default function LoginPage() {
   const t = useTranslations("login");
@@ -30,7 +30,9 @@ export default function LoginPage() {
   const router = useRouter();
   const params = useParams();
   const locale = (params?.locale as string) || "es";
-
+  useEffect(() => {
+    showLegalFooter();
+  }, []);
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -60,7 +62,7 @@ export default function LoginPage() {
       const session = await getSession();
       const role = (session?.user as any)?.role;
 
-      showGlobalLoading();
+      hideLegalFooter();
       router.push(role === "ADMIN" ? `/${locale}/bo/blogs` : `/${locale}`);
       router.refresh();
     } catch {

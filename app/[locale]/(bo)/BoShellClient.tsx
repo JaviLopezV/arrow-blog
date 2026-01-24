@@ -21,6 +21,7 @@ import { Link } from "@/i18n/navigation";
 import LogoutButton from "../components/LogoutButton";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 import { useTranslations } from "next-intl";
+import { showLegalFooter } from "@/app/stores/sharedStore";
 
 const drawerWidth = 260;
 
@@ -34,7 +35,9 @@ export default function BoShellClient({
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  React.useEffect(() => {
+    showLegalFooter();
+  }, []);
   const toggleDrawer = () => setMobileOpen(!mobileOpen);
 
   const DrawerContent = (

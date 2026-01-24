@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
@@ -15,10 +16,13 @@ import {
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import LocaleSwitcher from "../../components/LocaleSwitcher";
+import { showLegalFooter } from "@/app/stores/sharedStore";
 
 export default function AuthLanding() {
   const t = useTranslations("auth");
-
+  useEffect(() => {
+    showLegalFooter();
+  }, []);
   return (
     <Box
       sx={{

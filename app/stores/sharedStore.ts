@@ -5,15 +5,15 @@ type GlobalLoadingState = {
   label?: string;
 };
 
-export const $globalLoading = atom<GlobalLoadingState>({
+export const $legalFooter = atom<GlobalLoadingState>({
   active: false,
   label: undefined,
 });
 
-export function showGlobalLoading(label?: string) {
-  $globalLoading.set({ active: true, label });
+export function hideLegalFooter(label?: string) {
+  $legalFooter.set({ active: false, label });
 }
 
-export function hideGlobalLoading() {
-  $globalLoading.set({ active: false, label: undefined });
+export function showLegalFooter() {
+  $legalFooter.set({ active: true, label: undefined });
 }

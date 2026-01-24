@@ -21,7 +21,7 @@ import { Link } from "@/i18n/navigation";
 import LogoutButton from "../components/LogoutButton";
 import LocaleSwitcher from "../components/LocaleSwitcher";
 import { useTranslations } from "next-intl";
-import { hideGlobalLoading } from "@/app/stores/sharedStore";
+import { showLegalFooter } from "@/app/stores/sharedStore";
 
 type PageStatus = "ACTIVE" | "UNDER_CONSTRUCTION" | "INACTIVE";
 
@@ -35,7 +35,7 @@ export default function FoLayout({ children, pageStatuses }: Props) {
   const t = useTranslations("foLayout");
   const theme = useTheme();
   React.useEffect(() => {
-    hideGlobalLoading();
+    showLegalFooter();
   }, []);
 
   const isInactive = (path: string) => pageStatuses?.[path] === "INACTIVE";
