@@ -60,6 +60,7 @@
     "submitting": "Signing in…",
     "submit": "Sign in",
     "invalidCredentials": "Invalid credentials",
+    "accountDisabled": "Account disabled. Contact support.",
     "toRegister": "I don't have an account → Sign up",
     "forgotPassword": "Forgot password →"
   },
@@ -118,7 +119,8 @@
   "boLayout": {
     "drawerTitle": "Back Office",
     "nav": {
-      "pages": "Páginas",
+      "users": "Users",
+      "pages": "Pages",
       "blogs": "Blogs",
       "settings": "Settings"
     },
@@ -137,6 +139,32 @@
     }
   },
   "bo": {
+    "users": {
+      "title": "Users",
+      "subtitle": "Manage roles and login access (disabled accounts).",
+      "empty": "No users for this filter.",
+      "noName": "No name",
+      "selfProtected": "You can't apply changes to yourself.",
+      "filters": {
+        "roleLabel": "Filter by role",
+        "allRoles": "All"
+      },
+      "roles": {
+        "SUPERADMIN": "SUPERADMIN",
+        "ADMIN": "ADMIN",
+        "CLIENT": "CLIENT"
+      },
+      "status": {
+        "enabled": "Enabled",
+        "disabled": "Disabled"
+      },
+      "actions": {
+        "disable": "Disable",
+        "enable": "Enable",
+        "makeAdmin": "Make ADMIN",
+        "saveRole": "Save role"
+      }
+    },
     "pages": {
       "title": "Páginas (FO)",
       "save": "Guardar",

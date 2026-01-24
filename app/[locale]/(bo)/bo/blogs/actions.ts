@@ -7,8 +7,18 @@ import { authOptions } from "@/app/lib/auth";
 import { redirect } from "next/navigation";
 
 export type PostActionState =
-  | { ok: true; fieldErrors?: undefined; formError?: undefined; postId?: string }
-  | { ok: false; fieldErrors?: Record<string, string[]>; formError?: string; postId?: undefined };
+  | {
+      ok: true;
+      fieldErrors?: undefined;
+      formError?: undefined;
+      postId?: string;
+    }
+  | {
+      ok: false;
+      fieldErrors?: Record<string, string[]>;
+      formError?: string;
+      postId?: undefined;
+    };
 
 const PostUpsertSchema = z.object({
   title: z.string().min(1, "Título obligatorio"),
@@ -30,13 +40,13 @@ function slugify(input: string) {
     .slice(0, 80);
 }
 
-async function requireAdmin(locale: string) {
+async function requireBoUser(locale: string) {
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
   const userId = (session?.user as any)?.id;
 
   if (!session) redirect(`/${locale}/login`);
-  if (role !== "ADMIN") redirect(`/${locale}`);
+  if (role !== "ADMIN" && role !== "SUPERADMIN") redirect(`/${locale}`);
 
   return { userId };
 }
@@ -44,9 +54,9 @@ async function requireAdmin(locale: string) {
 export async function createPost(
   locale: string,
   _prevState: PostActionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<PostActionState> {
-  const { userId } = await requireAdmin(locale);
+  const { userId } = await requireBoUser(locale);
 
   const title = String(formData.get("title") ?? "");
   const rawSlug = String(formData.get("slug") ?? "");
@@ -63,7 +73,11 @@ export async function createPost(
 
   if (!parsed.success) {
     const flat = parsed.error.flatten();
-    return { ok: false, fieldErrors: flat.fieldErrors, formError: flat.formErrors?.[0] };
+    return {
+      ok: false,
+      fieldErrors: flat.fieldErrors,
+      formError: flat.formErrors?.[0],
+    };
   }
 
   const status = parsed.data.status as Status;
@@ -77,7 +91,7 @@ export async function createPost(
         excerpt: parsed.data.excerpt ?? null,
         content: parsed.data.content,
         coverImage: parsed.data.coverImage ?? null,
-        status, // Prisma acepta string literal si coincide con el enum
+        status,
         publishedAt,
         authorId: userId,
       },
@@ -86,7 +100,10 @@ export async function createPost(
 
     return { ok: true, postId: created.id };
   } catch {
-    return { ok: false, formError: "No se pudo crear el post (¿slug duplicado?)." };
+    return {
+      ok: false,
+      formError: "No se pudo crear el post (¿slug duplicado?).",
+    };
   }
 }
 
@@ -94,9 +111,9 @@ export async function updatePost(
   locale: string,
   postId: string,
   _prevState: PostActionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<PostActionState> {
-  await requireAdmin(locale);
+  await requireBoUser(locale);
 
   const title = String(formData.get("title") ?? "");
   const rawSlug = String(formData.get("slug") ?? "");
@@ -113,7 +130,11 @@ export async function updatePost(
 
   if (!parsed.success) {
     const flat = parsed.error.flatten();
-    return { ok: false, fieldErrors: flat.fieldErrors, formError: flat.formErrors?.[0] };
+    return {
+      ok: false,
+      fieldErrors: flat.fieldErrors,
+      formError: flat.formErrors?.[0],
+    };
   }
 
   const status = parsed.data.status as Status;
@@ -131,16 +152,22 @@ export async function updatePost(
         status,
         publishedAt,
       },
+      select: { id: true },
     });
 
     return { ok: true, postId };
   } catch {
-    return { ok: false, formError: "No se pudo guardar (¿slug duplicado?)." };
+    return { ok: false, formError: "No se pudo actualizar el post." };
   }
 }
 
 export async function deletePost(locale: string, postId: string) {
-  await requireAdmin(locale);
-  await prisma.post.delete({ where: { id: postId } });
-  redirect(`/${locale}/bo/blogs`);
+  await requireBoUser(locale);
+
+  await prisma.post.delete({
+    where: { id: postId },
+    select: { id: true },
+  });
+
+  return { ok: true as const };
 }

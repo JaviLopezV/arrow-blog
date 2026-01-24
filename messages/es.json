@@ -62,6 +62,8 @@
     "submitting": "Entrando…",
     "submit": "Entrar",
     "invalidCredentials": "Credenciales incorrectas",
+    "accountDisabled": "Cuenta deshabilitada. Contacta con soporte.",
+
     "toRegister": "No tengo cuenta → Registrarme",
     "forgotPassword": "He olvidado mi contraseña →"
   },
@@ -120,7 +122,8 @@
   "boLayout": {
     "drawerTitle": "Back Office",
     "nav": {
-      "pages": "Pages",
+      "users": "Usuarios",
+      "pages": "Páginas",
       "blogs": "Blogs",
       "settings": "Ajustes"
     },
@@ -139,6 +142,32 @@
     }
   },
   "bo": {
+    "users": {
+      "title": "Usuarios",
+      "subtitle": "Gestiona roles y acceso al login (cuentas deshabilitadas).",
+      "empty": "No hay usuarios para este filtro.",
+      "noName": "Sin nombre",
+      "selfProtected": "No puedes aplicarte cambios a ti mismo.",
+      "filters": {
+        "roleLabel": "Filtrar por rol",
+        "allRoles": "Todos"
+      },
+      "roles": {
+        "SUPERADMIN": "SUPERADMIN",
+        "ADMIN": "ADMIN",
+        "CLIENT": "CLIENT"
+      },
+      "status": {
+        "enabled": "Activa",
+        "disabled": "Deshabilitada"
+      },
+      "actions": {
+        "disable": "Deshabilitar",
+        "enable": "Habilitar",
+        "makeAdmin": "Hacer ADMIN",
+        "saveRole": "Guardar rol"
+      }
+    },
     "pages": {
       "title": "Pages (FO)",
       "save": "Save",

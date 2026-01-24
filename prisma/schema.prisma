@@ -6,14 +6,15 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  ADMIN
-  CLIENT
-}
-
 enum PostStatus {
   DRAFT
   PUBLISHED
+}
+
+enum Role {
+  SUPERADMIN
+  ADMIN
+  CLIENT
 }
 
 model User {
@@ -23,16 +24,15 @@ model User {
   password  String?
   role      Role     @default(CLIENT)
 
-  // Verificación propia
+  disabled  Boolean  @default(false)
+
   emailVerifiedAt DateTime?
   verifyTokenHash String?
   verifyTokenExp  DateTime?
 
-  // Reset password (código)
   resetTokenHash String?
   resetTokenExp  DateTime?
 
-  // Para login social sin tabla Account
   oauthProvider   String?
   oauthSubject    String?
 

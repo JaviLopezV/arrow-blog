@@ -8,20 +8,20 @@ import { redirect } from "next/navigation";
 
 const PageStatusSchema = z.enum(["ACTIVE", "UNDER_CONSTRUCTION", "INACTIVE"]);
 
-async function requireAdmin(locale: string) {
+async function requireBoUser(locale: string) {
   const session = await getServerSession(authOptions);
   const role = (session?.user as any)?.role;
 
   if (!session) redirect(`/${locale}/login`);
-  if (role !== "ADMIN") redirect(`/${locale}`);
+  if (role !== "ADMIN" && role !== "SUPERADMIN") redirect(`/${locale}`);
 }
 
 export async function updatePageStatus(
   locale: string,
   path: string,
-  formData: FormData
+  formData: FormData,
 ) {
-  await requireAdmin(locale);
+  await requireBoUser(locale);
 
   const status = String(formData.get("status") ?? "");
   const parsed = PageStatusSchema.safeParse(status);

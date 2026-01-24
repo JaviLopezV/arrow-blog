@@ -29,6 +29,10 @@ export const authOptions: NextAuthOptions = {
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user?.password) return null;
 
+        if ((user as any).disabled) {
+          throw new Error("ACCOUNT_DISABLED");
+        }
+
         const ok = await bcrypt.compare(password, user.password);
         if (!ok) return null;
 

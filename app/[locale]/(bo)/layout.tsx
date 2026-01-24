@@ -17,7 +17,7 @@ export default async function BoLayout({
   const role = (session?.user as any)?.role;
 
   if (!session) redirect(`/${locale}/login`);
-  if (role !== "ADMIN") redirect(`/${locale}`);
+  if (role !== "ADMIN" && role !== "SUPERADMIN") redirect(`/${locale}`);
 
   return <BoShellClient>{children}</BoShellClient>;
 }

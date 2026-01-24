@@ -48,7 +48,11 @@ export default function LoginPage() {
       });
 
       if (res?.error) {
-        setError("invalidCredentials");
+        setError(
+          res.error === "ACCOUNT_DISABLED"
+            ? "accountDisabled"
+            : "invalidCredentials",
+        );
         return;
       }
 
