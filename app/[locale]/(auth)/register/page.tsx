@@ -47,7 +47,7 @@ export default function RegisterPage() {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, locale }),
       });
 
       const data = await res.json().catch(() => ({}));
@@ -57,8 +57,13 @@ export default function RegisterPage() {
         return;
       }
 
-      setOk("successRedirect");
-      setTimeout(() => router.push(`/${locale}/login`), 700);
+      // ✅ Tras registrarse, pedimos verificación de email
+      setOk("successVerifyRedirect");
+      setTimeout(() => {
+        router.push(
+          `/${locale}/verify-email?email=${encodeURIComponent(form.email)}`,
+        );
+      }, 700);
     } finally {
       setLoading(false);
     }

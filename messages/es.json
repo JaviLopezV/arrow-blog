@@ -52,7 +52,8 @@
     "successRedirect": "Cuenta creada. Redirigiendo a iniciar sesión…",
     "errorGeneric": "Error registrando",
     "toLogin": "Ya tengo cuenta → Iniciar sesión",
-    "footnote": "Al registrarte aceptas nuestras políticas (luego las añadimos)."
+    "footnote": "Al registrarte aceptas nuestras políticas (luego las añadimos).",
+    "successVerifyRedirect": "Cuenta creada. Te hemos enviado un código para verificar tu correo…"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -62,10 +63,24 @@
     "submitting": "Entrando…",
     "submit": "Entrar",
     "invalidCredentials": "Credenciales incorrectas",
-    "accountDisabled": "Cuenta deshabilitada. Contacta con soporte.",
-
+    "accountDisabled": "Cuenta deshabilitada o no verificada. Revisa tu email o contacta con soporte.",
     "toRegister": "No tengo cuenta → Registrarme",
     "forgotPassword": "He olvidado mi contraseña →"
+  },
+  "verifyEmail": {
+    "title": "Verifica tu correo",
+    "subtitle": "Te enviamos un código al email. Escríbelo aquí para habilitar tu cuenta.",
+    "email": "Email",
+    "code": "Código",
+    "verifying": "Verificando…",
+    "verify": "Verificar",
+    "resend": "Reenviar código",
+    "successRedirect": "Correo verificado. Redirigiendo al login…",
+    "INVALID_CODE": "Código inválido.",
+    "CODE_EXPIRED": "El código ha caducado. Reenvía uno nuevo.",
+    "INVALID_BODY": "Solicitud inválida.",
+    "errorGeneric": "Ha ocurrido un error. Inténtalo de nuevo.",
+    "backToLogin": "Volver a login"
   },
   "discover": {
     "emptyTitle": "No hay más perfiles 😢",

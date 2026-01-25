@@ -50,7 +50,8 @@
     "successRedirect": "Account created. Redirecting to sign in…",
     "errorGeneric": "Registration error",
     "toLogin": "I already have an account → Sign in",
-    "footnote": "By signing up you accept our policies (we will add them later)."
+    "footnote": "By signing up you accept our policies (we will add them later).",
+    "successVerifyRedirect": "Account created. We sent you a code to verify your email…"
   },
   "login": {
     "title": "Sign in",
@@ -60,9 +61,24 @@
     "submitting": "Signing in…",
     "submit": "Sign in",
     "invalidCredentials": "Invalid credentials",
-    "accountDisabled": "Account disabled. Contact support.",
+    "accountDisabled": "Account disabled or not verified. Check your email or contact support.",
     "toRegister": "I don't have an account → Sign up",
     "forgotPassword": "Forgot password →"
+  },
+  "verifyEmail": {
+    "title": "Verify your email",
+    "subtitle": "We sent a code to your email. Enter it here to activate your account.",
+    "email": "Email",
+    "code": "Code",
+    "verifying": "Verifying…",
+    "verify": "Verify",
+    "resend": "Resend code",
+    "successRedirect": "Email verified. Redirecting to sign in…",
+    "INVALID_CODE": "Invalid code.",
+    "CODE_EXPIRED": "The code has expired. Resend a new one.",
+    "INVALID_BODY": "Invalid request.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "backToLogin": "Back to sign in"
   },
   "discover": {
     "emptyTitle": "No more profiles 😢",
