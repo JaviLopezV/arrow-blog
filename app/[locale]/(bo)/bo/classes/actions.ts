@@ -153,3 +153,16 @@ export async function deleteClassSession(locale: string, classId: string) {
     select: { id: true },
   });
 }
+
+export async function cancelBookingAsAdmin(locale: string, bookingId: string) {
+  await requireBoUser(locale);
+
+  await prisma.booking.update({
+    where: { id: bookingId },
+    data: {
+      status: "CANCELED",
+      canceledAt: new Date(),
+    },
+    select: { id: true },
+  });
+}

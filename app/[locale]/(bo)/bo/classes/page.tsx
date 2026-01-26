@@ -25,6 +25,11 @@ export default async function ClassesAdminPage() {
       startsAt: true,
       endsAt: true,
       capacity: true,
+      _count: {
+        select: {
+          bookings: { where: { status: "ACTIVE" } },
+        },
+      },
     },
     take: 200,
   });
@@ -53,7 +58,7 @@ export default async function ClassesAdminPage() {
                 key={s.id}
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: "1fr 220px 120px",
+                  gridTemplateColumns: "1fr 180px",
                   px: 3,
                   py: 2,
                   borderBottom: "1px solid",
@@ -70,7 +75,8 @@ export default async function ClassesAdminPage() {
                     </Typography>
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {fmt(s.startsAt)} – {fmt(s.endsAt)} · Aforo: {s.capacity}
+                    {fmt(s.startsAt)} – {fmt(s.endsAt)} · Aforo: {s.capacity} ·
+                    Inscritos: {s._count.bookings}
                   </Typography>
                 </Box>
 
@@ -79,8 +85,15 @@ export default async function ClassesAdminPage() {
                 </Typography>
 
                 <Link
+                  href={`/bo/classes/${s.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button size="small">Ver</Button>
+                </Link>
+
+                <Link
                   href={`/bo/classes/${s.id}/edit`}
-                  style={{ textDecoration: "none", justifySelf: "end" }}
+                  style={{ textDecoration: "none" }}
                 >
                   <Button size="small">{t("edit")}</Button>
                 </Link>
