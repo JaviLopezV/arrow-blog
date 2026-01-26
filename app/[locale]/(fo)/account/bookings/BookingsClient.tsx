@@ -117,7 +117,7 @@ export default function BookingsClient() {
           const s = b.session;
           const start = new Date(s.startsAt);
           const end = new Date(s.endsAt);
-          const isBusy = busyId === b.id;
+          const isBusy: boolean = busyId !== null && busyId === b.id;
 
           return (
             <Box key={b.id} px={3} py={2}>

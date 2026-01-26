@@ -165,9 +165,10 @@ export default function ClassesClient() {
               {list.map((s) => {
                 const start = new Date(s.startsAt);
                 const end = new Date(s.endsAt);
-                const isBusy =
-                  busyId === s.id ||
-                  (s.myBookingId && busyId === s.myBookingId);
+
+                const isBusy: boolean =
+                  busyId !== null &&
+                  (busyId === s.id || busyId === s.myBookingId);
 
                 return (
                   <Box

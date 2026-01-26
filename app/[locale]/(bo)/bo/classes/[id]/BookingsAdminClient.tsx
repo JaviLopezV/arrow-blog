@@ -65,8 +65,7 @@ export default function BookingsAdminClient({
   return (
     <Stack spacing={1.5}>
       {bookings.map((b) => {
-        const isBusy = busyId === b.id;
-
+        const isBusy: boolean = busyId !== null && busyId === b.id;
         return (
           <Box
             key={b.id}
