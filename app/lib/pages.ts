@@ -12,6 +12,8 @@ export const FO_PAGES: Array<{ path: string; name: string }> = [
   { path: "/blog", name: "Blog" },
   { path: "/games", name: "Games" },
   { path: "/account/settings", name: "Account settings" },
+  { path: "/classes", name: "Classes" },
+  { path: "/account/bookings", name: "My bookings" },
 ];
 
 export function normalizeFoPath(path: string): string {
@@ -30,8 +32,8 @@ export async function ensureFoPagesExist() {
         create: { path: p.path, name: p.name, status: "ACTIVE" },
         update: { name: p.name },
         select: { id: true },
-      })
-    )
+      }),
+    ),
   );
 }
 

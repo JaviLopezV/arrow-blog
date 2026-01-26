@@ -128,6 +128,8 @@
       "blog": "Blog",
       "settings": "Settings",
       "games": "Games",
+      "classes": "Classes",
+      "bookings": "My bookings",
       "openMenuAria": "open navigation menu"
     },
     "brand": "Arrow Apps"
@@ -138,12 +140,44 @@
       "users": "Users",
       "pages": "Pages",
       "blogs": "Blogs",
-      "settings": "Settings"
+      "settings": "Settings",
+      "classes": "Classes"
     },
     "topbarTitle": "Admin",
     "openMenuAria": "open navigation menu"
   },
   "fo": {
+    "classes": {
+      "title": "Classes",
+      "subtitle": "Check availability and book your spot.",
+      "spots": "left out of",
+      "instructor": "Instructor",
+      "book": "Book",
+      "cancel": "Cancel",
+      "full": "Full",
+      "empty": "No classes scheduled for the next days.",
+      "retry": "Retry",
+      "errors": {
+        "UNAUTHORIZED": "You need to log in.",
+        "FULL": "This class is full.",
+        "ALREADY_BOOKED": "You already booked this class.",
+        "LOAD_FAILED": "Could not load classes.",
+        "BOOK_FAILED": "Could not book.",
+        "CANCEL_FAILED": "Could not cancel."
+      }
+    },
+    "bookings": {
+      "title": "My bookings",
+      "instructor": "Instructor",
+      "cancel": "Cancel",
+      "empty": "You have no active bookings.",
+      "retry": "Retry",
+      "errors": {
+        "UNAUTHORIZED": "You need to log in.",
+        "LOAD_FAILED": "Could not load bookings.",
+        "CANCEL_FAILED": "Could not cancel."
+      }
+    },
     "home": {
       "title": "Home"
     },
@@ -155,6 +189,32 @@
     }
   },
   "bo": {
+    "boClasses": {
+      "title": "Classes",
+      "new": "New class",
+      "empty": "No classes yet.",
+      "edit": "Edit"
+    },
+    "boNewClass": {
+      "title": "New class",
+      "fields": {
+        "title": "Title",
+        "type": "Type",
+        "instructor": "Instructor",
+        "notes": "Notes",
+        "startsAt": "Starts at",
+        "endsAt": "Ends at",
+        "capacity": "Capacity"
+      },
+      "submit": { "idle": "Create", "pending": "Creating..." },
+      "errors": { "reviewFields": "Please review the fields." }
+    },
+    "boEditClass": {
+      "title": "Edit class",
+      "submit": { "idle": "Save", "pending": "Saving..." },
+      "delete": { "idle": "Delete", "pending": "Deleting..." },
+      "deleted": "Deleted."
+    },
     "users": {
       "title": "Users",
       "subtitle": "Manage roles and login access (disabled accounts).",

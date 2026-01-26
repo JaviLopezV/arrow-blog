@@ -103,6 +103,24 @@ export default function FoLayout({ children, pageStatuses }: Props) {
 
                     <MenuItem
                       component={Link as any}
+                      href="/classes"
+                      onClick={handleCloseMenu}
+                      disabled={isInactive("/classes")}
+                    >
+                      {t("nav.classes")}
+                    </MenuItem>
+
+                    <MenuItem
+                      component={Link as any}
+                      href="/account/bookings"
+                      onClick={handleCloseMenu}
+                      disabled={isInactive("/account/bookings")}
+                    >
+                      {t("nav.bookings")}
+                    </MenuItem>
+
+                    <MenuItem
+                      component={Link as any}
                       href="/blog"
                       onClick={handleCloseMenu}
                       disabled={isInactive("/blog")}
@@ -174,6 +192,25 @@ export default function FoLayout({ children, pageStatuses }: Props) {
                     sx={{ whiteSpace: "nowrap" }}
                   >
                     {t("nav.home")}
+                  </Button>
+
+                  <Button
+                    color="inherit"
+                    component={Link as any}
+                    href="/classes"
+                    sx={{ whiteSpace: "nowrap" }}
+                  >
+                    {t("nav.classes")}
+                  </Button>
+
+                  <Button
+                    color="inherit"
+                    component={Link as any}
+                    href="/account/bookings"
+                    sx={{ whiteSpace: "nowrap" }}
+                    disabled={isInactive("/account/bookings")}
+                  >
+                    {t("nav.bookings")}
                   </Button>
 
                   <Button

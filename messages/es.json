@@ -130,6 +130,8 @@
       "blog": "Posts",
       "settings": "Ajustes",
       "games": "Juegos",
+      "classes": "Clases",
+      "bookings": "Mis reservas",
       "openMenuAria": "open navigation menu"
     },
     "brand": "Arrow Apps"
@@ -140,12 +142,44 @@
       "users": "Usuarios",
       "pages": "Páginas",
       "blogs": "Blogs",
-      "settings": "Ajustes"
+      "settings": "Ajustes",
+      "classes": "Classes"
     },
     "topbarTitle": "Admin",
     "openMenuAria": "open navigation menu"
   },
   "fo": {
+    "classes": {
+      "title": "Clases",
+      "subtitle": "Consulta disponibilidad y reserva tu plaza.",
+      "spots": "libres de",
+      "instructor": "Profe",
+      "book": "Reservar",
+      "cancel": "Cancelar",
+      "full": "Completo",
+      "empty": "No hay clases publicadas en los próximos días.",
+      "retry": "Reintentar",
+      "errors": {
+        "UNAUTHORIZED": "Necesitas iniciar sesión.",
+        "FULL": "La clase está completa.",
+        "ALREADY_BOOKED": "Ya tienes una reserva en esta clase.",
+        "LOAD_FAILED": "No se pudieron cargar las clases.",
+        "BOOK_FAILED": "No se pudo reservar.",
+        "CANCEL_FAILED": "No se pudo cancelar."
+      }
+    },
+    "bookings": {
+      "title": "Mis reservas",
+      "instructor": "Profe",
+      "cancel": "Cancelar",
+      "empty": "No tienes reservas activas.",
+      "retry": "Reintentar",
+      "errors": {
+        "UNAUTHORIZED": "Necesitas iniciar sesión.",
+        "LOAD_FAILED": "No se pudieron cargar tus reservas.",
+        "CANCEL_FAILED": "No se pudo cancelar."
+      }
+    },
     "home": {
       "title": "Inicio"
     },
@@ -157,6 +191,33 @@
     }
   },
   "bo": {
+    "boClasses": {
+      "title": "Classes",
+      "new": "New class",
+      "empty": "No classes yet.",
+      "edit": "Edit"
+    },
+    "boNewClass": {
+      "title": "New class",
+      "fields": {
+        "title": "Title",
+        "type": "Type",
+        "instructor": "Instructor",
+        "notes": "Notes",
+        "startsAt": "Starts at",
+        "endsAt": "Ends at",
+        "capacity": "Capacity"
+      },
+      "submit": { "idle": "Create", "pending": "Creating..." },
+      "errors": { "reviewFields": "Please review the fields." }
+    },
+    "boEditClass": {
+      "title": "Edit class",
+      "submit": { "idle": "Save", "pending": "Saving..." },
+      "delete": { "idle": "Delete", "pending": "Deleting..." },
+      "deleted": "Deleted."
+    },
+
     "users": {
       "title": "Usuarios",
       "subtitle": "Gestiona roles y acceso al login (cuentas deshabilitadas).",

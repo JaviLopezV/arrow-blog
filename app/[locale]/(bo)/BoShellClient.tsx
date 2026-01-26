@@ -55,6 +55,10 @@ export default function BoShellClient({
             <ListItemText primary={t("nav.pages")} />
           </ListItemButton>
 
+          <ListItemButton component={Link as any} href="/bo/classes">
+            <ListItemText primary={t("nav.classes")} />
+          </ListItemButton>
+
           <ListItemButton component={Link as any} href="/bo/blogs">
             <ListItemText primary={t("nav.blogs")} />
           </ListItemButton>
