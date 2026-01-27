@@ -192,21 +192,25 @@
   },
   "bo": {
     "boClasses": {
-      "title": "Classes",
-      "new": "New class",
-      "empty": "No classes yet.",
-      "edit": "Edit"
+      "title": "Clases",
+      "new": "Nueva clase",
+      "empty": "No hay clases creadas todavía.",
+      "edit": "Editar"
     },
     "boNewClass": {
-      "title": "New class",
+      "title": "Nueva clase",
       "fields": {
-        "title": "Title",
-        "type": "Type",
+        "title": "Título",
+        "type": "Tipo",
         "instructor": "Instructor",
         "notes": "Notes",
-        "startsAt": "Starts at",
-        "endsAt": "Ends at",
-        "capacity": "Capacity"
+        "startsAt": "Empieza a las",
+        "endsAt": "Termina a las",
+        "capacity": "Capacidad",
+        "startDate": "Fecha inicio",
+        "startTime": "Hora inicio",
+        "endDate": "Fecha fin",
+        "endTime": "Hora fin"
       },
       "submit": { "idle": "Create", "pending": "Creating..." },
       "errors": { "reviewFields": "Please review the fields." }

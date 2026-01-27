@@ -25,8 +25,12 @@ const ClassUpsertSchema = z.object({
   type: z.string().min(1, "Tipo obligatorio"),
   instructor: z.string().optional().nullable(),
   notes: z.string().optional().nullable(),
-  startsAt: z.string().min(1, "Inicio obligatorio"),
-  endsAt: z.string().min(1, "Fin obligatorio"),
+  // UI: date/time split in 4 inputs (start date/time + end date/time).
+  // Nota: por reglas de negocio, inicio y fin siempre son el mismo día.
+  startDate: z.string().min(1, "Día de inicio obligatorio"),
+  startTime: z.string().min(1, "Hora de inicio obligatoria"),
+  endDate: z.string().min(1, "Día de fin obligatorio"),
+  endTime: z.string().min(1, "Hora de fin obligatoria"),
   capacity: z.coerce.number().int().min(1, "Aforo mínimo 1"),
 });
 
@@ -34,6 +38,30 @@ function parseDateOrThrow(v: string, key: string) {
   const d = new Date(v);
   if (Number.isNaN(d.getTime())) throw new Error(`INVALID_${key}`);
   return d;
+}
+
+function dateKeyInTz(d: Date, timeZone: string) {
+  // YYYY-MM-DD en una zona horaria específica (estable para comparar días)
+  const fmt = new Intl.DateTimeFormat("en-CA", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  return fmt.format(d);
+}
+
+function assertNotInPastDay(d: Date) {
+  // BO: no permitir clases en días anteriores al día actual (Europe/Madrid)
+  const tz = "Europe/Madrid";
+  const startDay = dateKeyInTz(d, tz);
+  const today = dateKeyInTz(new Date(), tz);
+  if (startDay < today) throw new Error("PAST_DAY");
+}
+
+function combineLocalDateTime(date: string, time: string) {
+  // date: YYYY-MM-DD, time: HH:mm
+  return `${date}T${time}`;
 }
 
 export async function createClassSession(
@@ -48,10 +76,14 @@ export async function createClassSession(
     type: String(formData.get("type") ?? ""),
     instructor: (formData.get("instructor") as string) || null,
     notes: (formData.get("notes") as string) || null,
-    startsAt: String(formData.get("startsAt") ?? ""),
-    endsAt: String(formData.get("endsAt") ?? ""),
+    startDate: String(formData.get("startDate") ?? ""),
+    startTime: String(formData.get("startTime") ?? ""),
+    endDate: String(formData.get("endDate") ?? ""),
+    endTime: String(formData.get("endTime") ?? ""),
     capacity: formData.get("capacity"),
   });
+
+  console.log("Parsed:", parsed);
 
   if (!parsed.success) {
     const flat = parsed.error.flatten();
@@ -63,8 +95,20 @@ export async function createClassSession(
   }
 
   try {
-    const starts = parseDateOrThrow(parsed.data.startsAt, "STARTS_AT");
-    const ends = parseDateOrThrow(parsed.data.endsAt, "ENDS_AT");
+    // Regla: inicio y fin siempre son el mismo día => forzamos endDate = startDate
+    const startsAtStr = combineLocalDateTime(
+      parsed.data.startDate,
+      parsed.data.startTime,
+    );
+    const endsAtStr = combineLocalDateTime(
+      parsed.data.startDate,
+      parsed.data.endTime,
+    );
+
+    const starts = parseDateOrThrow(startsAtStr, "STARTS_AT");
+    const ends = parseDateOrThrow(endsAtStr, "ENDS_AT");
+
+    assertNotInPastDay(starts);
     if (ends <= starts)
       return {
         ok: false,
@@ -85,7 +129,14 @@ export async function createClassSession(
     });
 
     return { ok: true, classId: created.id };
-  } catch {
+  } catch (e: any) {
+    const msg = typeof e?.message === "string" ? e.message : "";
+    if (msg === "PAST_DAY") {
+      return {
+        ok: false,
+        formError: "No se pueden crear clases en fechas anteriores a hoy.",
+      };
+    }
     return { ok: false, formError: "No se pudo crear la clase." };
   }
 }
@@ -103,8 +154,10 @@ export async function updateClassSession(
     type: String(formData.get("type") ?? ""),
     instructor: (formData.get("instructor") as string) || null,
     notes: (formData.get("notes") as string) || null,
-    startsAt: String(formData.get("startsAt") ?? ""),
-    endsAt: String(formData.get("endsAt") ?? ""),
+    startDate: String(formData.get("startDate") ?? ""),
+    startTime: String(formData.get("startTime") ?? ""),
+    endDate: String(formData.get("endDate") ?? ""),
+    endTime: String(formData.get("endTime") ?? ""),
     capacity: formData.get("capacity"),
   });
 
@@ -118,8 +171,34 @@ export async function updateClassSession(
   }
 
   try {
-    const starts = parseDateOrThrow(parsed.data.startsAt, "STARTS_AT");
-    const ends = parseDateOrThrow(parsed.data.endsAt, "ENDS_AT");
+    const startsAtStr = combineLocalDateTime(
+      parsed.data.startDate,
+      parsed.data.startTime,
+    );
+    const endsAtStr = combineLocalDateTime(
+      parsed.data.startDate,
+      parsed.data.endTime,
+    );
+
+    const starts = parseDateOrThrow(startsAtStr, "STARTS_AT");
+    const ends = parseDateOrThrow(endsAtStr, "ENDS_AT");
+
+    // En edición: no permitir mover la clase a un día anterior a hoy.
+    // (Pero si la clase ya estaba en el pasado, permitimos guardar cambios
+    //  sin cambiar el día, para no bloquear correcciones administrativas.)
+    const tz = "Europe/Madrid";
+    const newDay = dateKeyInTz(starts, tz);
+    const today = dateKeyInTz(new Date(), tz);
+    if (newDay < today) {
+      const existing = await prisma.classSession.findUnique({
+        where: { id: classId },
+        select: { startsAt: true },
+      });
+      const existingDay = existing?.startsAt
+        ? dateKeyInTz(existing.startsAt, tz)
+        : null;
+      if (!existingDay || existingDay !== newDay) throw new Error("PAST_DAY");
+    }
     if (ends <= starts)
       return {
         ok: false,
@@ -141,7 +220,14 @@ export async function updateClassSession(
     });
 
     return { ok: true, classId };
-  } catch {
+  } catch (e: any) {
+    const msg = typeof e?.message === "string" ? e.message : "";
+    if (msg === "PAST_DAY") {
+      return {
+        ok: false,
+        formError: "No se pueden guardar clases en fechas anteriores a hoy.",
+      };
+    }
     return { ok: false, formError: "No se pudo guardar la clase." };
   }
 }

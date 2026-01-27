@@ -204,7 +204,11 @@
         "notes": "Notes",
         "startsAt": "Starts at",
         "endsAt": "Ends at",
-        "capacity": "Capacity"
+        "capacity": "Capacity",
+        "startDate": "Start date",
+        "startTime": "Start time",
+        "endDate": "End date",
+        "endTime": "End time"
       },
       "submit": { "idle": "Create", "pending": "Creating..." },
       "errors": { "reviewFields": "Please review the fields." }

@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useActionState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import {
@@ -19,6 +18,17 @@ const initialState: ClassActionState = { ok: true };
 
 export default function NewClassPage() {
   const t = useTranslations("bo.boNewClass");
+
+  const today = useMemo(() => {
+    const d = new Date();
+    const pad = (n: number) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }, []);
+
+  const [startDate, setStartDate] = useState(today);
+  const [endDate, setEndDate] = useState(today);
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("10:00");
 
   const router = useRouter();
   const params = useParams();
@@ -80,26 +90,58 @@ export default function NewClassPage() {
             />
 
             <TextField
-              name="startsAt"
-              label={t("fields.startsAt")}
-              type="datetime-local"
+              name="startDate"
+              label={t("fields.startDate")}
+              type="date"
               InputLabelProps={{ shrink: true }}
               required
-              error={state.ok === false && !!state.fieldErrors?.startsAt}
+              value={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value);
+                setEndDate(e.target.value); // mismo día
+              }}
+              inputProps={{ min: today }}
+              error={state.ok === false && !!state.fieldErrors?.startDate}
               helperText={
-                state.ok === false ? state.fieldErrors?.startsAt?.[0] : ""
+                state.ok === false ? state.fieldErrors?.startDate?.[0] : ""
               }
             />
 
             <TextField
-              name="endsAt"
-              label={t("fields.endsAt")}
-              type="datetime-local"
+              name="startTime"
+              label={t("fields.startTime")}
+              type="time"
               InputLabelProps={{ shrink: true }}
               required
-              error={state.ok === false && !!state.fieldErrors?.endsAt}
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              error={state.ok === false && !!state.fieldErrors?.startTime}
               helperText={
-                state.ok === false ? state.fieldErrors?.endsAt?.[0] : ""
+                state.ok === false ? state.fieldErrors?.startTime?.[0] : ""
+              }
+            />
+
+            <TextField
+              name="endDate_display"
+              type="date"
+              label={t("fields.endDate")}
+              value={startDate}
+              disabled
+            />
+
+            <input type="hidden" name="endDate" value={startDate} />
+
+            <TextField
+              name="endTime"
+              label={t("fields.endTime")}
+              type="time"
+              InputLabelProps={{ shrink: true }}
+              required
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+              error={state.ok === false && !!state.fieldErrors?.endTime}
+              helperText={
+                state.ok === false ? state.fieldErrors?.endTime?.[0] : ""
               }
             />
 

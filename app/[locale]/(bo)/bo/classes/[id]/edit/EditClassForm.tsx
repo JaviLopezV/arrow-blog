@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { useActionState, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import {
   Alert,
@@ -35,14 +35,14 @@ type Props = {
 
 const initialState: ClassActionState = { ok: true };
 
-function toDatetimeLocal(d: Date) {
+function toDateInput(d: Date) {
   const pad = (n: number) => String(n).padStart(2, "0");
-  const yyyy = d.getFullYear();
-  const mm = pad(d.getMonth() + 1);
-  const dd = pad(d.getDate());
-  const hh = pad(d.getHours());
-  const min = pad(d.getMinutes());
-  return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+function toTimeInput(d: Date) {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
 export default function EditClassForm({ session }: Props) {
@@ -57,6 +57,19 @@ export default function EditClassForm({ session }: Props) {
     updateClassSession.bind(null, locale, session.id),
     initialState,
   );
+
+  const today = useMemo(() => {
+    const d = new Date();
+    return toDateInput(d);
+  }, []);
+
+  const starts = useMemo(() => new Date(session.startsAt), [session.startsAt]);
+  const ends = useMemo(() => new Date(session.endsAt), [session.endsAt]);
+
+  const [startDate, setStartDate] = useState(toDateInput(starts));
+  const [endDate, setEndDate] = useState(toDateInput(starts));
+  const [startTime, setStartTime] = useState(toTimeInput(starts));
+  const [endTime, setEndTime] = useState(toTimeInput(ends));
 
   useEffect(() => {
     if (state.ok && state.classId) router.refresh();
@@ -130,28 +143,64 @@ export default function EditClassForm({ session }: Props) {
             />
 
             <TextField
-              name="startsAt"
-              label={tNew("fields.startsAt")}
-              type="datetime-local"
+              name="startDate"
+              label={tNew("fields.startDate")}
+              type="date"
               InputLabelProps={{ shrink: true }}
               required
-              defaultValue={toDatetimeLocal(new Date(session.startsAt))}
-              error={state.ok === false && !!state.fieldErrors?.startsAt}
+              value={startDate}
+              onChange={(e) => {
+                setStartDate(e.target.value);
+                setEndDate(e.target.value); // mismo día
+              }}
+              inputProps={{ min: today }}
+              error={state.ok === false && !!state.fieldErrors?.startDate}
               helperText={
-                state.ok === false ? state.fieldErrors?.startsAt?.[0] : ""
+                state.ok === false ? state.fieldErrors?.startDate?.[0] : ""
               }
             />
 
             <TextField
-              name="endsAt"
-              label={tNew("fields.endsAt")}
-              type="datetime-local"
+              name="startTime"
+              label={tNew("fields.startTime")}
+              type="time"
               InputLabelProps={{ shrink: true }}
               required
-              defaultValue={toDatetimeLocal(new Date(session.endsAt))}
-              error={state.ok === false && !!state.fieldErrors?.endsAt}
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              error={state.ok === false && !!state.fieldErrors?.startTime}
               helperText={
-                state.ok === false ? state.fieldErrors?.endsAt?.[0] : ""
+                state.ok === false ? state.fieldErrors?.startTime?.[0] : ""
+              }
+            />
+
+            <TextField
+              name="endDate"
+              label={tNew("fields.endDate")}
+              type="date"
+              InputLabelProps={{ shrink: true }}
+              required
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              disabled
+              inputProps={{ readOnly: true }}
+              error={state.ok === false && !!state.fieldErrors?.endDate}
+              helperText={
+                state.ok === false ? state.fieldErrors?.endDate?.[0] : ""
+              }
+            />
+
+            <TextField
+              name="endTime"
+              label={tNew("fields.endTime")}
+              type="time"
+              InputLabelProps={{ shrink: true }}
+              required
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+              error={state.ok === false && !!state.fieldErrors?.endTime}
+              helperText={
+                state.ok === false ? state.fieldErrors?.endTime?.[0] : ""
               }
             />
 
