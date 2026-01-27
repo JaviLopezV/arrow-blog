@@ -83,8 +83,6 @@ export async function createClassSession(
     capacity: formData.get("capacity"),
   });
 
-  console.log("Parsed:", parsed);
-
   if (!parsed.success) {
     const flat = parsed.error.flatten();
     return {

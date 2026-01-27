@@ -150,6 +150,12 @@
   },
   "fo": {
     "classes": {
+      "calendarTitle": "Calendario de clases",
+      "prevWeek": "Semana anterior",
+      "thisWeek": "Semana actual",
+      "nextWeek": "Semana siguiente",
+      "emptyWeek": "No hay clases esta semana",
+      "noClasses": "Sin clases",
       "title": "Clases",
       "subtitle": "Consulta disponibilidad y reserva tu plaza.",
       "spots": "libres de",

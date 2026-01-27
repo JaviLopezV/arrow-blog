@@ -148,6 +148,12 @@
   },
   "fo": {
     "classes": {
+      "calendarTitle": "Class calendar",
+      "prevWeek": "Previous week",
+      "thisWeek": "Current week",
+      "nextWeek": "Next week",
+      "emptyWeek": "No classes this week",
+      "noClasses": "No classes",
       "title": "Classes",
       "subtitle": "Check availability and book your spot.",
       "spots": "left out of",
