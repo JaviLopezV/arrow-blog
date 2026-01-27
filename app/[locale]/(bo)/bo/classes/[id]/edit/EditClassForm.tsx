@@ -175,20 +175,14 @@ export default function EditClassForm({ session }: Props) {
             />
 
             <TextField
-              name="endDate"
-              label={tNew("fields.endDate")}
+              name="endDate_display"
               type="date"
-              InputLabelProps={{ shrink: true }}
-              required
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              label={tNew("fields.endDate")}
+              value={startDate}
               disabled
-              inputProps={{ readOnly: true }}
-              error={state.ok === false && !!state.fieldErrors?.endDate}
-              helperText={
-                state.ok === false ? state.fieldErrors?.endDate?.[0] : ""
-              }
             />
+
+            <input type="hidden" name="endDate" value={startDate} />
 
             <TextField
               name="endTime"
