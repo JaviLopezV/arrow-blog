@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import type { ClassSessionDto } from "../types/classes";
 import { dateKeyLocal, fmtDayHeader, fmtTime } from "../utils/date";
 
@@ -18,6 +18,14 @@ function minutesFromMidnight(d: Date) {
   return d.getHours() * 60 + d.getMinutes();
 }
 
+function isSameDayLocal(a: Date, b: Date) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
+
 export function WeekCalendarGrid({
   weekDays,
   byDay,
@@ -26,84 +34,114 @@ export function WeekCalendarGrid({
   onCancel,
   t,
 }: Props) {
-  // Always show the full day (00:00–23:00) for a true calendar feel.
+  // Full day (00:00–23:00)
   const startHour = 0;
-  const hours = React.useMemo(() => Array.from({ length: 24 }, (_, i) => i), []);
+  const hours = React.useMemo(
+    () => Array.from({ length: 24 }, (_, i) => i),
+    [],
+  );
 
+  // Sizing
   const HOUR_PX = 64;
-  const HEADER_PX = 44;
-  const LEFT_COL_PX = 72;
+  const HEADER_PX = 48;
+  const LEFT_COL_PX = 76;
 
-  // Total calendar height (24h)
   const bodyHeight = hours.length * HOUR_PX;
+  const today = React.useMemo(() => new Date(), []);
 
   return (
     <Paper
       variant="outlined"
       sx={{
-        // Make the calendar area scrollable (both axes if needed)
-        // without affecting the rest of the page.
         display: "flex",
         flexDirection: "column",
         height: "min(78vh, 980px)",
         overflow: "hidden",
+        borderRadius: 3,
+        bgcolor: "background.paper",
       }}
     >
       <Box sx={{ flex: 1, overflow: "auto" }}>
         <Box
           sx={{
-            minWidth: 900,
+            minWidth: 980,
             display: "grid",
             gridTemplateColumns: `${LEFT_COL_PX}px repeat(7, minmax(0, 1fr))`,
             gridTemplateRows: `${HEADER_PX}px ${bodyHeight}px`,
           }}
         >
-          {/* Header left corner (sticky) */}
+          {/* Sticky top-left corner */}
           <Box
             sx={{
               position: "sticky",
               top: 0,
               left: 0,
-              zIndex: 4,
-              backgroundColor: "background.paper",
+              zIndex: 6,
+              bgcolor: "background.paper",
               borderRight: "1px solid",
               borderBottom: "1px solid",
               borderColor: "divider",
             }}
           />
 
-          {/* Day headers (sticky) */}
-          {weekDays.map((d) => (
-            <Box
-              key={`hdr-${dateKeyLocal(d)}`}
-              sx={{
-                position: "sticky",
-                top: 0,
-                zIndex: 3,
-                backgroundColor: "background.paper",
-                borderBottom: "1px solid",
-                borderColor: "divider",
-                borderRight: "1px solid",
-                borderColorRight: "divider",
-                px: 1.5,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography fontWeight={900} sx={{ textTransform: "capitalize" }}>
-                {fmtDayHeader(d)}
-              </Typography>
-            </Box>
-          ))}
+          {/* Sticky day headers */}
+          {weekDays.map((d) => {
+            const isToday = isSameDayLocal(d, today);
+            const isWeekend = d.getDay() === 0 || d.getDay() === 6;
 
-          {/* Body: left hours column (sticky on horizontal scroll) */}
+            return (
+              <Box
+                key={`hdr-${dateKeyLocal(d)}`}
+                sx={{
+                  position: "sticky",
+                  top: 0,
+                  zIndex: 5,
+                  bgcolor: "background.paper",
+                  borderBottom: "1px solid",
+                  borderRight: "1px solid",
+                  borderColor: "divider",
+                  px: 1.25,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 1,
+                  backdropFilter: "saturate(180%) blur(8px)",
+                }}
+              >
+                <Typography
+                  fontWeight={900}
+                  sx={{
+                    textTransform: "capitalize",
+                    fontSize: 13,
+                    color: isWeekend ? "text.secondary" : "text.primary",
+                  }}
+                >
+                  {fmtDayHeader(d)}
+                </Typography>
+
+                {isToday ? (
+                  <Box
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "999px",
+                      bgcolor: "primary.main",
+                      boxShadow: "0 0 0 3px rgba(25,118,210,0.15)",
+                    }}
+                    aria-label="today"
+                  />
+                ) : null}
+              </Box>
+            );
+          })}
+
+          {/* Sticky hours column */}
           <Box
             sx={{
               position: "sticky",
               left: 0,
-              zIndex: 2,
-              backgroundColor: "background.paper",
+              zIndex: 4,
+              bgcolor: "background.paper",
               borderRight: "1px solid",
               borderColor: "divider",
             }}
@@ -122,21 +160,26 @@ export function WeekCalendarGrid({
                   pt: 1,
                 }}
               >
-                <Typography variant="caption" color="text.secondary" fontWeight={800}>
+                <Typography
+                  variant="caption"
+                  sx={{ fontWeight: 900, color: "text.secondary" }}
+                >
                   {String(h).padStart(2, "0")}:00
                 </Typography>
               </Box>
             ))}
           </Box>
 
-          {/* Body: 7 day columns */}
+          {/* Day columns */}
           {weekDays.map((d) => {
             const key = dateKeyLocal(d);
             const sessions = byDay[key] || [];
+            const isToday = isSameDayLocal(d, today);
+            const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+
             return (
               <CalendarDayColumn
                 key={`day-${key}`}
-                day={d}
                 sessions={sessions}
                 busyId={busyId}
                 onBook={onBook}
@@ -145,6 +188,7 @@ export function WeekCalendarGrid({
                 startHour={startHour}
                 hourPx={HOUR_PX}
                 hoursCount={hours.length}
+                tone={isToday ? "today" : isWeekend ? "weekend" : "normal"}
               />
             );
           })}
@@ -155,7 +199,6 @@ export function WeekCalendarGrid({
 }
 
 function CalendarDayColumn({
-  day,
   sessions,
   busyId,
   onBook,
@@ -164,8 +207,8 @@ function CalendarDayColumn({
   startHour,
   hourPx,
   hoursCount,
+  tone,
 }: {
-  day: Date;
   sessions: ClassSessionDto[];
   busyId: string | null;
   onBook: (sessionId: string) => void;
@@ -174,6 +217,7 @@ function CalendarDayColumn({
   startHour: number;
   hourPx: number;
   hoursCount: number;
+  tone: "normal" | "today" | "weekend";
 }) {
   const sorted = React.useMemo(
     () =>
@@ -185,6 +229,13 @@ function CalendarDayColumn({
 
   const height = hoursCount * hourPx;
 
+  const bg =
+    tone === "today"
+      ? "rgba(25,118,210,0.06)"
+      : tone === "weekend"
+        ? "rgba(0,0,0,0.02)"
+        : "transparent";
+
   return (
     <Box
       sx={{
@@ -192,8 +243,16 @@ function CalendarDayColumn({
         height,
         borderRight: "1px solid",
         borderColor: "divider",
-        // subtle hour lines
-        backgroundImage: `repeating-linear-gradient(to bottom, transparent 0, transparent ${hourPx - 1}px, rgba(0,0,0,0.08) ${hourPx - 1}px, rgba(0,0,0,0.08) ${hourPx}px)`,
+        bgcolor: bg,
+        backgroundImage: `
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent ${hourPx - 1}px,
+            rgba(0,0,0,0.07) ${hourPx - 1}px,
+            rgba(0,0,0,0.07) ${hourPx}px
+          )
+        `,
       }}
     >
       {sorted.map((s) => (
@@ -234,82 +293,184 @@ function CalendarSessionBlock({
 
   const startMins = minutesFromMidnight(start);
   const endMins = minutesFromMidnight(end);
+
   const top = ((startMins - startHour * 60) / 60) * hourPx;
-  const height = Math.max(44, ((endMins - startMins) / 60) * hourPx);
+  const rawHeight = ((endMins - startMins) / 60) * hourPx;
+
+  const blockHeight = Math.max(44, rawHeight - 8);
+  const compact = blockHeight < 88;
 
   const isBusy =
     busyId !== null && (busyId === s.id || busyId === s.myBookingId);
+
+  const booked = Boolean(s.myBookingId);
+  const full = Boolean(s.isFull);
+
+  const borderColor = booked ? "rgba(211,47,47,0.35)" : "rgba(25,118,210,0.30)";
+  const headerBg = booked ? "rgba(211,47,47,0.10)" : "rgba(25,118,210,0.10)";
+
+  // ✅ Click on the whole block also triggers the correct API call
+  const handleBlockClick = () => {
+    if (isBusy) return;
+    if (booked) {
+      onCancel(s.myBookingId!);
+      return;
+    }
+    if (full) return;
+    onBook(s.id);
+  };
 
   return (
     <Paper
       elevation={0}
       variant="outlined"
+      onClick={handleBlockClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleBlockClick();
+        }
+      }}
       sx={{
         position: "absolute",
         left: 8,
         right: 8,
         top: Math.max(4, top + 4),
-        height: Math.max(44, height - 8),
+        height: blockHeight,
+        borderRadius: 2.5,
+        borderColor,
         overflow: "hidden",
-        p: 1,
-        display: "flex",
-        flexDirection: "column",
-        gap: 0.25,
+        cursor: isBusy
+          ? "progress"
+          : full && !booked
+            ? "not-allowed"
+            : "pointer",
+        userSelect: "none",
+        boxShadow: "0 1px 0 rgba(0,0,0,0.02)",
+        "&:hover": {
+          boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
+          transform: "translateY(-1px)",
+          transition: "all 160ms ease",
+        },
+        "&:focus-visible": {
+          outline: "2px solid rgba(25,118,210,0.35)",
+          outlineOffset: 2,
+        },
       }}
     >
-      <Typography variant="caption" fontWeight={900}>
-        {fmtTime(start)}–{fmtTime(end)}
-      </Typography>
+      {/* Header strip */}
+      <Box
+        sx={{
+          px: 1,
+          py: 0.5,
+          bgcolor: headerBg,
+          borderBottom: "1px solid rgba(0,0,0,0.06)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 1,
+        }}
+      >
+        <Typography variant="caption" sx={{ fontWeight: 900 }}>
+          {fmtTime(start)}–{fmtTime(end)}
+        </Typography>
 
-      <Typography variant="body2" fontWeight={900} noWrap title={s.title}>
-        {s.title}
-      </Typography>
+        <Typography
+          variant="caption"
+          sx={{
+            fontWeight: 900,
+            color: booked
+              ? "error.main"
+              : full
+                ? "text.secondary"
+                : "primary.main",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {booked ? t("cancel") : full ? t("full") : t("book")}
+        </Typography>
+      </Box>
 
-      <Typography variant="caption" color="text.secondary" fontWeight={700} noWrap>
-        {s.type}
-        {s.instructor ? ` · ${t("instructor")}: ${s.instructor}` : ""}
-      </Typography>
+      {/* Content */}
+      <Box
+        sx={{
+          px: 1,
+          py: 0.75,
+          height: `calc(100% - 28px)`,
+          display: "grid",
+          gridTemplateRows: compact ? "auto auto auto" : "auto auto 1fr auto",
+          gap: 0.5,
+        }}
+      >
+        <Typography
+          variant="body2"
+          sx={{ fontWeight: 900, lineHeight: 1.15 }}
+          noWrap
+          title={s.title}
+        >
+          {s.title}
+        </Typography>
 
-      <Box sx={{ mt: "auto" }}>
-        {s.myBookingId ? (
-          <Box
-            component="button"
-            onClick={() => onCancel(s.myBookingId!)}
-            disabled={isBusy}
-            style={{
-              width: "100%",
-              border: "1px solid rgba(211,47,47,0.5)",
-              borderRadius: 8,
-              padding: "6px 8px",
-              background: "transparent",
-              cursor: isBusy ? "not-allowed" : "pointer",
-              fontWeight: 800,
-              color: "#d32f2f",
-            }}
-            aria-label={t("cancel")}
-          >
-            {isBusy ? "…" : t("cancel")}
-          </Box>
-        ) : (
-          <Box
-            component="button"
-            onClick={() => onBook(s.id)}
-            disabled={isBusy || s.isFull}
-            style={{
-              width: "100%",
-              border: "none",
-              borderRadius: 8,
-              padding: "6px 8px",
-              background: s.isFull ? "rgba(0,0,0,0.12)" : "#1976d2",
-              cursor: isBusy || s.isFull ? "not-allowed" : "pointer",
-              fontWeight: 800,
-              color: s.isFull ? "rgba(0,0,0,0.55)" : "#fff",
-            }}
-            aria-label={s.isFull ? t("full") : t("book")}
-          >
-            {isBusy ? "…" : s.isFull ? t("full") : t("book")}
-          </Box>
-        )}
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          sx={{ fontWeight: 800 }}
+          noWrap
+          title={`${s.type}${s.instructor ? ` · ${t("instructor")}: ${s.instructor}` : ""}`}
+        >
+          {s.type}
+          {s.instructor ? ` · ${t("instructor")}: ${s.instructor}` : ""}
+        </Typography>
+
+        {!compact ? <Box /> : null}
+
+        {/* Button: stopPropagation so it doesn't double-trigger */}
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {booked ? (
+            <Button
+              fullWidth
+              size="small"
+              variant="outlined"
+              color="error"
+              disabled={isBusy}
+              onClick={(e) => {
+                e.stopPropagation();
+                onCancel(s.myBookingId!);
+              }}
+              sx={{
+                fontWeight: 900,
+                textTransform: "none",
+                borderRadius: 2,
+                minHeight: compact ? 26 : 30,
+                py: 0,
+              }}
+            >
+              {isBusy ? "…" : t("cancel")}
+            </Button>
+          ) : (
+            <Button
+              fullWidth
+              size="small"
+              variant="contained"
+              disabled={isBusy || full}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (!full) onBook(s.id);
+              }}
+              sx={{
+                fontWeight: 900,
+                textTransform: "none",
+                borderRadius: 2,
+                minHeight: compact ? 26 : 30,
+                py: 0,
+              }}
+            >
+              {isBusy ? "…" : full ? t("full") : t("book")}
+            </Button>
+          )}
+        </Box>
       </Box>
     </Paper>
   );
