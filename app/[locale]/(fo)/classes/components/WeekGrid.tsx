@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import type { ClassSessionDto } from "../types/classes";
 import { dateKeyLocal } from "../utils/date";
 import { DayColumn } from "./DayColumn";
-import { WeekCalendarGrid } from "./WeekCalendarGrid";
+import { WeekCalendarGrid } from "./WeekCalendarGrid/WeekCalendarGrid";
 
 type Props = {
   weekDays: Date[];
