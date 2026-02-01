@@ -51,23 +51,43 @@ export default function BoShellClient({
         <Divider sx={{ mb: 1 }} />
 
         <List>
-          <ListItemButton component={Link as any} href="/bo/pages">
+          <ListItemButton
+            onClick={!isDesktop && toggleDrawer}
+            component={Link as any}
+            href="/bo/pages"
+          >
             <ListItemText primary={t("nav.pages")} />
           </ListItemButton>
 
-          <ListItemButton component={Link as any} href="/bo/classes">
+          <ListItemButton
+            onClick={!isDesktop && toggleDrawer}
+            component={Link as any}
+            href="/bo/classes"
+          >
             <ListItemText primary={t("nav.classes")} />
           </ListItemButton>
 
-          <ListItemButton component={Link as any} href="/bo/blogs">
+          <ListItemButton
+            onClick={!isDesktop && toggleDrawer}
+            component={Link as any}
+            href="/bo/blogs"
+          >
             <ListItemText primary={t("nav.blogs")} />
           </ListItemButton>
 
-          <ListItemButton component={Link as any} href="/bo/users">
+          <ListItemButton
+            onClick={!isDesktop && toggleDrawer}
+            component={Link as any}
+            href="/bo/users"
+          >
             <ListItemText primary={t("nav.users")} />
           </ListItemButton>
 
-          <ListItemButton component={Link as any} href="/bo/account/settings">
+          <ListItemButton
+            onClick={!isDesktop && toggleDrawer}
+            component={Link as any}
+            href="/bo/account/settings"
+          >
             <ListItemText primary={t("nav.settings")} />
           </ListItemButton>
 

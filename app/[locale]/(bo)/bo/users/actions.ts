@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/lib/auth";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const RoleSchema = z.enum(["CLIENT", "ADMIN", "SUPERADMIN"]);
 type Role = z.infer<typeof RoleSchema>;
@@ -29,9 +30,14 @@ function canAdminDisableTarget(actorRole: Role, targetRole: Role) {
 
 function canAdminSetRole(actorRole: Role, targetRole: Role, newRole: Role) {
   if (actorRole === "SUPERADMIN") return true;
-  // ADMIN: solo puede promover CLIENT -> ADMIN
-  if (actorRole === "ADMIN")
-    return targetRole === "CLIENT" && newRole === "ADMIN";
+
+  // ADMIN: puede alternar CLIENT <-> ADMIN, pero nunca tocar SUPERADMIN
+  if (actorRole === "ADMIN") {
+    const canPromote = targetRole === "CLIENT" && newRole === "ADMIN";
+    const canDemote = targetRole === "ADMIN" && newRole === "CLIENT";
+    return canPromote || canDemote;
+  }
+
   return false;
 }
 
@@ -64,6 +70,9 @@ export async function setUserDisabled(
     data: { disabled: parsedDisabled.data === "true" },
     select: { id: true },
   });
+
+  // Refrescar el listado de usuarios tras la acción
+  revalidatePath(`/${locale}/bo/users`);
 }
 
 export async function setUserRole(
@@ -96,4 +105,7 @@ export async function setUserRole(
     data: { role: newRole as any },
     select: { id: true },
   });
+
+  // Refrescar el listado de usuarios tras la acción
+  revalidatePath(`/${locale}/bo/users`);
 }

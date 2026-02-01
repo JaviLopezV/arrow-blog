@@ -28,7 +28,8 @@ function canDisableTarget(actorRole: Role, targetRole: Role) {
 
 function canEditRole(actorRole: Role, targetRole: Role) {
   if (actorRole === "SUPERADMIN") return true;
-  return actorRole === "ADMIN" && targetRole === "CLIENT";
+  // ADMIN: puede alternar CLIENT <-> ADMIN (nunca tocar SUPERADMIN)
+  return actorRole === "ADMIN" && targetRole !== "SUPERADMIN";
 }
 
 function roleLabelKey(role: Role) {
@@ -132,9 +133,15 @@ export default function UserRow({
             action={setUserRole.bind(null, locale, user.id)}
             style={{ display: "inline-flex", gap: 8 }}
           >
-            <input type="hidden" name="role" value="ADMIN" />
+            <input
+              type="hidden"
+              name="role"
+              value={user.role === "ADMIN" ? "CLIENT" : "ADMIN"}
+            />
             <Button size="small" type="submit" disabled={!canRoleChange}>
-              {t("actions.makeAdmin")}
+              {user.role === "ADMIN"
+                ? t("actions.removeAdmin")
+                : t("actions.makeAdmin")}
             </Button>
           </form>
         )}

@@ -251,6 +251,7 @@
         "disable": "Deshabilitar",
         "enable": "Habilitar",
         "makeAdmin": "Hacer ADMIN",
+        "removeAdmin": "Quitar ADMIN",
         "saveRole": "Guardar rol"
       }
     },

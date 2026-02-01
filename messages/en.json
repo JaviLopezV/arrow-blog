@@ -248,6 +248,7 @@
         "disable": "Disable",
         "enable": "Enable",
         "makeAdmin": "Make ADMIN",
+        "removeAdmin": "Remove ADMIN",
         "saveRole": "Save role"
       }
     },
